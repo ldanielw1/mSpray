@@ -13,7 +13,7 @@ task :db_update => :environment do
   DDT_REFILL_1 = 15
   PYRETHROID_USED_1 = 16
   PYRETHROID_SPRAYED_ROOMS_1 = 17
-  PYRETHROID_SPRAYED_SHELTERS_1 = 18
+  PYRETHROID_SPRAYED_SHELTERS_1 =    18
   PYRETHROID_REFILL_1 = 19
   DDT_USED_2 = 20
   DDT_SPRAYED_ROOMS_2 = 21
@@ -33,4 +33,33 @@ task :db_update => :environment do
 
   bottom_row_num = ws.num_rows
 
+  (2..bottom_row_num).each do |row_num|
+    SprayDatum.where({timeStamp: ws[row_num, TIMESTAMP], lat: ws[row_num, LAT], lon: ws[row_num, LON]}).first_or_initialize do |sd|
+      sd.accuracy =                      ws[row_num, ACCURACY]
+      sd.homesteadSprayed =              ws[row_num, HOMESTEAD_SPRAYED]
+      sd.sprayerID =                     ws[row_num, SPRAYER_ID]
+      sd.sprayer2ID =                    ws[row_num, SPRAYER_2_ID]
+      sd.DDTUsed1 =                      ws[row_num, DDT_USED_1]
+      sd.DDTSprayedRooms1 =              ws[row_num, DDT_SPRAYED_ROOMS_1]
+      sd.DDTSprayedShelters1 =           ws[row_num, DDT_SPRAYED_SHELTERS_1]
+      sd.DDTRefill1 =                    ws[row_num, DDT_REFILL_1]
+      sd.pyrethroidUsed1 =               ws[row_num, PYRETHROID_USED_1]
+      sd.pyrethroidSprayedRooms1 =       ws[row_num, PYRETHROID_SPRAYED_ROOMS_1]
+      sd.pyrethroidSprayedShelters1 =    ws[row_num, PYRETHROID_SPRAYED_SHELTERS_1]
+      sd.pyrethroidRefill1 =             ws[row_num, PYRETHROID_REFILL_1]
+      sd.DDTUsed2 =                      ws[row_num, DDT_USED_2]
+      sd.DDTSprayedRooms2 =              ws[row_num, DDT_SPRAYED_ROOMS_2]
+      sd.DDTSprayedShelters2 =           ws[row_num, DDT_SPRAYED_SHELTERS_2]
+      sd.DDTRefill2 =                    ws[row_num, DDT_REFILL_2]
+      sd.pyrethroidUsed2 =               ws[row_num, PYRETHROID_USED_2]
+      sd.pyrethroidSprayedRooms2 =       ws[row_num, PYRETHROID_SPRAYED_ROOMS_2]
+      sd.pyrethroidSprayedShelters2 =    ws[row_num, PYRETHROID_SPRAYED_SHELTERS_2]
+      sd.pyrethroidRefill2 =             ws[row_num, PYRETHROID_REFILL_2]
+      sd.unsprayedRooms =                ws[row_num, UNSPRAYED_ROOMS]
+      sd.unsprayedShelters =             ws[row_num, UNSPRAYED_SHELTERS]
+      sd.foreman =                       ws[row_num, FOREMAN]
+
+      sd.save
+    end
+  end 
 end
