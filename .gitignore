@@ -25,3 +25,5 @@
 
 # Ignore VSCode
 .vscode
+
+*~
