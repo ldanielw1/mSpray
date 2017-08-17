@@ -2,8 +2,7 @@
   <div class="nav_header">
     <div class="nav_userInfo">
       <div class="nav_userIcon">
-        <% if true %>
-        <% elsif current_user.profile_img == nil %>
+        <% if current_user.profile_img == nil %>
           <i class="fa fa-user"></i>
         <% else %>
           <img src="<%= current_user.profile_img %>" class="profile" />

@@ -13,7 +13,7 @@
 ActiveRecord::Schema.define(version: 20170720001154) do
 
   create_table "spray_data", force: :cascade do |t|
-    t.string   "timeStamp",                                            default: "2017-08-17 18:31:59"
+    t.string   "timeStamp",                                            default: "2017-08-17 18:57:59"
     t.decimal  "lat",                        precision: 13, scale: 10, default: "0.0"
     t.decimal  "lon",                        precision: 13, scale: 10, default: "0.0"
     t.integer  "accuracy",                                             default: 0
@@ -48,10 +48,9 @@ ActiveRecord::Schema.define(version: 20170720001154) do
     t.string   "uid"
     t.string   "name"
     t.string   "email"
-    t.string   "oauth_token"
-    t.datetime "oauth_expires_at"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.string   "profile_img"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
 end
