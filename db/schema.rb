@@ -13,7 +13,7 @@
 ActiveRecord::Schema.define(version: 20170720001154) do
 
   create_table "spray_data", force: :cascade do |t|
-    t.datetime "timeStamp",                                            default: '2017-07-21 23:42:18'
+    t.string   "timeStamp",                                            default: "2017-08-17 18:19:54"
     t.decimal  "lat",                        precision: 13, scale: 10, default: "0.0"
     t.decimal  "lon",                        precision: 13, scale: 10, default: "0.0"
     t.integer  "accuracy",                                             default: 0

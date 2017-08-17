@@ -1,11 +1,12 @@
 module SprayDatumHelper
 
   def create_spray_datum(time_stamp, sprayer_id, params)
+    p time_stamp
     SprayDatum.where(timeStamp: time_stamp, sprayerID: sprayer_id).first_or_initialize do |sd|
       sd.accuracy =                      params[:accuracy]
       sd.lat =                           params[:lat]
       sd.lon =                           params[:lng]
-      sd.homesteadSprayed =              params[:homestead_sprayed] 
+      sd.homesteadSprayed =              params[:homestead_sprayed]
       sd.DDTUsed1 =                      params[:DDT_used_1]
       sd.DDTSprayedRooms1 =              params[:DDT_sprayed_rooms_1]
       sd.DDTSprayedShelters1 =           params[:DDT_sprayed_shelters_1]
@@ -27,6 +28,6 @@ module SprayDatumHelper
       sd.foreman =                       params[:foreman]
 
       sd.save
-    end 
+    end
   end
 end

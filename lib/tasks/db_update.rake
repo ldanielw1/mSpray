@@ -18,6 +18,7 @@ task :db_update => :environment do
   (2..ws.num_rows).each do |row_num|
 
     time_stamp = DateTime.strptime(ws[row_num, cols['timeStamp']], '%m/%e/%Y %H:%M:%S')
+    time_stamp_string = "#{time_stamp.year}-#{time_stamp.month}-#{time_stamp.day} #{time_stamp.hour}:#{time_stamp.minute}:#{time_stamp.second}"
     sprayer_id = ws[row_num, cols['sprayerID']]
 
     params = Hash.new
@@ -46,7 +47,7 @@ task :db_update => :environment do
     params[:unsprayed_rooms] =                  ws[row_num, cols['unsprayedRooms']]
     params[:unsprayed_shelters] =               ws[row_num, cols['unsprayedShelters']]
 
-    seeds_file.puts "create_spray_datum('#{time_stamp}', '#{sprayer_id}', #{params})\n"
+    seeds_file.puts "create_spray_datum('#{time_stamp_string}', '#{sprayer_id}', #{params})\n"
   end
 
   seeds_file.close
