@@ -8,15 +8,16 @@ task :db_update => :environment do
   (1..end_col_num).each do |col_num|
     cols[ws[1, col_num]] = col_num
    end
-  
+
   seeds_file = File.open("db/seeds.rb", 'w')
 
   seeds_file.puts "include SprayDatumHelper"
+  seeds_file.puts
   (2..ws.num_rows).each do |row_num|
 
     time_stamp = DateTime.strptime(ws[row_num, cols['timeStamp']], '%m/%e/%Y %H:%M:%S')
     sprayer_id = ws[row_num, cols['sprayerID']]
-    
+
     params = Hash.new
     params[:accuracy] =                         ws[row_num, cols['accuracy']]
     params[:lat] =                              ws[row_num, cols['newlat']]
@@ -45,6 +46,6 @@ task :db_update => :environment do
 
     seeds_file.puts "create_spray_datum('#{time_stamp}', '#{sprayer_id}', #{params})\n"
   end
-  
+
   seeds_file.close
 end
