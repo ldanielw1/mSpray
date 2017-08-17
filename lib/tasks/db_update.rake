@@ -11,6 +11,8 @@ task :db_update => :environment do
 
   seeds_file = File.open("db/seeds.rb", 'w')
 
+  seeds_file.puts "#!/usr/bin/env ruby"
+  seeds_file.puts
   seeds_file.puts "include SprayDatumHelper"
   seeds_file.puts
   (2..ws.num_rows).each do |row_num|
