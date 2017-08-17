@@ -1,65 +1,50 @@
 desc "Update database from Google Sheets"
 task :db_update => :environment do
-  TIMESTAMP = 2
-  LAT = 32
-  LON = 33
-  ACCURACY = 8
-  HOMESTEAD_SPRAYED = 9
-  SPRAYER_ID = 10
-  SPRAYER_2_ID = 11
-  DDT_USED_1 = 12
-  DDT_SPRAYED_ROOMS_1 = 13
-  DDT_SPRAYED_SHELTERS_1 = 14
-  DDT_REFILL_1 = 15
-  PYRETHROID_USED_1 = 16
-  PYRETHROID_SPRAYED_ROOMS_1 = 17
-  PYRETHROID_SPRAYED_SHELTERS_1 =    18
-  PYRETHROID_REFILL_1 = 19
-  DDT_USED_2 = 20
-  DDT_SPRAYED_ROOMS_2 = 21
-  DDT_SPRAYED_SHELTERS_2 = 22
-  DDT_REFILL_2 = 23
-  PYRETHROID_USED_2 = 23
-  PYRETHROID_SPRAYED_ROOMS_2 = 25
-  PYRETHROID_SPRAYED_SHELTERS_2 = 26
-  PYRETHROID_REFILL_2 = 27
-  UNSPRAYED_ROOMS = 28
-  UNSPRAYED_SHELTERS = 29
-  FOREMAN = 30
+  session = GoogleDrive::Session.from_service_account_key('config/mSprayServiceAccountKey.json')
+  ws = session.spreadsheet_by_key('1QuYwTV8VRIO8zB-O7TR_ZYJ9vKX2gh4Z79upSHTaMs8').worksheets[0]
+  end_col_num = ws.num_cols
+  cols = Hash.new
 
-  # Creates a session for the update
-  session = GoogleDrive::Session.from_service_account_key("config/mSprayServiceAccountKey.json")
-  ws = session.spreadsheet_by_key("1QuYwTV8VRIO8zB-O7TR_ZYJ9vKX2gh4Z79upSHTaMs8").worksheets[0]
+  (1..end_col_num).each do |col_num|
+    cols[ws[1, col_num]] = col_num
+   end
+  
+  seeds_file = File.open("db/seeds.rb", 'w')
 
-  bottom_row_num = ws.num_rows
+  seeds_file.puts "include SprayDatumHelper"
+  (2..ws.num_rows).each do |row_num|
 
-  (2..bottom_row_num).each do |row_num|
-    SprayDatum.where({timeStamp: ws[row_num, TIMESTAMP], lat: ws[row_num, LAT], lon: ws[row_num, LON]}).first_or_initialize do |sd|
-      sd.accuracy =                      ws[row_num, ACCURACY]
-      sd.homesteadSprayed =              ws[row_num, HOMESTEAD_SPRAYED]
-      sd.sprayerID =                     ws[row_num, SPRAYER_ID]
-      sd.sprayer2ID =                    ws[row_num, SPRAYER_2_ID]
-      sd.DDTUsed1 =                      ws[row_num, DDT_USED_1]
-      sd.DDTSprayedRooms1 =              ws[row_num, DDT_SPRAYED_ROOMS_1]
-      sd.DDTSprayedShelters1 =           ws[row_num, DDT_SPRAYED_SHELTERS_1]
-      sd.DDTRefill1 =                    ws[row_num, DDT_REFILL_1]
-      sd.pyrethroidUsed1 =               ws[row_num, PYRETHROID_USED_1]
-      sd.pyrethroidSprayedRooms1 =       ws[row_num, PYRETHROID_SPRAYED_ROOMS_1]
-      sd.pyrethroidSprayedShelters1 =    ws[row_num, PYRETHROID_SPRAYED_SHELTERS_1]
-      sd.pyrethroidRefill1 =             ws[row_num, PYRETHROID_REFILL_1]
-      sd.DDTUsed2 =                      ws[row_num, DDT_USED_2]
-      sd.DDTSprayedRooms2 =              ws[row_num, DDT_SPRAYED_ROOMS_2]
-      sd.DDTSprayedShelters2 =           ws[row_num, DDT_SPRAYED_SHELTERS_2]
-      sd.DDTRefill2 =                    ws[row_num, DDT_REFILL_2]
-      sd.pyrethroidUsed2 =               ws[row_num, PYRETHROID_USED_2]
-      sd.pyrethroidSprayedRooms2 =       ws[row_num, PYRETHROID_SPRAYED_ROOMS_2]
-      sd.pyrethroidSprayedShelters2 =    ws[row_num, PYRETHROID_SPRAYED_SHELTERS_2]
-      sd.pyrethroidRefill2 =             ws[row_num, PYRETHROID_REFILL_2]
-      sd.unsprayedRooms =                ws[row_num, UNSPRAYED_ROOMS]
-      sd.unsprayedShelters =             ws[row_num, UNSPRAYED_SHELTERS]
-      sd.foreman =                       ws[row_num, FOREMAN]
+    time_stamp = DateTime.strptime(ws[row_num, cols['timeStamp']], '%m/%e/%Y %H:%M:%S')
+    sprayer_id = ws[row_num, cols['sprayerID']]
+    
+    params = Hash.new
+    params[:accuracy] =                         ws[row_num, cols['accuracy']]
+    params[:lat] =                              ws[row_num, cols['newlat']]
+    params[:lng] =                              ws[row_num, cols['newlng']]
+    params[:homestead_sprayed] =                ws[row_num, cols['homesteadSprayed']]
+    params[:sprayer_id] =                       sprayer_id
+    params[:DDT_used_1] =                       ws[row_num, cols['DDTUsed1']]
+    params[:DDT_sprayed_rooms_1] =              ws[row_num, cols['DDTSprayedRooms1']]
+    params[:DDT_sprayed_shelters_1] =           ws[row_num, cols['DDTSprayedShelters1']]
+    params[:DDT_refill_1] =                     ws[row_num, cols['DDTRefill1']]
+    params[:pyrethroid_used_1] =                ws[row_num, cols['pyrethroidUsed1']]
+    params[:pyrethroid_sprayed_rooms_1] =       ws[row_num, cols['pyrethroidSprayedRooms1']]
+    params[:pyrethroid_sprayed_shelters_1] =    ws[row_num, cols['pyrethroidSprayedShelters1']]
+    params[:pyrethroid_refill_1] =              ws[row_num, cols['pyrethroidRefill1']]
+    params[:DDT_used_2] =                       ws[row_num, cols['DDTUsed2']]
+    params[:DDT_sprayed_rooms_2] =              ws[row_num, cols['DDTSprayedRooms2']]
+    params[:DDT_sprayed_shelters_2] =           ws[row_num, cols['DDTSprayedShelters2']]
+    params[:DDT_refill_2] =                     ws[row_num, cols['DDTRefill2']]
+    params[:pyrethroid_used_2] =                ws[row_num, cols['pyrethroidUsed2']]
+    params[:pyrethroid_sprayed_rooms_2] =       ws[row_num, cols['pyrethroidSprayedRooms2']]
+    params[:pyrethroid_sprayed_shelters_2] =    ws[row_num, cols['pyrethroidSprayedShelters2']]
+    params[:pyrethroid_refill_2] =              ws[row_num, cols['pyrethroidRefill2']]
+    params[:foreman] =                          ws[row_num, cols['foreman']]
+    params[:unsprayed_rooms] =                  ws[row_num, cols['unsprayedRooms']]
+    params[:unsprayed_shelters] =               ws[row_num, cols['unsprayedShelters']]
 
-      sd.save
-    end
-  end 
+    seeds_file.puts "create_spray_datum('#{time_stamp}', '#{sprayer_id}', #{params})\n"
+  end
+  
+  seeds_file.close
 end
