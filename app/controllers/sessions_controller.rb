@@ -1,4 +1,9 @@
 class SessionsController < ApplicationController
+
+  def login
+    redirect_to root_path if current_user
+  end
+
   def create
     profile_img = request.env["omniauth.auth"]["extra"]["raw_info"]["picture"]
     profile_img.gsub!(/sz=50/, "sz=62")
