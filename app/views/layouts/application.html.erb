@@ -1,24 +1,86 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>MsprayMonitorApp</title>
+    <title>mSpray Monitor Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%= csrf_meta_tags %>
 
-     <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-    <%= csrf_meta_tags %>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,700,600' rel='stylesheet' type='text/css'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://use.fontawesome.com/29c432d1e5.js"></script>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= favicon_link_tag 'favicon.ico' %>
   </head>
+
   <body>
     <div>
       <% if current_user %>
-        Signed in as <strong><%= current_user.name %></strong>!
-        <%= link_to "Sign out", signout_path, id: "sign_out" %>
+        <div class="content">
+          <% cache([current_user, "web_view"]) do %>
+            <%= render "layouts/nav" %>
+          <% end %>
+
+          <% cache([current_user, "mobile"]) do %>
+            <nav class="navbar navbar-default navbar-fixed-top">
+              <div class="container-fluid">
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                  <div class="navbar-brand nav-logo">Gracepoint Training School</div>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                  <ul class="navbar-nav">
+                    <li><%= link_to 'Dashboard', root_path %></li>
+                    <li><%= link_to 'Edit Profile', edit_user_path(current_user) %></li>
+                    <li><%= link_to "Sign out", signout_path %></li>
+                  </ul>
+                </div>
+              </div>
+            </nav>
+          <% end %>
+
+          <div class="main-content l-double-padded">
+            <div>
+              <% if flash[:notice] %>
+                <div class="notice animated fadeIn">
+                  <i class="fa fa-check-circle icon-right-spaced"></i>
+                  <%= raw(flash[:notice]) %>
+                </div>
+                <div class="noticeMobile l-v-bottom-spaced">
+                  <i class="fa fa-check-circle icon-right-spaced"></i>
+                  <%= raw(flash[:notice]) %>
+                </div>
+              <% end %>
+              <% if flash[:error] %>
+                <div class="notice notice-warning animated fadeIn">
+                  <i class="fa fa-check-circle icon-right-spaced"></i>
+                  <%= raw(flash[:error]) %>
+                </div>
+                <div class="noticeMobile noticeMobile-warning l-v-bottom-spaced">
+                  <i class="fa fa-check-circle icon-right-spaced"></i>
+                  <%= raw(flash[:error]) %>
+                </div>
+              <% end %>
+              <%= content_for?(:admins) ? yield(:admins) : yield %>
+            </div>
+          </div>
+        </div>
+
       <% else %>
-        <%= link_to "Sign in with Google", "/auth/google_oauth2", id: "sign_in" %>
+        <div class="content signIn">
+          <div class="signIn-container">
+            <%= yield %>
+          </div>
+        </div>
       <% end %>
-    </div>
-    <div>
-    <%= yield %>
-    </div>
+
   </body>
 </html>
+

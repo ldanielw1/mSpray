@@ -1,0 +1,76 @@
+.tooltip {
+  position: relative;
+  opacity: 1;
+  font-family: $Raleway;
+  z-index: 101;
+}
+
+.tooltip_content {
+  display: none;
+  position: absolute;
+  white-space: normal;
+  background: $background-color;
+  border: 1px solid $border-color;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  border-radius: $default-border-radius;
+  padding: $default-padding / 2;
+}
+
+.tooltip_userContent {
+  align-items: center;
+  opacity: 1;
+  bottom: calc(100% + 10px);
+  left: 0;
+  z-index: 1000;
+
+  h6 {
+    font-size: 13px;
+    margin-bottom: $default-margin / 4;
+  }
+
+  .tooltip_userIcon {
+    height: 60px;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: $primary-color;
+    border-radius: 50%;
+    margin-right: $default-margin;
+    box-shadow: 0 0 0 1px $lighter-gray, 0 0 0 3px transparentize($primary-color, .7);
+    overflow: hidden;
+
+    i {
+      color: $white;
+      font-size: 35px;
+    }
+  }
+
+  &:before {
+    content: "";
+    width: 0;
+    height: 9px;
+    box-sizing: border-box;
+    border: 9px solid transparent;
+    border-top: 9px solid $border-color;
+    border-bottom: none;
+    position: absolute;
+    left: $default-margin / 2;
+    top: 100%;
+  }
+
+  &:after {
+    content: "";
+    width: 0;
+    height: 7px;
+    box-sizing: border-box;
+    border: 8px solid transparent;
+    border-top: 8px solid $background-color;
+    border-bottom: none;
+    position: absolute;
+    left: $default-margin / 2;
+    margin-left: 1px;
+    top: 100%;
+    z-index: 1;
+  }
+}

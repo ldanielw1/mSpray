@@ -1,0 +1,28 @@
+<div class="nav" data-no-transition-cache>
+  <div class="nav_header">
+    <div class="nav_userInfo">
+      <div class="nav_userIcon">
+        <% if true %>
+        <% elsif current_user.profile_img == nil %>
+          <i class="fa fa-user"></i>
+        <% else %>
+          <img src="<%= current_user.profile_img %>" class="profile" />
+        <% end %>
+      </div>
+      <div class="nav_username"><%= "#{current_user.name}" %></div>
+      <div class="nav_email"><%= "#{current_user.email}" %></div>
+    </div>
+  </div>
+  <ul class="nav_items">
+    <%= link_to root_path, class: "sidebar_item dashboard" do %>
+      <li class="nav_item">Dashboard</li>
+    <% end %>
+    <%= link_to edit_user_path(current_user), class: "sidebar_item users" do %>
+      <li class="nav_item">Edit Profile</li>
+    <% end %>
+    <%= link_to signout_path, class: "sidebar_item" do %>
+      <li class="nav_item">Sign out</li>
+    <% end %>
+
+  </ul>
+</div>
