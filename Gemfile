@@ -36,6 +36,9 @@ gem 'jbuilder', '2.6.1'
 # Use Google OmniAuth for authentication
 gem 'omniauth-google-oauth2', '~> 0.2.1'
 
+# Use Google Drive to access Google Sheets
+gem 'google_drive'
+
 group :development, :test do
   gem 'sqlite3', '1.3.13'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -19,3 +19,9 @@
 
 # Ignore Byebug command history file.
 .byebug_history
+
+# Ignore .DS_Store
+.DS_Store
+
+# Ignore VSCode
+.vscode
