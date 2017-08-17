@@ -25,8 +25,8 @@ class SessionsController < ApplicationController
   end
 
   def login
-    unless !current_user
-      redirect_to root_path 
-    end
+      redirect_to root_path if current_user
+        
+      end
   end
 end
