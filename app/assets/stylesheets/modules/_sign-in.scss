@@ -2,11 +2,11 @@
 
 .signIn {
   $sign-in-primary-color: #9462a0;
-  $sign-in-background-color: $lighter-gray;
+  $sign-in-background: url("signin_background.jpg");
 
   align-items: center;
   // background-color: lighten($secondary-color, 30%);
-  background-color: $sign-in-background-color;
+  background: $sign-in-background;
   // background: linear-gradient($white, $primary-color);
   background-size: cover;
   background-position: center bottom;
@@ -22,7 +22,7 @@
     box-shadow:  0 1px 100px rgba(0,0,0,0.1);
     overflow: hidden;
     padding: $default-padding / 3;
-    background-color: $white;
+    background-color: transparentize($white, 0.75);
     border-radius: $default-border-radius;
 
     .signIn-title {
@@ -68,9 +68,9 @@
     }
 
     .signIn-right {
-      background-color: transparentize($white, 0.5);
+      background-color: transparentize($white, 0.13);
       padding: $default-padding * 2;
-      width: 400px;
+      width: 275px;
       display: flex;
       align-items: center;
     }
