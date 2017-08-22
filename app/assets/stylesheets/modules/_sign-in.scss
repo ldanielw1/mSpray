@@ -2,11 +2,11 @@
 
 .signIn {
   $sign-in-primary-color: #9462a0;
-  $sign-in-background-color: $lighter-gray;
+  $sign-in-background: url("50585743.jpg");
 
   align-items: center;
   // background-color: lighten($secondary-color, 30%);
-  background-color: $sign-in-background-color;
+  background: $sign-in-background;
   // background: linear-gradient($white, $primary-color);
   background-size: cover;
   background-position: center bottom;
