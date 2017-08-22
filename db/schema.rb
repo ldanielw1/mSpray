@@ -13,7 +13,7 @@
 ActiveRecord::Schema.define(version: 20170720001154) do
 
   create_table "spray_data", force: :cascade do |t|
-    t.string   "timeStamp",                                            default: "2017-08-17 18:57:59"
+    t.string   "timeStamp",                                            default: ""
     t.decimal  "lat",                        precision: 13, scale: 10, default: "0.0"
     t.decimal  "lon",                        precision: 13, scale: 10, default: "0.0"
     t.integer  "accuracy",                                             default: 0
@@ -39,8 +39,8 @@ ActiveRecord::Schema.define(version: 20170720001154) do
     t.integer  "unsprayedRooms",                                       default: 0
     t.integer  "unsprayedShelters",                                    default: 0
     t.string   "foreman",                                              default: ""
-    t.datetime "created_at",                                                                           null: false
-    t.datetime "updated_at",                                                                           null: false
+    t.datetime "created_at",                                                           null: false
+    t.datetime "updated_at",                                                           null: false
   end
 
   create_table "users", force: :cascade do |t|

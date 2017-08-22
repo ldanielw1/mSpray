@@ -1,7 +1,7 @@
 class CreateSprayData < ActiveRecord::Migration[5.0]
   def change
     create_table :spray_data do |t|
-      t.string :timeStamp,                                :default => Time.current.to_s.split(" ")[0..1].join(" ")
+      t.string :timeStamp,                                :default => ""
       t.decimal :lat, :precision => 13, :scale => 10,     :default => 0.0
       t.decimal :lon, :precision => 13, :scale => 10,     :default => 0.0
       t.integer :accuracy,                                :default => 0
