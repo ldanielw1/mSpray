@@ -5,14 +5,14 @@ require "#{top}/data_polling.rb"
 
 desc "Update database from Google Sheets"
 task :update_spray_data => :environment do
-  spray_date_array = SprayDatum.all.pluck(:timeStamp).sort
+  spray_date_array = SprayDatum.all.pluck(:timestamp).sort
   if spray_date_array.length == 0
     puts
     puts "No data to update. Please run `rake download_spray_data` instead."
     puts
     exit(0)
   end
-  last_spray_date = last_spray_date[-1]
+  last_spray_date = spray_date_array[-1]
   ws, cols = get_worksheet()
 
   seeds_file = File.open("db/seeds.rb", 'w')
