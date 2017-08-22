@@ -1,7 +1,6 @@
 module SprayDatumHelper
 
   def create_spray_datum(time_stamp, sprayer_id, params)
-    p time_stamp
     SprayDatum.where(timeStamp: time_stamp, sprayerID: sprayer_id).first_or_initialize do |sd|
       sd.accuracy =                      params[:accuracy]
       sd.lat =                           params[:lat]
