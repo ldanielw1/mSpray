@@ -13,10 +13,7 @@
 ActiveRecord::Schema.define(version: 20171222003900) do
 
   create_table "allowed_emails", force: :cascade do |t|
-    t.string   "uid"
-    t.string   "email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string "email"
   end
 
   create_table "spray_data", force: :cascade do |t|
