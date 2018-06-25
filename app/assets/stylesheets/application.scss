@@ -92,21 +92,6 @@ body {
   }
 }
 
-// FILTER
-.filter-view {
-    color: #777;
-}
-.filter-view-button {
-    cursor: pointer;
-
-    &:hover {
-        color: black;
-    }
-    &:hover > strong {
-        text-decoration: underline;
-    }
-}
-
 //DATA
 .data-table {
 
@@ -168,7 +153,6 @@ body {
 
   tr.data-row:hover {
     background-color: rgb(248,248,248);
-    cursor: pointer;
   }
 }
 
@@ -219,14 +203,3 @@ body {
     }
   }
 }
-
-.export_link {
-    text-decoration: none;
-    color: #4ca261;
-    font-size: 14px;
-}
-a.export_link:hover {
-    text-decoration: none;
-    color: #b9dac0;
-}
-

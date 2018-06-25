@@ -1,0 +1,17 @@
+require 'csv'
+
+##
+# Controller managing GTS actions related to views available to admins
+class AdminsController < ApplicationController
+  before_action :admin_only
+  before_action { get_display_settings(:name) }
+  attr_reader :users, :terms, :term_dropdown_contents, :name, :email
+
+  ##
+  # Show all of the Users with special privileges on the GTS app
+  def site_permissions
+    sort_hash = get_proper_sort_categories([:name, :email, :admin])
+    @users = User.all.order(sort_hash)
+  end
+
+end

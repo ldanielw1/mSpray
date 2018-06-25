@@ -1,0 +1,28 @@
+<h1>Site Permissions</h1>
+<table class="table data-table">
+<tr class="highlight-row">
+  <% ["Name", "E-Mail", "Admin?"].each do |column_name| %>
+    <% sort = column_name.downcase.gsub(/[\?\-\ ]/, "") %>
+    <th>
+      <%= link_to site_permissions_admin_path(sort: sort, reverse: (sort.to_sym == @sort) ? !@reverse : false), class: "column-header", style: "color: black" do %>
+        <%= column_name %>
+        <% if (@sort == sort.to_sym) %>
+          <i class="fa fa-angle-<%= @reverse ? "up" : "down" %>" style="color: #aaa; vertical-align: middle;"></i>
+        <% end %>
+      <% end %>
+    </th>
+  <% end %>
+</tr>
+
+<% @users.each do |user| %>
+  <tr class="data-row">
+    <td><%= user.name %></td>
+    <td><%= user.email %></td>
+    <td>
+      <% if user.admin? %>
+        <div class="pill pill-secondary">Admin</div>
+      <% end %>
+    </td>
+  </tr>
+<% end %>
+</table>

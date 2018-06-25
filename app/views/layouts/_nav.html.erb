@@ -16,6 +16,11 @@
     <%= link_to root_path, class: "sidebar_item dashboard" do %>
       <li class="nav_item">Dashboard</li>
     <% end %>
+    <% if current_user.admin? %>
+      <%= link_to site_permissions_admin_path, class: "sidebar_item admin" do %>
+        <li class="nav_item">Admin</li>
+      <% end %>
+    <% end %>
     <%= link_to signout_path, class: "sidebar_item" do %>
       <li class="nav_item">Sign out</li>
     <% end %>
