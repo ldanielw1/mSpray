@@ -14,15 +14,27 @@
   </div>
   <ul class="nav_items">
     <%= link_to root_path, class: "sidebar_item dashboard" do %>
-      <li class="nav_item">Dashboard</li>
+      <li class="nav_item">
+        <%= icon('fas', 'chart-line', class: 'strong') %>
+        &nbsp;
+        Dashboard
+      </li>
     <% end %>
     <% if current_user.admin? %>
       <%= link_to site_permissions_admin_path, class: "sidebar_item admin" do %>
-        <li class="nav_item">Admin</li>
+        <li class="nav_item">
+          <%= icon('fas', 'cog', class: 'strong') %>
+          &nbsp;
+          Admin
+        </li>
       <% end %>
     <% end %>
     <%= link_to signout_path, class: "sidebar_item" do %>
-      <li class="nav_item">Sign out</li>
+      <li class="nav_item">
+        <%= icon('fas', 'sign-out-alt', class: 'strong') %>
+        &nbsp;
+        Sign out
+      </li>
     <% end %>
 
   </ul>
