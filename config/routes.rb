@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   # Admin Routes
   resource :admin, only: [] do
+    post :change_permissions
     get :site_permissions
   end
 

@@ -14,4 +14,13 @@ class AdminsController < ApplicationController
     @users = User.all.order(sort_hash)
   end
 
+  ##
+  # Change permissions of a user
+  def change_permissions
+    user = User.find(params[:user][:id])
+    user.admin = params[:user][:admin]
+    user.save!
+    redirect_back(fallback_location: site_permissions_admin_path)
+  end
+
 end
