@@ -21,6 +21,7 @@ group :development, :test do
   gem 'sqlite3', '1.3.13'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  gem 'whenever'
 end
 
 group :development do
@@ -40,7 +41,7 @@ group :test do
 end
 
 group :production do
-  gem 'pg', '0.18.4'
+  gem 'pg'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -71,7 +72,10 @@ gem 'jquery-rails', '4.3.1'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '2.6.1'
-# gem 'therubyracer', platforms: :ruby
+
+# Add a JS runtime
+gem 'execjs'
+gem 'therubyracer'
 
 ######################################################################
 # Utilities
