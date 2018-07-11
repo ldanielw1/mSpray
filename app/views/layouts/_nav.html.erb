@@ -20,6 +20,13 @@
         Dashboard
       </li>
     <% end %>
+    <%= link_to view_data_path, class: "sidebar_item dashboard" do %>
+      <li class="nav_item">
+        <%= icon('fas', 'chart-line', class: 'strong') %>
+        &nbsp;
+        View Data
+      </li>
+    <% end %>  
     <% if current_user.admin? %>
       <%= link_to site_permissions_admin_path, class: "sidebar_item admin" do %>
         <li class="nav_item">
