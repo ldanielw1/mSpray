@@ -4,10 +4,15 @@ Rails.application.routes.draw do
   # User routes
   resources :users, only: [:edit, :update]
 
-  # Admin Routes
+  # Admin routes
   resource :admin, only: [] do
     post :change_permissions
     get :site_permissions
+  end
+
+  # Data routes
+  resource :data, only: [] do
+    get :view
   end
 
   # Session routes

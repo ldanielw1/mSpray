@@ -1,0 +1,29 @@
+<h1>View Data</h1>
+<table class="table data-table">
+<tr class="highlight-row">
+  <% ["Sprayer ID", "Latitude", "Longitude"].each do |column_name| %>
+    <% sort = column_name.downcase.gsub(/[\?\-\ ]/, "") %>
+    <% sort = "sprayer_id" if sort == "sprayerid" %>
+    <% sort = "lat" if sort == "latitude" %>
+    <% sort = "lon" if sort == "longitude" %>
+    <th>
+      <%= link_to view_data_path(sort: sort, reverse: (sort.to_sym == @sort) ? !@reverse : false), class: "column-header", style: "color: black" do %>
+        <%= column_name %>
+        <% if (@sort == sort.to_sym) %>
+          <i class="fa fa-angle-<%= @reverse ? "up" : "down" %>" style="color: #aaa; vertical-align: middle;"></i>
+        <% end %>
+      <% end %>
+    </th>
+  <% end %>
+  <th />
+</tr>
+
+<% @data.each do |data| %>
+  <tr class="data-row">
+    <td class="data_sprayer_id"><%= data.sprayer_id %></td>
+    <td class="data_lat"><%= data.lat %></td>
+    <td class="data_lon"><%= data.lon %></td>
+  </tr>
+<% end %>
+</table>
+
