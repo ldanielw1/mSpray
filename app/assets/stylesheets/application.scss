@@ -140,20 +140,29 @@ body {
     }
   }
 
-  .data-catalog-description-container {
+  .data-container {
     padding-top: $default-padding / 2;
     white-space: normal;
-    .data-description {
-      width: 50%;
+    margin-left: $default-margin;
+    margin-right: -438%;
+      
+    .data-ddt {
       display: inline-block;
       position: relative;
+      width: 20%;
     }
 
-    .data-requirements {
+    .data-pyrethroid {
       display: inline-block;
       margin-left: $default-margin;
       vertical-align: top;
-      width: 46%;
+      width: 20%;
+    }
+    .data-no-spray {
+      display: inline-block;
+      margin-left: $default-margin;
+      vertical-align: top;
+      width: 20%;
     }
   }
 
