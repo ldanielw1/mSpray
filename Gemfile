@@ -41,7 +41,8 @@ group :test do
 end
 
 group :production do
-  gem 'pg'
+  # Must make sure libpq-dev is install on Ubuntu
+  gem 'pg'  
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
