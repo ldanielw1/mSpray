@@ -41,7 +41,7 @@ group :test do
 end
 
 group :production do
-  # Must make sure libpq-dev is install on Ubuntu
+  # Must make sure libpq-dev is installed on Ubuntu
   gem 'pg'  
 end
 
