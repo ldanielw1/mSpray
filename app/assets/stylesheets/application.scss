@@ -23,6 +23,10 @@
 @import "modules/sign-in";
 @import "modules/tooltip";
 
+html {
+    height: 100%;
+}
+
 body {
   background: $background-color;
   color: $text-color;
@@ -56,8 +60,17 @@ body {
 }
 
 // MAIN CONTENT
+.content {
+    height: 100%;
+}
+
 .main-content {
   margin-left: 250px;
+  height: 100%;
+}
+
+#map {
+  height: 100%;
 }
 
 // FORM

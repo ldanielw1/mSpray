@@ -15,70 +15,68 @@
   </head>
 
   <body>
-    <div>
-      <% if current_user %>
-        <div class="content">
-          <% cache([current_user, "web_view"]) do %>
-            <%= render "layouts/nav" %>
-          <% end %>
+    <% if current_user %>
+      <div class="content">
+        <% cache([current_user, "web_view"]) do %>
+          <%= render "layouts/nav" %>
+        <% end %>
 
-          <% cache([current_user, "mobile"]) do %>
-            <nav class="navbar navbar-default navbar-fixed-top">
-              <div class="container-fluid">
-                <div class="navbar-header">
-                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                  </button>
-                  <div class="navbar-brand nav-logo">Gracepoint Training School</div>
-                </div>
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                  <ul class="navbar-nav">
-                    <li><%= link_to 'Dashboard', root_path %></li>
-                    <li><%= link_to "Sign out", signout_path %></li>
-                  </ul>
-                </div>
+        <% cache([current_user, "mobile"]) do %>
+          <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <div class="navbar-brand nav-logo">Gracepoint Training School</div>
               </div>
-            </nav>
-          <% end %>
-
-          <div class="main-content l-double-padded">
-            <div>
-              <% if flash[:notice] %>
-                <div class="notice animated fadeIn">
-                  <i class="fa fa-check-circle icon-right-spaced"></i>
-                  <%= raw(flash[:notice]) %>
-                </div>
-                <div class="noticeMobile l-v-bottom-spaced">
-                  <i class="fa fa-check-circle icon-right-spaced"></i>
-                  <%= raw(flash[:notice]) %>
-                </div>
-              <% end %>
-              <% if flash[:error] %>
-                <div class="notice notice-warning animated fadeIn">
-                  <i class="fa fa-check-circle icon-right-spaced"></i>
-                  <%= raw(flash[:error]) %>
-                </div>
-                <div class="noticeMobile noticeMobile-warning l-v-bottom-spaced">
-                  <i class="fa fa-check-circle icon-right-spaced"></i>
-                  <%= raw(flash[:error]) %>
-                </div>
-              <% end %>
-              <%= content_for?(:admins) ? yield(:admins) : yield %>
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="navbar-nav">
+                  <li><%= link_to 'Dashboard', root_path %></li>
+                  <li><%= link_to "Sign out", signout_path %></li>
+                </ul>
+              </div>
             </div>
-          </div>
-        </div>
+          </nav>
+        <% end %>
 
-      <% else %>
-        <div class="content signIn">
-          <div class="signIn-container">
-            <%= yield %>
-          </div>
+        <div class="main-content">
+          <% if flash[:notice] %>
+            <div class="notice animated fadeIn">
+              <i class="fa fa-check-circle icon-right-spaced"></i>
+              <%= raw(flash[:notice]) %>
+            </div>
+            <div class="noticeMobile l-v-bottom-spaced">
+              <i class="fa fa-check-circle icon-right-spaced"></i>
+              <%= raw(flash[:notice]) %>
+            </div>
+          <% end %>
+          <% if flash[:error] %>
+            <div class="notice notice-warning animated fadeIn">
+              <i class="fa fa-check-circle icon-right-spaced"></i>
+              <%= raw(flash[:error]) %>
+            </div>
+            <div class="noticeMobile noticeMobile-warning l-v-bottom-spaced">
+              <i class="fa fa-check-circle icon-right-spaced"></i>
+              <%= raw(flash[:error]) %>
+            </div>
+          <% end %>
+          <%= content_for?(:admins) ? yield(:admins) : yield %>
         </div>
-      <% end %>
+      </div>
 
+    <% else %>
+      <div class="content signIn">
+        <div class="signIn-container">
+          <%= yield %>
+        </div>
+      </div>
+    <% end %>
+
+    <script async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBbZc_qYEzKhIp1QHVFnK8lO8PR_2VG8aA&callback=initMap'>
+    </script>
   </body>
 </html>
-
