@@ -25,5 +25,5 @@
 
 # Ignore VSCode
 .vscode
-
+*.code-workspace
 *~
