@@ -78,6 +78,9 @@ gem 'jbuilder', '2.6.1'
 gem 'execjs'
 gem 'therubyracer'
 
+# Use Gon gem to make data accessible in JS
+gem 'gon'
+
 ######################################################################
 # Utilities
 ######################################################################
