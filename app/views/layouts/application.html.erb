@@ -43,7 +43,7 @@
           </nav>
         <% end %>
 
-        <div class="main-content">
+        <div class="<%= controller.controller_name == "home" ? "main-map-content" : "main-content"%>">
           <% if flash[:notice] %>
             <div class="notice animated fadeIn">
               <i class="fa fa-check-circle icon-right-spaced"></i>
@@ -76,7 +76,6 @@
       </div>
     <% end %>
 
-    <script async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBbZc_qYEzKhIp1QHVFnK8lO8PR_2VG8aA&callback=initMap'>
-    </script>
+   
   </body>
 </html>
