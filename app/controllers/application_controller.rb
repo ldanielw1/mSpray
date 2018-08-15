@@ -31,6 +31,9 @@ class ApplicationController < ActionController::Base
     @sort = params.has_key?(:sort) ? params[:sort].to_sym : default_sort
     @sort = :start_date if @sort == :term
     @reverse = params.has_key?(:reverse) && params[:reverse] == "true"
+
+    @filters = Hash.new
+    params[:filter].each { |key, value| @filters[key] = value } if params.has_key?(:filter)
   end
 
   ##

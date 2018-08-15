@@ -1,7 +1,40 @@
 <h1>View Data</h1>
+<br>
+
+<div class="course-subtitle">
+  <div id="collapse-filter" class="collapse" style="clear: both">
+    <%= form_for("#", html: {class: 'form-horizontal l-v-top-spaced', style: 'width: 100%; margin: 0px'}, method: :get) do |f| %>
+      <% [["Timestamp"], ["Sprayer 1", "Sprayer 2"], ["Latitude", "Longitude"]].each do |row_labels| %>
+        <% row_labels.each do |label_text| %>
+          <% filter = label_text.downcase.gsub(/ /, '_') %>
+          <% filter_val = @filters.has_key?(filter) ? @filters[filter] : "" %>
+          <% filter_id = "data_filter_#{filter}" %>
+
+          <div class="field form-group" style="display: inline-block; width: 50%">
+            <%= f.label label_text, "#{label_text}", for: filter_id, class: "control-label", style: "width: 30%" %>
+            <%= f.text_field label_text, class: 'form-control filter-field', style: "width: 65%; display: inline-block", id: filter_id, value: filter_val %>
+          </div>
+
+        <% end %>
+        <br>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="filter-view" style="float: right">
+    <strong>
+      <span class="filter-view-button" data-toggle="collapse" data-target="#collapse-filter">
+        <i class="fa fa-search"></i>
+        <strong>Filter Data</strong>
+        <i class="fa fa-angle-up"></i>
+      </span>
+    </strong>
+  </div>
+</div>
+
 <table class="table data-table">
 <tr class="highlight-row">
-  <% columns = [["Sprayer 1", 20], ["Sprayer 2", 20], ["Latitude", 20], ["Longitude", 20], ["Timestamp", 20]] %>
+  <% columns = [["Timestamp", 20], ["Sprayer 1", 20], ["Sprayer 2", 20], ["Latitude", 20], ["Longitude", 20]] %>
 
   <% columns.each do |column_name, width| %>
     <% sort = column_name.downcase.gsub(/[\?\-\ ]/, "") %>
@@ -11,7 +44,7 @@
     <% sort = "lon" if sort == "longitude" %>
 
     <th width="<%= width %>%">
-      <%= link_to view_data_path(sort: sort, reverse: (sort.to_sym == @sort) ? !@reverse : false), class: "column-header", style: "color: black" do %>
+      <%= link_to view_spray_data_path(sort: sort, reverse: (sort.to_sym == @sort) ? !@reverse : false), class: "column-header", style: "color: black" do %>
         <%= column_name %>
         <% if (@sort == sort.to_sym) %>
           <i class="fa fa-angle-<%= @reverse ? "up" : "down" %>" style="color: #aaa; vertical-align: middle;"></i>
@@ -24,8 +57,8 @@
 <% @data.each do |data| %>
   <% collapse_info = "data-toggle=collapse data-target=#collapse-#{data.id}" %>
   <tr class="data-row" <%= collapse_info %>>
-    <td class="data_sprayer_id" >
-      <%= (data.sprayer_id == "") ? "-" : data.sprayer_id%>
+    <td>
+      <span class="data_timestamp"><%= data.timestamp %></span>
       <div class="collapse data-container" id = "collapse-<%= data.id %>">
           <div class="data-ddt l-v-bottom-spaced" >
               <div><strong>DDT Rooms Sprayed</strong>
@@ -53,12 +86,14 @@
           </div>
       </div>
     </td>
-    <td class="data_sprayer_2_id">
+    <td class="data_sprayer_1">
+        <%= (data.sprayer_id == "") ? "-" : data.sprayer_id%>
+    </td>
+    <td class="data_sprayer_2">
         <%= (data.sprayer_2_id == "") ? "-" : data.sprayer_2_id%>
     </td>
-    <td class="data_lat"><%= data.lat %></td>
-    <td class="data_lon"><%= data.lon %></td>
-    <td class="data_timestamp"><%= data.timestamp %></td>
+    <td class="data_latitude"><%= data.lat %></td>
+    <td class="data_longitude"><%= data.lon %></td>
   </tr>
 <% end %>
 </table>

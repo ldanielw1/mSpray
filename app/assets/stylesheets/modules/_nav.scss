@@ -70,6 +70,10 @@
       text-decoration: none;
     }
 
+    a, a:hover {
+      text-decoration: none;
+    }
+
     .nav_item {
       color: $nav-text-color;
       text-decoration: none;
@@ -112,6 +116,14 @@
           background-color: $nav-primary-color;
           box-shadow: 1px 0 5px transparentize($nav-primary-color, .3);
         }
+      }
+    }
+  }
+
+  .logout {
+    .nav_item {
+      &:hover {
+        background-color: transparentize($red, .85);
       }
     }
   }

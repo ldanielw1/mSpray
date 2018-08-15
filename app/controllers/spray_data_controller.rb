@@ -2,8 +2,8 @@ require 'csv'
 
 ##
 # Controller managing data tables for admins
-class DataController < ApplicationController
-  before_action { get_display_settings(:sprayer_id) }
+class SprayDataController < ApplicationController
+  before_action { get_display_settings(:timestamp) }
 
   ##
   #

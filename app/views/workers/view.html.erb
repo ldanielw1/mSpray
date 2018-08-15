@@ -1,0 +1,65 @@
+<h1>Worker Data</h1>
+<br>
+
+<div class="course-subtitle">
+  <div id="collapse-filter" class="collapse" style="clear: both">
+    <%= form_for("#", html: {class: 'form-horizontal l-v-top-spaced', style: 'width: 100%; margin: 0px'}, method: :get) do |f| %>
+      <% [["Name"], ["Worker ID", "Status"]].each do |row_labels| %>
+        <% row_labels.each do |label_text| %>
+          <% filter = label_text.downcase.gsub(/ /, '_') %>
+          <% filter_val = @filters.has_key?(filter) ? @filters[filter] : "" %>
+          <% filter_id = "worker_filter_#{filter}" %>
+
+          <div class="field form-group" style="display: inline-block; width: 50%">
+            <%= f.label label_text, "#{label_text}", for: filter_id, class: "control-label", style: "width: 30%" %>
+            <%= f.text_field label_text, class: 'form-control filter-field', style: "width: 65%; display: inline-block", id: filter_id, value: filter_val %>
+          </div>
+
+        <% end %>
+        <br>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="filter-view" style="float: right">
+    <strong>
+      <span class="filter-view-button" data-toggle="collapse" data-target="#collapse-filter">
+        <i class="fa fa-search"></i>
+        <strong>Filter Workers</strong>
+        <i class="fa fa-angle-up"></i>
+      </span>
+    </strong>
+  </div>
+</div>
+
+<table class="table data-table">
+<tr class="highlight-row">
+  <% columns = [["Name", 60], ["Worker ID", 20], ["Status", 20]] %>
+
+  <% columns.each do |column_name, width| %>
+    <% sort = column_name.downcase.gsub(/[\?\-\ ]/, "") %>
+    <% sort = "sprayer_id" if sort == "sprayer1" %>
+    <% sort = "sprayer_2_id" if sort == "sprayer2" %>
+    <% sort = "lat" if sort == "latitude" %>
+    <% sort = "lon" if sort == "longitude" %>
+
+    <th width="<%= width %>%">
+      <%= link_to view_workers_path(sort: sort, reverse: (sort.to_sym == @sort) ? !@reverse : false), class: "column-header", style: "color: black" do %>
+        <%= column_name %>
+        <% if (@sort == sort.to_sym) %>
+          <i class="fa fa-angle-<%= @reverse ? "up" : "down" %>" style="color: #aaa; vertical-align: middle;"></i>
+        <% end %>
+      <% end %>
+    </th>
+  <% end %>
+</tr>    
+    
+<% @workers.each do |worker| %>
+  <% collapse_info = "data-toggle=collapse data-target=#collapse-#{worker.id}" %>
+  <tr class="data-row" <%= collapse_info %>>
+    <td class="worker_name"><%= worker.name %></td>
+    <td class="worker_worker_id"><%= worker.worker_id %></td>
+    <td class="worker_status"><%= worker.status %></td>
+  </tr>
+<% end %>
+</table>
