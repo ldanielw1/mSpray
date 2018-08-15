@@ -1,56 +1,14 @@
 #!/usr/bin/env ruby
 
 ##
-# Pads input numbers with leading zeroes if needed.
-def pad_num(number, total_digits)
-  return number.to_s.rjust(total_digits, '0')
-end
-
-##
 # Returns the worksheet object, columns hash for the mspray input data.
-def get_worksheet()
-  session = GoogleDrive::Session.from_service_account_key('config/mSprayServiceAccountKey.json')
-  ws = session.spreadsheet_by_key('1QuYwTV8VRIO8zB-O7TR_ZYJ9vKX2gh4Z79upSHTaMs8').worksheets[0]
-
-  cols = Hash.new
-  (1..ws.num_cols).each do |col_num|
-    cols[ws[1, col_num]] = col_num
-  end
-
-  return ws, cols
-end
-
-##
-# Print seeds.rb header into input file
-def print_seeds_rb_header(file)
-  file.puts "#!/usr/bin/env ruby"
-  file.puts
-  file.puts "include SprayDatumHelper"
-  file.puts
-end
-
-##
-# Converts a DateTime timestamp into a string
-def timestamp_to_str(timestamp)
-  return "#{pad_num(timestamp.year, 4)}-#{pad_num(timestamp.month, 2)}-#{pad_num(timestamp.day, 2)} #{pad_num(timestamp.hour, 2)}:#{pad_num(timestamp.minute, 2)}:#{pad_num(timestamp.second, 2)}"
-end
-
-##
-# Get DateTime timestamp data out of Android-outputted string
-def get_timestamp(timestamp_string)
-  return DateTime.strptime(timestamp_string, '%m/%e/%Y %H:%M:%S')
-end
-
-##
-# Get boolean value of a string's contents
-def get_bool(bool_string)
-  return true if bool_string =~ /true/i
-  return false
+def get_spray_data_worksheet(session)
+  return get_worksheet(session, '1QuYwTV8VRIO8zB-O7TR_ZYJ9vKX2gh4Z79upSHTaMs8')
 end
 
 ##
 # Gets data out of one row of the worksheet
-def get_data(ws, cols, row_num)
+def get_spray_data(ws, cols, row_num)
   timestamp = timestamp_to_str(get_timestamp(ws[row_num, cols['timeStamp']]))
   sprayer_id = ws[row_num, cols['sprayerID']]
 

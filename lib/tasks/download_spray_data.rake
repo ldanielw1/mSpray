@@ -1,17 +1,25 @@
 #!/usr/bin/env ruby
 
 top = File.dirname(File.expand_path(__FILE__))
-require "#{top}/data_polling.rb"
+require "#{top}/utils/generate_seeds_rb_utils.rb"
 
 desc "Update database from Google Sheets"
 task :download_spray_data => :environment do
-  ws, cols = get_worksheet()
-
   seeds_file = File.open("db/seeds.rb", 'w')
   print_seeds_rb_header(seeds_file)
 
-  (2..ws.num_rows).each do |row_num|
-    params, timestamp, sprayer_id = get_data(ws, cols, row_num)
+  google_session = get_session()
+
+  worker_ws, worker_cols = get_worker_data_worksheet(google_session)
+  (2..worker_ws.num_rows).each do |row|
+    params = get_worker_data(worker_ws, worker_cols, row)
+    print_create_worker(seeds_file, params)
+  end
+  seeds_file.puts
+
+  spray_ws, spray_cols = get_spray_data_worksheet(google_session)
+  (2..spray_ws.num_rows).each do |row|
+    params, timestamp, sprayer_id = get_spray_data(spray_ws, spray_cols, row)
     print_create_spray_datum(seeds_file, timestamp, sprayer_id, params)
   end
 
