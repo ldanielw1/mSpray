@@ -11,7 +11,12 @@ Rails.application.routes.draw do
   end
 
   # Data routes
-  resource :data, only: [] do
+  resource :spray_data, only: [] do
+    get :view
+  end
+
+  # Worker routes
+  resource :workers, only: [] do
     get :view
   end
 

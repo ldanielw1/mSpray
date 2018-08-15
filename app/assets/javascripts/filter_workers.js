@@ -1,10 +1,10 @@
 /**
- * Get filter values for data view
+ * Get filter values for workers view
  */
-function getFiltersForFilteringData() {
+function getFiltersForFilteringWorkers() {
     var filters = {};
-    var id_prefix = "#data_filter_";
-    ["timestamp", "sprayer_1", "sprayer_2", "latitude", "longitude"].forEach(function(filter) {
+    var id_prefix = "#worker_filter_";
+    ["name", "worker_id", "status"].forEach(function(filter) {
         filters[filter] = getTextFieldValue(id_prefix + filter);
     });
     [].forEach(function(filter) {
@@ -22,10 +22,10 @@ function getFiltersForFilteringData() {
 }
 
 /**
- * Update URL based on filter values for data view
+ * Update URL based on filter values for workers view
  */
-function updateURLForFilteringData(link) {
-    filterInfo = getFiltersForFilteringData();
+function updateURLForFilteringWorkers(link) {
+    filterInfo = getFiltersForFilteringWorkers();
     filters = filterInfo[0];
     hasFilters = filterInfo[1];
 
@@ -63,10 +63,10 @@ function updateURLForFilteringData(link) {
 }
 
 /**
- * Update displayed info based on filters for data view
+ * Update displayed info based on filters for workers view
  */
-function updateFiltersForFilteringData() {
-    filterInfo = getFiltersForFilteringData();
+function updateFiltersForFilteringWorkers() {
+    filterInfo = getFiltersForFilteringWorkers();
     filters = filterInfo[0];
     hasFilters = filterInfo[1];
 
@@ -76,7 +76,7 @@ function updateFiltersForFilteringData() {
         var displayMode = "table-row";
         Object.keys(filters).forEach(function(filter) {
             if (filters[filter] != "" && filters[filter] != false) {
-                var col_val = $.trim($(row).find(".data_" + filter).html());
+                var col_val = $.trim($(row).find(".worker_" + filter).html());
                 col_val = col_val.replace(/&amp;/g, "&");
                 col_val = col_val.replace(/\n/g, "");
                 col_val = col_val.replace(/<br>/g, "");
@@ -92,26 +92,26 @@ function updateFiltersForFilteringData() {
     // Update sorting links' REST API params
     $(".sort-header").each(function() {
         current_url = $(this).attr("href");
-        $(this).attr("href", updateURLForFilteringData(current_url));
+        $(this).attr("href", updateURLForFilteringWorkers(current_url));
     });
 
     // Update URL's REST API params
-    history.pushState({}, null, updateURLForFilteringData(window.location.href));
+    history.pushState({}, null, updateURLForFilteringWorkers(window.location.href));
 }
 
 /**
- * Make listeners on all form elements for data view
+ * Make listeners on all form elements for workers view
  */
-function loadJSForFilteringData() {
+function loadJSForFilteringWorkers() {
     url = getRoute();
-    if (url == "data/view") {
+    if (url == "workers/view") {
         $(".filter-field").each(function() {
-            $(this).bind("keyup input paste", function() { updateFiltersForFilteringData(); });
+            $(this).bind("keyup input paste", function() { updateFiltersForFilteringWorkers(); });
         });
-        $(".filter-field-dropdown").change(function() { updateFiltersForFilteringData(); });
+        $(".filter-field-dropdown").change(function() { updateFiltersForFilteringWorkers(); });
 
-        updateFiltersForFilteringData();
+        updateFiltersForFilteringWorkers();
     }
 }
 
-$(document).on('turbolinks:load', loadJSForFilteringData);
+$(document).on('turbolinks:load', loadJSForFilteringWorkers);

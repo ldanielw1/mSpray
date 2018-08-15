@@ -13,20 +13,31 @@
     </div>
   </div>
   <ul class="nav_items">
+
     <%= link_to root_path, class: "sidebar_item dashboard" do %>
       <li class="nav_item">
-        <%= icon('fas', 'chart-line', class: 'strong') %>
+        <%= icon('fas', 'map', class: 'strong') %>
         &nbsp;
         Dashboard
       </li>
     <% end %>
-    <%= link_to view_data_path, class: "sidebar_item dashboard" do %>
+
+    <%= link_to view_spray_data_path, class: "sidebar_item spray_data" do %>
       <li class="nav_item">
         <%= icon('fas', 'chart-line', class: 'strong') %>
         &nbsp;
-        View Data
+        View Spray Data
       </li>
     <% end %>  
+
+    <%= link_to view_workers_path, class: "sidebar_item workers" do %>
+      <li class="nav_item">
+        <%= icon('fas', 'address-card', class: 'strong') %>
+        &nbsp;
+        View Worker Info
+      </li>
+    <% end %>  
+
     <% if current_user.admin? %>
       <%= link_to site_permissions_admin_path, class: "sidebar_item admin" do %>
         <li class="nav_item">
@@ -36,6 +47,7 @@
         </li>
       <% end %>
     <% end %>
+
     <%= link_to signout_path, class: "sidebar_item" do %>
       <li class="nav_item">
         <%= icon('fas', 'sign-out-alt', class: 'strong') %>

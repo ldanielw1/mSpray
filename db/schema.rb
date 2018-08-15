@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(version: 20180814170400) do
   end
 
   create_table "workers", force: :cascade do |t|
-    t.string   "worker_id"
+    t.integer  "worker_id"
     t.string   "name"
     t.string   "status"
     t.datetime "created_at", null: false

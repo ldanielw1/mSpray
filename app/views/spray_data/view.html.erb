@@ -44,7 +44,7 @@
     <% sort = "lon" if sort == "longitude" %>
 
     <th width="<%= width %>%">
-      <%= link_to view_data_path(sort: sort, reverse: (sort.to_sym == @sort) ? !@reverse : false), class: "column-header", style: "color: black" do %>
+      <%= link_to view_spray_data_path(sort: sort, reverse: (sort.to_sym == @sort) ? !@reverse : false), class: "column-header", style: "color: black" do %>
         <%= column_name %>
         <% if (@sort == sort.to_sym) %>
           <i class="fa fa-angle-<%= @reverse ? "up" : "down" %>" style="color: #aaa; vertical-align: middle;"></i>
