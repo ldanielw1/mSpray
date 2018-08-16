@@ -4,7 +4,7 @@
 <div class="course-subtitle">
   <div id="collapse-filter" class="collapse" style="clear: both">
     <%= form_for("#", html: {class: 'form-horizontal l-v-top-spaced', style: 'width: 100%; margin: 0px'}, method: :get) do |f| %>
-      <% [["Timestamp"], ["Sprayer 1", "Sprayer 2"], ["Latitude", "Longitude"]].each do |row_labels| %>
+      <% [["Timestamp"], ["Foreman", "Sprayers"], ["Latitude", "Longitude"]].each do |row_labels| %>
         <% row_labels.each do |label_text| %>
           <% filter = label_text.downcase.gsub(/ /, '_') %>
           <% filter_val = @filters.has_key?(filter) ? @filters[filter] : "" %>
@@ -33,68 +33,97 @@
 </div>
 
 <table class="table data-table">
-<tr class="highlight-row">
-  <% columns = [["Timestamp", 20], ["Sprayer 1", 20], ["Sprayer 2", 20], ["Latitude", 20], ["Longitude", 20]] %>
+  <tr class="highlight-row">
+    <% columns = [["Timestamp", 10], ["Foreman", 25], ["Sprayers", 25], ["Latitude", 20], ["Longitude", 20]] %>
 
-  <% columns.each do |column_name, width| %>
-    <% sort = column_name.downcase.gsub(/[\?\-\ ]/, "") %>
-    <% sort = "sprayer_id" if sort == "sprayer1" %>
-    <% sort = "sprayer_2_id" if sort == "sprayer2" %>
-    <% sort = "lat" if sort == "latitude" %>
-    <% sort = "lon" if sort == "longitude" %>
+    <% columns.each do |column_name, width| %>
+      <% sort = column_name.downcase.gsub(/[\?\-\ ]/, "") %>
+      <% sort = "sprayer_id" if sort == "sprayer1" %>
+      <% sort = "sprayer_2_id" if sort == "sprayer2" %>
+      <% sort = "lat" if sort == "latitude" %>
+      <% sort = "lon" if sort == "longitude" %>
 
-    <th width="<%= width %>%">
-      <%= link_to view_spray_data_path(sort: sort, reverse: (sort.to_sym == @sort) ? !@reverse : false), class: "column-header", style: "color: black" do %>
-        <%= column_name %>
-        <% if (@sort == sort.to_sym) %>
-          <i class="fa fa-angle-<%= @reverse ? "up" : "down" %>" style="color: #aaa; vertical-align: middle;"></i>
+      <th width="<%= width %>%">
+        <%= link_to view_spray_data_path(sort: sort, reverse: (sort.to_sym == @sort) ? !@reverse : false), class: "column-header", style: "color: black" do %>
+          <%= column_name %>
+          <% if (@sort == sort.to_sym) %>
+            <i class="fa fa-angle-<%= @reverse ? "up" : "down" %>" style="color: #aaa; vertical-align: middle;"></i>
+          <% end %>
         <% end %>
-      <% end %>
-    </th>
-  <% end %>
-</tr>    
+      </th>
+    <% end %>
+  </tr>    
     
-<% @data.each do |data| %>
-  <% collapse_info = "data-toggle=collapse data-target=#collapse-#{data.id}" %>
-  <tr class="data-row" <%= collapse_info %>>
-    <td>
-      <span class="data_timestamp"><%= data.timestamp %></span>
-      <div class="collapse data-container" id = "collapse-<%= data.id %>">
-          <div class="data-ddt l-v-bottom-spaced" >
-              <div><strong>DDT Rooms Sprayed</strong>
-                  <%= data.ddt_sprayed_rooms_1 %>
-              </div>
-              <div><strong>DDT Shelters Sprayed</strong>
-                  <%= data.ddt_sprayed_shelters_1 %>
-              </div>
+  <% @data.each do |data| %>
+    <% collapse_info = "data-toggle=collapse data-target=#collapse-#{data.id}" %>
+    <tr class="data-row" <%= collapse_info %>>
+      <td>
+        <span class="data_timestamp"><%= data.timestamp %></span>
+        <div class="collapse data-container" id = "collapse-<%= data.id %>">
+          <br>
+          <h6>Spray Statistics:</h6>
+          <br>
+          <div class="data-stats-first l-v-bottom-spaced" >
+            <div>
+              <strong>Chemical Used: </strong>
+              <br>
+              &nbsp;&nbsp;&nbsp;&nbsp;
+              <%= data.chemical_used %>
+            </div>
+            <div>
+              <strong>Can Refilled</strong>
+              <br>
+              <% data.stats.keys.each do |sprayer| %>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <%= sprayer %>: <%= data.stats[sprayer]["refilled"] ? "Yes" : "No" %>
+                <br>
+              <% end %>
+            </div>
           </div>
-          <div class = "data-pyrethroid l-v-bottom-spaced">
-              <div><strong>Pyrethroid Rooms Sprayed</strong>
-                  <%= data.pyrethroid_sprayed_rooms_1 %>
-              </div>
-              <div><strong>Pyrethroid Shelters Sprayed</strong>
-                  <%= data.pyrethroid_sprayed_shelters_1 %>
-              </div>
+          <div class = "data-stats l-v-bottom-spaced">
+            <div>
+              <strong>Sprayed Rooms</strong>
+              <br>
+              <% data.stats.keys.each do |sprayer| %>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <%= sprayer %>: <%= data.stats[sprayer]["roomsSprayed"] %>
+                <br>
+              <% end %>
+            </div>
+            <div>
+              <strong>Sprayed Shelters</strong>
+              <br>
+              <% data.stats.keys.each do |sprayer| %>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <%= sprayer %>: <%= data.stats[sprayer]["sheltersSprayed"] %>
+                <br>
+              <% end %>
+            </div>
           </div>
-          <div class = "data-no-spray l-v-bottom-spaced">
-              <div><strong>Unsprayed Rooms</strong>
-                  <%= data.unsprayed_rooms %>
-              </div>
-              <div><strong>Unsprayed Shelters</strong>
-                  <%= data.unsprayed_shelters %>
-              </div>
+          <div class = "data-stats l-v-bottom-spaced">
+            <div>
+              <strong>Unsprayed Rooms</strong>
+              <br>
+              &nbsp;&nbsp;&nbsp;&nbsp;
+              <%= data.unsprayed_rooms %>
+            </div>
+            <div>
+              <strong>Unsprayed Shelters</strong>
+              <br>
+              &nbsp;&nbsp;&nbsp;&nbsp;
+              <%= data.unsprayed_shelters %>
+            </div>
           </div>
-      </div>
-    </td>
-    <td class="data_sprayer_1">
-        <%= (data.sprayer_id == "") ? "-" : data.sprayer_id%>
-    </td>
-    <td class="data_sprayer_2">
-        <%= (data.sprayer_2_id == "") ? "-" : data.sprayer_2_id%>
-    </td>
-    <td class="data_latitude"><%= data.lat %></td>
-    <td class="data_longitude"><%= data.lon %></td>
-  </tr>
-<% end %>
+        </div>
+      </td>
+      <td class="data_foreman">
+        <%= data.foreman %>
+      </td>
+      <td class="data_sprayers">
+        <%= (data.sprayers == []) ? "-" : data.sprayers.join(", ") %>
+      </td>
+      <td class="data_latitude"><%= data.lat %></td>
+      <td class="data_longitude"><%= data.lon %></td>
+    </tr>
+  <% end %>
 </table>
-

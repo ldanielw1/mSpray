@@ -4,7 +4,7 @@
 function getFiltersForFilteringData() {
     var filters = {};
     var id_prefix = "#data_filter_";
-    ["timestamp", "sprayer_1", "sprayer_2", "latitude", "longitude"].forEach(function(filter) {
+    ["timestamp", "foreman", "sprayers", "latitude", "longitude"].forEach(function(filter) {
         filters[filter] = getTextFieldValue(id_prefix + filter);
     });
     [].forEach(function(filter) {

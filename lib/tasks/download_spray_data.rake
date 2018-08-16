@@ -19,8 +19,8 @@ task :download_spray_data => :environment do
 
   spray_ws, spray_cols = get_spray_data_worksheet(google_session)
   (2..spray_ws.num_rows).each do |row|
-    params, timestamp, sprayer_id = get_spray_data(spray_ws, spray_cols, row)
-    print_create_spray_datum(seeds_file, timestamp, sprayer_id, params)
+    params = get_spray_data(spray_ws, spray_cols, row)
+    print_create_spray_datum(seeds_file, params)
   end
 
   seeds_file.close

@@ -32,8 +32,8 @@ task :update_spray_data => :environment do
     timestamp = get_timestamp(spray_ws[row, spray_cols['timeStamp']])
     next if timestamp < last_spray_date
 
-    params, timestamp, sprayer_id = get_spray_data(spray_ws, spray_cols, row)
-    print_create_spray_datum(seeds_file, timestamp, sprayer_id, params)
+    params = get_spray_data(spray_ws, spray_cols, row)
+    print_create_spray_datum(seeds_file, params)
   end
   seeds_file.close
 end

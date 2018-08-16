@@ -10,13 +10,22 @@ class InitialSetup < ActiveRecord::Migration[5.0]
     end
 
     create_table :spray_data do |t|
-      t.string  :timestamp,                               :default => ""
+      t.string  :imei,                                   :default => ""
+      t.string  :timestamp,                              :default => ""
       t.decimal :lat, :precision => 13, :scale => 10,    :default => 0.0
       t.decimal :lon, :precision => 13, :scale => 10,    :default => 0.0
       t.integer :gps_accuracy,                           :default => 0
-      t.string  :stats
+
+      t.boolean :homestead_sprayed,                      :default => false
+      t.boolean :is_mopup_spray,                         :default => false
+
+      t.string  :foreman,                                :default => ""
       t.string  :sprayers
-      t.string  :foreman,                                 :default => ""
+      t.string  :chemical_used,                          :default => ""
+
+      t.integer :unsprayed_rooms,                        :default => 0
+      t.integer :unsprayed_shelters,                     :default => 0
+      t.string  :stats
     end
 
     create_table :users do |t|
