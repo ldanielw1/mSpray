@@ -17,10 +17,7 @@ function initMap() {
             map: map
         });
 
-        var contentString = '<div id="content">'+
-            '<div id="siteNotice">'+
-            '</div>'+
-            '<div>' + gon.data[i]["lat"].toString() + ', ' + 
+        var contentString = '<div>' + gon.data[i]["lat"].toString() + ', ' + 
             gon.data[i]["lon"].toString() + '</div>';
 
         marker.addListener('click', function() {
