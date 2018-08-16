@@ -6,8 +6,5 @@ clean_temp_files:
 	-@for dir in `ls -F | grep -v //$ | grep -v "^tmp" | grep /$ | cut -d/ -f1`; do cd $$dir; cp ../Makefile .; make clean; rm Makefile; cd .. ;done 2> /dev/null > /dev/null
 
 server:
-	-@rake db:drop
-	-@rake db:create
-	-@rake db:migrate
-	-@rake db:seed
+	-@rake db:drop db:create db:migrate db:seed
 	-@make clean >/dev/null 2>/dev/null
