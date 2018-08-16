@@ -12,7 +12,7 @@ def get_worker_data(ws, cols, row)
   params = Hash.new
   params[:worker_id] = ws[row, cols['Worker ID']]
   params[:name]    = ws[row, cols['Name']]
-  params[:status]  = ws[row, cols['Status']]
+  params[:active]  = ws[row, cols['Active?']] == "TRUE"
 
   return params
 end
@@ -20,5 +20,5 @@ end
 ##
 # Print line to create SprayDatum object
 def print_create_worker(file, params)
-  file.puts "create_worker(#{params[:worker_id]}, '#{params[:name]}', '#{params[:status]}')\n"
+  file.puts "create_worker('#{params[:worker_id]}', '#{params[:name]}', #{params[:active]})\n"
 end

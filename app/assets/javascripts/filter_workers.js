@@ -4,11 +4,14 @@
 function getFiltersForFilteringWorkers() {
     var filters = {};
     var id_prefix = "#worker_filter_";
-    ["name", "worker_id", "status"].forEach(function(filter) {
+    ["name", "worker_id"].forEach(function(filter) {
         filters[filter] = getTextFieldValue(id_prefix + filter);
     });
     [].forEach(function(filter) {
         filters[filter] = getDropdownText(id_prefix + filter);
+    });
+    ["active"].forEach(function(filter) {
+        filters[filter] = getCheckBoxValue(id_prefix + filter);
     });
 
     var hasFilters = false;
@@ -54,7 +57,11 @@ function updateURLForFilteringWorkers(link) {
                 else
                     link += "&";
 
-                var value = filters[key].replace(new RegExp("&", 'g'), "%26");
+                var value = ""
+                if (key == "active")
+                    value = "true";
+                else
+                    value = filters[key].replace(new RegExp("&", 'g'), "%26");
                 link += "filter[" + key + "]=" + value;
             }
         }
@@ -81,6 +88,8 @@ function updateFiltersForFilteringWorkers() {
                 col_val = col_val.replace(/\n/g, "");
                 col_val = col_val.replace(/<br>/g, "");
                 var filter_regex = new RegExp("^(.*[ /])?" + filters[filter], "i");
+                if (filter == "active")
+                    filter_regex = new RegExp("^true", "i")
                 if (!filter_regex.test(col_val))
                     displayMode = "none";
             }
@@ -109,6 +118,7 @@ function loadJSForFilteringWorkers() {
             $(this).bind("keyup input paste", function() { updateFiltersForFilteringWorkers(); });
         });
         $(".filter-field-dropdown").change(function() { updateFiltersForFilteringWorkers(); });
+        $(".filter-field-checkbox").change(function() { updateFiltersForFilteringWorkers(); });
 
         updateFiltersForFilteringWorkers();
     }

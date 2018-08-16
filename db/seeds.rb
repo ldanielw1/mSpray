@@ -3,16 +3,16 @@
 include SprayDatumHelper
 include WorkerHelper
 
-create_worker(1, 'a', 'Active')
-create_worker(2, 'b', 'Inactive')
-create_worker(3, 'c', 'Inactive')
-create_worker(4, 'd', 'Inactive')
-create_worker(5, 'e', 'Inactive')
-create_worker(6, 'f', 'Inactive')
-create_worker(7, 'g', 'Inactive')
-create_worker(8, 'h', 'Inactive')
-create_worker(9, 'i', 'Inactive')
-create_worker(10, 'j', 'Inactive')
+create_worker('1', 'Daniel', true)
+create_worker('2', 'Kevin', true)
+create_worker('3', 'Jermaine', true)
+create_worker('4', 'Wuchi', true)
+create_worker('5', 'Brent', false)
+create_worker('6', 'Jeff', false)
+create_worker('7', 'Annie', false)
+create_worker('8', 'Brenda', false)
+create_worker('9', 'Lesliam', false)
+create_worker('10', 'Edwin', false)
 
 create_spray_datum('2012-11-07 16:30:13', 'BE03 - MAKHUBELE MS', {:accuracy=>"5", :lat=>"-23.82168442", :lng=>"30.16113748", :homestead_sprayed=>true, :sprayer_id=>"BE03 - MAKHUBELE MS", :ddt_used_1=>true, :ddt_sprayed_rooms_1=>15, :ddt_sprayed_shelters_1=>12, :ddt_refill_1=>true, :pyrethroid_used_1=>false, :pyrethroid_sprayed_rooms_1=>0, :pyrethroid_sprayed_shelters_1=>0, :pyrethroid_refill_1=>false, :ddt_used_2=>false, :ddt_sprayed_rooms_2=>0, :ddt_sprayed_shelters_2=>0, :ddt_refill_2=>false, :pyrethroid_used_2=>false, :pyrethroid_sprayed_rooms_2=>0, :pyrethroid_sprayed_shelters_2=>0, :pyrethroid_refill_2=>false, :foreman=>"Simba T R", :unsprayed_rooms=>8, :unsprayed_shelters=>5})
 create_spray_datum('2012-11-07 17:03:08', 'BE02 - MABUNDA YW', {:accuracy=>"5", :lat=>"-23.81972577", :lng=>"30.30440348", :homestead_sprayed=>true, :sprayer_id=>"BE02 - MABUNDA YW", :ddt_used_1=>false, :ddt_sprayed_rooms_1=>0, :ddt_sprayed_shelters_1=>0, :ddt_refill_1=>false, :pyrethroid_used_1=>true, :pyrethroid_sprayed_rooms_1=>7, :pyrethroid_sprayed_shelters_1=>8, :pyrethroid_refill_1=>true, :ddt_used_2=>false, :ddt_sprayed_rooms_2=>0, :ddt_sprayed_shelters_2=>0, :ddt_refill_2=>false, :pyrethroid_used_2=>false, :pyrethroid_sprayed_rooms_2=>0, :pyrethroid_sprayed_shelters_2=>0, :pyrethroid_refill_2=>false, :foreman=>"Simba T R", :unsprayed_rooms=>44, :unsprayed_shelters=>85})

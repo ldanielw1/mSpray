@@ -10,58 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180814170400) do
+ActiveRecord::Schema.define(version: 20170713004004) do
 
   create_table "allowed_emails", force: :cascade do |t|
     t.string "email"
   end
 
   create_table "spray_data", force: :cascade do |t|
-    t.string   "timestamp",                                               default: ""
-    t.decimal  "lat",                           precision: 13, scale: 10, default: "0.0"
-    t.decimal  "lon",                           precision: 13, scale: 10, default: "0.0"
-    t.integer  "accuracy",                                                default: 0
-    t.boolean  "homestead_sprayed",                                       default: false
-    t.string   "sprayer_id",                                              default: ""
-    t.string   "sprayer_2_id",                                            default: ""
-    t.boolean  "ddt_used_1",                                              default: false
-    t.integer  "ddt_sprayed_rooms_1",                                     default: 0
-    t.integer  "ddt_sprayed_shelters_1",                                  default: 0
-    t.boolean  "ddt_refill_1",                                            default: false
-    t.boolean  "pyrethroid_used_1",                                       default: false
-    t.integer  "pyrethroid_sprayed_rooms_1",                              default: 0
-    t.integer  "pyrethroid_sprayed_shelters_1",                           default: 0
-    t.boolean  "pyrethroid_refill_1",                                     default: false
-    t.boolean  "ddt_used_2",                                              default: false
-    t.integer  "ddt_sprayed_rooms_2",                                     default: 0
-    t.integer  "ddt_sprayed_shelters_2",                                  default: 0
-    t.integer  "ddt_refill_2",                                            default: 0
-    t.boolean  "pyrethroid_used_2",                                       default: false
-    t.integer  "pyrethroid_sprayed_rooms_2",                              default: 0
-    t.integer  "pyrethroid_sprayed_shelters_2",                           default: 0
-    t.boolean  "pyrethroid_refill_2",                                     default: false
-    t.integer  "unsprayed_rooms",                                         default: 0
-    t.integer  "unsprayed_shelters",                                      default: 0
-    t.string   "foreman",                                                 default: ""
-    t.datetime "created_at",                                                              null: false
-    t.datetime "updated_at",                                                              null: false
+    t.string  "timestamp",                              default: ""
+    t.decimal "lat",          precision: 13, scale: 10, default: "0.0"
+    t.decimal "lon",          precision: 13, scale: 10, default: "0.0"
+    t.integer "gps_accuracy",                           default: 0
+    t.string  "stats"
+    t.string  "sprayers"
+    t.string  "foreman",                                default: ""
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "provider"
-    t.string   "uid"
-    t.string   "name"
-    t.string   "email"
-    t.string   "profile_img"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.boolean  "admin",       default: false
+    t.string  "provider"
+    t.string  "uid"
+    t.string  "name"
+    t.string  "email"
+    t.string  "profile_img"
+    t.boolean "admin",       default: false
   end
 
   create_table "workers", force: :cascade do |t|
     t.integer  "worker_id"
     t.string   "name"
-    t.string   "status"
+    t.boolean  "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

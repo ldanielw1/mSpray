@@ -104,7 +104,7 @@ function updateFiltersForFilteringData() {
  */
 function loadJSForFilteringData() {
     url = getRoute();
-    if (url == "data/view") {
+    if (url == "spray_data/view") {
         $(".filter-field").each(function() {
             $(this).bind("keyup input paste", function() { updateFiltersForFilteringData(); });
         });

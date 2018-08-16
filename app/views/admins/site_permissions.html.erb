@@ -30,31 +30,31 @@
         Edit
       </button>
 
-    <div id="editPermissions_<%= user.id %>" class="modal fade" role="dialog">
-      <div class="modal-dialog modal-md">
-        <%= form_for(user, html: {class: 'form-horizontal'}, url: change_permissions_admin_path(user.id), method: :post) do |f| %>
-          <div class="modal-content" style="width: 600px">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title"><%= user.name %> (<%= user.email %>)</h4>
-            </div>
-            <div class="modal-body">
-              <h6 class="l-v-bottom-spaced">Edit Permissions</h6>
-              <p class="l-v-bottom-half-spaced">Indicate permissions granted to <%= user.name %>.</p>
-              <%= f.hidden_field :id, value: user.id %>
-              <div class="field form-group">
-                <%= f.label :admin, class: "control-label"%>
-                <%= f.check_box :admin, { value: "", style: "margin-top: 10px"} %>
+      <div id="editPermissions_<%= user.id %>" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-md">
+          <%= form_for(user, html: {class: 'form-horizontal'}, url: change_permissions_admin_path(user.id), method: :post) do |f| %>
+            <div class="modal-content" style="width: 600px">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><%= user.name %> (<%= user.email %>)</h4>
+              </div>
+              <div class="modal-body">
+                <h6 class="l-v-bottom-spaced">Edit Permissions</h6>
+                <p class="l-v-bottom-half-spaced">Indicate permissions granted to <%= user.name %>.</p>
+                <%= f.hidden_field :id, value: user.id %>
+                <div class="field form-group">
+                  <%= f.label :admin, class: "control-label"%>
+                  <%= f.check_box :admin, { value: "", style: "margin-top: 10px"} %>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <%= f.submit 'Submit', class: "button button-primary modal-default" %>
+                <button type="button" class="button" data-dismiss="modal">Cancel</button>
               </div>
             </div>
-            <div class="modal-footer">
-              <%= f.submit 'Submit', class: "button button-primary modal-default" %>
-              <button type="button" class="button" data-dismiss="modal">Cancel</button>
-            </div>
-          </div>
-        <% end %>
+          <% end %>
+        </div>
       </div>
-    </div>
     </td>
 
   </tr>

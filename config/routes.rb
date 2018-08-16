@@ -17,7 +17,8 @@ Rails.application.routes.draw do
 
   # Worker routes
   resource :workers, only: [] do
-    get :view
+    post :edit
+    get  :view
   end
 
   # Session routes
