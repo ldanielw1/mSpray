@@ -35,8 +35,5 @@ function initMap() {
         markers.push(createMarker());
     }
 
-    var markerCluster = new MarkerClusterer(map, markers,
-    {
-        imagePath: "../assets/m"
-    });
+    var markerCluster = new MarkerClusterer(map, markers, {imagePath: "../assets/m"});
 }
