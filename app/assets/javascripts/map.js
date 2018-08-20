@@ -25,10 +25,18 @@ function initMap() {
             infowindow.open(map, marker);
         });
 
+        return marker;
     }
+
+    var markers = new Array();
 
     for(var i = 0; i < gon.data.length; i++)
     {
-        createMarker();
+        markers.push(createMarker());
     }
+
+    var markerCluster = new MarkerClusterer(map, markers,
+    {
+        imagePath: "../assets/m"
+    });
 }
