@@ -34,3 +34,22 @@ function initMap() {
     // Add clustering for markers.
     var markerCluster = new MarkerClusterer(map, markers, {imagePath: "../assets/m"});
 }
+
+/**
+ * Make listeners on all form elements for data view
+ */
+function loadJSForInitMap() {
+    url = getRoute();
+    if (url == "") {
+        if (window.google) {
+            initMap();
+        } else {
+            $.ajax('https://maps.googleapis.com/maps/api/js?key=AIzaSyCZYMGmb59cC8ewA4j5YgekHf4HmnCV3uM&callback=initMap', {
+                crossDomain: true,
+                dataType: 'script'
+            });
+        }
+    }
+}
+
+$(document).on('turbolinks:load', loadJSForInitMap);
