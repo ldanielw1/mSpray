@@ -30,6 +30,11 @@
         Edit
       </button>
 
+      <button type="button" class="button button-small button-danger" data-toggle="modal" data-target="#deletePermissions_<%= user.id %>">
+        <%= icon('fas', 'trash', class: 'strong') %>
+        Delete
+      </button>
+
       <div id="editPermissions_<%= user.id %>" class="modal fade" role="dialog">
         <div class="modal-dialog modal-md">
           <%= form_for(user, html: {class: 'form-horizontal'}, url: change_permissions_admin_path(user.id), method: :post) do |f| %>
@@ -49,6 +54,27 @@
               </div>
               <div class="modal-footer">
                 <%= f.submit 'Submit', class: "button button-primary modal-default" %>
+                <button type="button" class="button" data-dismiss="modal">Cancel</button>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div id="deletePermissions_<%= user.id %>" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-md">
+          <%= form_for(user, html: {class: 'form-horizontal'}, url: delete_user_admin_path(user.id), method: :post) do |f| %>
+            <div class="modal-content" style="width: 600px">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Delete <%= user.name %> (<%= user.email %>)</h4>
+              </div>
+              <div class="modal-body">
+                <p class="l-v-bottom-half-spaced">Are you sure you want to delete <%= user.name %>?</p>
+                <%= f.hidden_field :id, value: user.id %>
+              </div>
+              <div class="modal-footer">
+                <%= f.submit 'Submit', class: "button button-danger modal-default" %>
                 <button type="button" class="button" data-dismiss="modal">Cancel</button>
               </div>
             </div>

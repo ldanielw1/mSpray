@@ -23,4 +23,12 @@ class AdminsController < ApplicationController
     redirect_back(fallback_location: site_permissions_admin_path)
   end
 
+  ##
+  # Delete a user
+  def delete_user
+    user = User.find(params[:user][:id])
+    user.destroy!
+    redirect_back(fallback_location: site_permissions_admin_path)
+  end
+
 end
