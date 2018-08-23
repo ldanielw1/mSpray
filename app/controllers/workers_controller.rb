@@ -23,7 +23,16 @@ class WorkersController < ApplicationController
     worker.active    = w_params[:active]
 
     worker.save!
-    redirect_back(fallback_location: edit_workers_path)
+    redirect_back(fallback_location: view_workers_path)
+  end
+
+  ##
+  # Deletes a worker's info
+  def delete
+    w_params = params[:worker]
+    worker = Worker.find(w_params[:id])
+    worker.destroy!
+    redirect_back(fallback_location: view_workers_path)
   end
 
 end

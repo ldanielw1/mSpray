@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   # Worker routes
   resource :workers, only: [] do
     post :edit
+    post :delete
     get  :view
   end
 
