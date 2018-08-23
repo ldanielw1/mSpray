@@ -8,12 +8,13 @@ Rails.application.routes.draw do
   resource :admin, only: [] do
     post :delete_user
     post :change_permissions
-    get :site_permissions
+    get  :site_permissions
   end
 
   # Data routes
   resource :spray_data, only: [] do
-    get :view
+    post :delete
+    get  :view
   end
 
   # Worker routes
