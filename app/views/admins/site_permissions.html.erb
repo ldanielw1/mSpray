@@ -1,89 +1,91 @@
 <h1>Site Permissions</h1>
+<br>
+
 <table class="table data-table">
-<tr class="highlight-row">
-  <% ["Name", "E-Mail", "Admin?"].each do |column_name| %>
-    <% sort = column_name.downcase.gsub(/[\?\-\ ]/, "") %>
-    <th>
-      <%= link_to site_permissions_admin_path(sort: sort, reverse: (sort.to_sym == @sort) ? !@reverse : false), class: "column-header", style: "color: black" do %>
-        <%= column_name %>
-        <% if (@sort == sort.to_sym) %>
-          <i class="fa fa-angle-<%= @reverse ? "up" : "down" %>" style="color: #aaa; vertical-align: middle;"></i>
+  <tr class="highlight-row">
+    <% columns = [["Name", 20], ["E-Mail", 40], ["Admin?", 20], ["", 20]] %>
+
+    <% columns.each do |column_name, width| %>
+      <% sort = column_name.downcase.gsub(/[\?\-\ ]/, "") %>
+      <th width="<%= width %>%">
+        <%= link_to site_permissions_admin_path(sort: sort, reverse: (sort.to_sym == @sort) ? !@reverse : false), class: "column-header", style: "color: black" do %>
+          <%= column_name %>
+          <% if (@sort == sort.to_sym) %>
+            <i class="fa fa-angle-<%= @reverse ? "up" : "down" %>" style="color: #aaa; vertical-align: middle;"></i>
+          <% end %>
         <% end %>
-      <% end %>
-    </th>
-  <% end %>
-  <th />
-</tr>
+      </th>
+    <% end %>
+  </tr>
 
-<% @users.each do |user| %>
-  <tr class="data-row">
-    <td class="user_name"><%= user.name %></td>
-    <td class="user_email"><%= user.email %></td>
-    <td class="user_admin">
-      <% if user.admin? %>
-        <div class="pill pill-secondary">Admin</div>
-      <% end %>
-    </td>
-    <td>
-      <button type="button" class="button button-small button-primary" data-toggle="modal" data-target="#editPermissions_<%= user.id %>">
-        <%= icon('fas', 'edit', class: 'strong') %>
-        Edit
-      </button>
+  <% @users.each do |user| %>
+    <tr class="data-row">
+      <td class="user_name"><%= user.name %></td>
+      <td class="user_email"><%= user.email %></td>
+      <td class="user_admin">
+        <% if user.admin? %>
+          <div class="pill pill-secondary">Admin</div>
+        <% end %>
+      </td>
+      <td>
+        <button type="button" class="button button-small button-primary" data-toggle="modal" data-target="#editPermissions_<%= user.id %>">
+          <%= icon('fas', 'edit', class: 'strong') %>
+          Edit
+        </button>
 
-      <button type="button" class="button button-small button-danger" data-toggle="modal" data-target="#deletePermissions_<%= user.id %>">
-        <%= icon('fas', 'trash', class: 'strong') %>
-        Delete
-      </button>
+        <button type="button" class="button button-small button-danger" data-toggle="modal" data-target="#deletePermissions_<%= user.id %>">
+          <%= icon('fas', 'trash', class: 'strong') %>
+          Delete
+        </button>
 
-      <div id="editPermissions_<%= user.id %>" class="modal fade" role="dialog">
-        <div class="modal-dialog modal-md">
-          <%= form_for(user, html: {class: 'form-horizontal'}, url: change_permissions_admin_path(user.id), method: :post) do |f| %>
-            <div class="modal-content" style="width: 600px">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title"><%= user.name %> (<%= user.email %>)</h4>
-              </div>
-              <div class="modal-body">
-                <h6 class="l-v-bottom-spaced">Edit Permissions</h6>
-                <p class="l-v-bottom-half-spaced">Indicate permissions granted to <%= user.name %>.</p>
-                <%= f.hidden_field :id, value: user.id %>
-                <div class="field form-group">
-                  <%= f.label :admin, class: "control-label"%>
-                  <%= f.check_box :admin, { value: "", style: "margin-top: 10px"} %>
+        <div id="editPermissions_<%= user.id %>" class="modal fade" role="dialog">
+          <div class="modal-dialog modal-md">
+            <%= form_for(user, html: {class: 'form-horizontal'}, url: change_permissions_admin_path(user.id), method: :post) do |f| %>
+              <div class="modal-content" style="width: 600px">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title"><%= user.name %> (<%= user.email %>)</h4>
+                </div>
+                <div class="modal-body">
+                  <h6 class="l-v-bottom-spaced">Edit Permissions</h6>
+                  <p class="l-v-bottom-half-spaced">Indicate permissions granted to <%= user.name %>.</p>
+                  <%= f.hidden_field :id, value: user.id %>
+                  <div class="field form-group">
+                    <%= f.label :admin, class: "control-label"%>
+                    <%= f.check_box :admin, { value: "", style: "margin-top: 10px"} %>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <%= f.submit 'Submit', class: "button button-primary modal-default" %>
+                  <button type="button" class="button" data-dismiss="modal">Cancel</button>
                 </div>
               </div>
-              <div class="modal-footer">
-                <%= f.submit 'Submit', class: "button button-primary modal-default" %>
-                <button type="button" class="button" data-dismiss="modal">Cancel</button>
-              </div>
-            </div>
-          <% end %>
+            <% end %>
+          </div>
         </div>
-      </div>
 
-      <div id="deletePermissions_<%= user.id %>" class="modal fade" role="dialog">
-        <div class="modal-dialog modal-md">
-          <%= form_for(user, html: {class: 'form-horizontal'}, url: delete_user_admin_path(user.id), method: :post) do |f| %>
-            <div class="modal-content" style="width: 600px">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Delete <%= user.name %> (<%= user.email %>)</h4>
+        <div id="deletePermissions_<%= user.id %>" class="modal fade" role="dialog">
+          <div class="modal-dialog modal-md">
+            <%= form_for(user, html: {class: 'form-horizontal'}, url: delete_user_admin_path(user.id), method: :post) do |f| %>
+              <div class="modal-content" style="width: 600px">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Delete <%= user.name %> (<%= user.email %>)</h4>
+                </div>
+                <div class="modal-body">
+                  <p class="l-v-bottom-half-spaced">Are you sure you want to delete <%= user.name %>?</p>
+                  <%= f.hidden_field :id, value: user.id %>
+                </div>
+                <div class="modal-footer">
+                  <%= f.submit 'Delete', class: "button button-danger modal-default" %>
+                  <button type="button" class="button" data-dismiss="modal">Cancel</button>
+                </div>
               </div>
-              <div class="modal-body">
-                <p class="l-v-bottom-half-spaced">Are you sure you want to delete <%= user.name %>?</p>
-                <%= f.hidden_field :id, value: user.id %>
-              </div>
-              <div class="modal-footer">
-                <%= f.submit 'Delete', class: "button button-danger modal-default" %>
-                <button type="button" class="button" data-dismiss="modal">Cancel</button>
-              </div>
-            </div>
-          <% end %>
+            <% end %>
+          </div>
         </div>
-      </div>
-    </td>
+      </td>
 
-  </tr>
-<% end %>
+    </tr>
+  <% end %>
 </table>
-
