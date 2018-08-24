@@ -15,7 +15,6 @@
   </head>
 
   <body>
-    <%= Gon::Base.render_data %>
     <% if current_user %>
       <div class="content">
         <% cache([current_user, "web_view"]) do %>
