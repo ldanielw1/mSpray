@@ -1,7 +1,13 @@
 function initMap() {
     var mapSettings = {
         zoom: 8,
-        center: new google.maps.LatLng(-23.151, 30.658)
+        center: new google.maps.LatLng(-23.151, 30.658),
+        zoomControlOptions: {
+            position: google.maps.ControlPosition.LEFT_BOTTOM
+        },
+        streetViewControlOptions: {
+            position: google.maps.ControlPosition.LEFT_BOTTOM
+        }
     };
     
     var mapDiv = document.getElementById('map');
