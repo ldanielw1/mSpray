@@ -2,7 +2,6 @@
 <html>
   <head>
     <title>mSpray Monitor Dashboard</title>
-    <%= Gon::Base.render_data %>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%= csrf_meta_tags %>
 
@@ -16,6 +15,7 @@
   </head>
 
   <body>
+    <%= Gon::Base.render_data %>
     <% if current_user %>
       <div class="content">
         <% cache([current_user, "web_view"]) do %>
