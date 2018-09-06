@@ -25,7 +25,7 @@ def get_spray_data(ws, cols, row_num)
   params[:chemical_used]      = ws[row_num, cols['chemicalUsed']]
   params[:unsprayed_rooms]    = ws[row_num, cols['unsprayedRooms']].to_i
   params[:unsprayed_shelters] = ws[row_num, cols['unsprayedShelters']].to_i
-  params[:stats]              = JSON.parse(ws[row_num, cols['sprayedStats']])
+  params[:stats]              = JSON.parse(ws[row_num, cols['stats']])
 
   return params
 end
