@@ -21,7 +21,6 @@ def get_spray_data(ws, cols, row_num)
   params[:lng]                = ws[row_num, cols['lng']]
   params[:gps_accuracy]       = ws[row_num, cols['accuracy']]
   params[:is_mopup_spray]     = ws[row_num, cols['isMopUpSpray']]
-  params[:homestead_sprayed]  = get_bool(ws[row_num, cols['homesteadSprayed']])
   params[:foreman]            = ws[row_num, cols['foreman']]
   params[:chemical_used]      = ws[row_num, cols['chemicalUsed']]
   params[:unsprayed_rooms]    = ws[row_num, cols['unsprayedRooms']].to_i
