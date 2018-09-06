@@ -1,4 +1,4 @@
-class HomeController < ApplicationController
+class DashboardController < ApplicationController
   def show
     gon.data = SprayDatum.all.map do |data|
       attribute_hash = data.attributes

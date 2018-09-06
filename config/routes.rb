@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'home', to: 'home#show', as: 'home'
+  get 'dashboard', to: 'dashboard#show', as: 'dashboard'
 
   # User routes
   resources :users, only: [:edit, :update]
@@ -31,7 +31,7 @@ Rails.application.routes.draw do
   get 'signout', to: 'sessions#destroy', as: 'signout'
   get 'signin', to: 'sessions#login', as: 'signin'
 
-  resource :home, only: [:show]
+  resource :dashboard, only: [:show]
 
-  root to: "home#show"
+  root to: "dashboard#show"
 end
