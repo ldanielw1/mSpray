@@ -1,3 +1,37 @@
 .gm-iv-address-link {
   display: none;
 }
+
+.button-overlay{
+  position: fixed; /* sits on top of page content  */	
+  border:none;
+  display:inline-block;
+  padding:0px 24px;
+  overflow:hidden;
+  text-decoration:none;
+  color:inherit;
+  background-color:inherit;
+  text-align:center;
+  cursor:pointer;
+  white-space:nowrap;
+  right: 30px;
+  bottom: 40px;
+  z-index: 505; /* stack order*/
+}
+
+.button-overlay:hover{
+  box-shadow:0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)
+}
+
+.xlarge{
+  font-size:48px!important
+}
+
+.circle{
+  border-radius:50%
+}
+
+.red,.hover-red:hover{
+  color:#fff!important;
+  background-color:#f44336!important
+}
