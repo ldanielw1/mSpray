@@ -17,12 +17,12 @@ function initMap() {
     // Create an array of new markers.
     function createMarker() {
         var marker = new google.maps.Marker({
-            position: {lat: gon.data[i]["lat"], lng: gon.data[i]["lon"]},
+            position: {lat: gon.data[i]["lat"], lng: gon.data[i]["lng"]},
             map: map
         });
 
         var contentString = gon.data[i]["lat"].toString();
-        contentString += ', ' + gon.data[i]["lon"].toString();
+        contentString += ', ' + gon.data[i]["lng"].toString();
         contentString = '<div>' + contentString + '</div>';
 
         marker.addListener('click', function() {

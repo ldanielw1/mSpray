@@ -8,7 +8,7 @@ class SprayDataController < ApplicationController
   ##
   # Display all spray data
   def view
-    @sort_hash = get_proper_sort_categories([:sprayers, :lat, :lon])
+    @sort_hash = get_proper_sort_categories([:sprayers, :lat, :lng])
     @data = SprayDatum.all.order(@sort_hash)
   end
 

@@ -41,7 +41,7 @@
       <% sort = "sprayer_id" if sort == "sprayer1" %>
       <% sort = "sprayer_2_id" if sort == "sprayer2" %>
       <% sort = "lat" if sort == "latitude" %>
-      <% sort = "lon" if sort == "longitude" %>
+      <% sort = "lng" if sort == "longitude" %>
 
       <th width="<%= width %>%">
         <%= link_to view_spray_data_path(sort: sort, reverse: (sort.to_sym == @sort) ? !@reverse : false), class: "column-header", style: "color: black" do %>
@@ -123,7 +123,7 @@
         <%= (data.sprayers == []) ? "-" : data.sprayers.join(", ") %>
       </td>
       <td class="data_latitude"><%= data.lat %></td>
-      <td class="data_longitude"><%= data.lon %></td>
+      <td class="data_longitude"><%= data.lng %></td>
       <td class="data_buttons">
 
         <button type="button" class="button button-small button-danger delete_spray_datum" data-toggle="modal" data-target="#delete_<%= data.id %>">

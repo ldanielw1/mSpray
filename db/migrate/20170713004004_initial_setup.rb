@@ -13,7 +13,7 @@ class InitialSetup < ActiveRecord::Migration[5.0]
       t.string  :imei,                                   :default => ""
       t.string  :timestamp,                              :default => ""
       t.decimal :lat, :precision => 13, :scale => 10,    :default => 0.0
-      t.decimal :lon, :precision => 13, :scale => 10,    :default => 0.0
+      t.decimal :lng, :precision => 13, :scale => 10,    :default => 0.0
       t.integer :gps_accuracy,                           :default => 0
 
       t.boolean :homestead_sprayed,                      :default => false

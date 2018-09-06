@@ -18,7 +18,7 @@ def get_spray_data(ws, cols, row_num)
   params[:timestamp]          = timestamp
   params[:imei]               = ws[row_num, cols['imei']]
   params[:lat]                = ws[row_num, cols['lat']]
-  params[:lon]                = ws[row_num, cols['lng']]
+  params[:lng]                = ws[row_num, cols['lng']]
   params[:gps_accuracy]       = ws[row_num, cols['accuracy']]
   params[:is_mopup_spray]     = ws[row_num, cols['isMopUpSpray']]
   params[:homestead_sprayed]  = get_bool(ws[row_num, cols['homesteadSprayed']])
