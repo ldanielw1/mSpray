@@ -43,7 +43,7 @@
     <% sort = "sprayer_id" if sort == "sprayer1" %>
     <% sort = "sprayer_2_id" if sort == "sprayer2" %>
     <% sort = "lat" if sort == "latitude" %>
-    <% sort = "lon" if sort == "longitude" %>
+    <% sort = "lng" if sort == "longitude" %>
 
     <th width="<%= width %>%">
       <%= link_to view_workers_path(sort: sort, reverse: (sort.to_sym == @sort) ? !@reverse : false), class: "column-header", style: "color: black" do %>

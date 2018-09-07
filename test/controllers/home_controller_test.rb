@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class HomeControllerTest < ActionDispatch::IntegrationTest
+class DashboardControllerTest < ActionDispatch::IntegrationTest
   test "should get show" do
-    get home_show_url
+    get dashboard_show_url
     assert_response :success
   end
 

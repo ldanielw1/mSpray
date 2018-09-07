@@ -1,5 +1,3 @@
-@import "animate";
-
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
@@ -23,6 +21,8 @@
 @import "modules/radio-replacement";
 @import "modules/sign-in";
 @import "modules/tooltip";
+
+@import "third_party/animate";
 
 html {
     height: 100%;

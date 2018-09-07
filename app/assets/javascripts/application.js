@@ -64,9 +64,10 @@ function getRoute() {
             url = location.href.replace(result, "");
     }
     url = url.replace(/^\//, "");
+    url = url.replace(/^#/, "");
     url = url.replace(/\/$/, "");
     url = url.replace(/\/\?/, "?");
-    url = url.replace(/^home\/?/, "");
+    url = url.replace(/^dashboard\/?/, "");
     url = url.split("?")[0];
 
     return url;
