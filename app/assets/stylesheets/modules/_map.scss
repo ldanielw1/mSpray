@@ -3,7 +3,7 @@
 }
 
 .button-overlay{
-  position: fixed; /* sits on top of page content  */	
+  position: relative;	
   border:none;
   display:inline-block;
   padding:0px 24px;
@@ -19,6 +19,19 @@
   z-index: 505; /* stack order*/
 }
 
+.overlay{
+  position: absolute;
+  border: none;
+  display:inline-block;
+  color:inherit;
+  background-color:inherit;
+  text-align: left;
+  cursor: pointer;
+  white-space: nowrap;
+  right: 0px;
+  bottom: 0px;
+  z-index: 505;
+}
 .button-overlay:hover{
   box-shadow:0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)
 }
@@ -35,3 +48,19 @@
   color:#fff!important;
   background-color:#f44336!important
 }
+
+.collapse {
+  visibility: hidden;
+}
+.collapse.in {
+  visibility: visible;
+  display: block;
+}
+
+.collapsing.width {
+  -webkit-transition-property: width, visibility;
+  transition-property: width, visibility;
+  width: 0;
+  height: auto;
+}
+

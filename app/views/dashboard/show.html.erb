@@ -1,3 +1,16 @@
 <%= Gon::Base.render_data %>
-<button class="button-overlay xlarge circle red">+</button>
+<div class="overlay">
+  <button id="form-button" class="button-overlay xlarge circle red" data-toggle="collapse" data-target="#collapse-add-options" onclick="toggleSymbol()">+</button>
+  <div id="collapse-add-options" class="collapse width overlay" style="bottom: 80px; right: 0px">
+    <form style="padding=50px 20px">
+      First name:<br>
+      <input type="text" name="firstname">
+      <br>
+      Last name:<br>
+      <input type="text" name="lastname">
+      <br><br>
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+</div>
 <div id="map"></div>
