@@ -2,6 +2,10 @@
   display: none;
 }
 
+#map-mode {
+  display: none;
+}
+
 .button-overlay{
   position: relative;	
   border:none;
@@ -14,6 +18,7 @@
   text-align:center;
   cursor:pointer;
   white-space:nowrap;
+  border-radius:50%;
   z-index: 505; /* stack order*/
 }
 
@@ -30,7 +35,6 @@
   color:inherit;
   background-color:inherit;
   text-align: left;
-  cursor: pointer;
   white-space: nowrap;
   z-index: 505;
   right: 25px;
@@ -58,10 +62,6 @@ text.menu{
 
 .large{
   font-size:32px!important
-}
-
-.circle{
-  border-radius:50%
 }
 
 .red,.hover-red:hover{
