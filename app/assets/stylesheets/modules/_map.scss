@@ -14,9 +14,13 @@
   text-align:center;
   cursor:pointer;
   white-space:nowrap;
-  right: 30px;
-  bottom: 40px;
   z-index: 505; /* stack order*/
+}
+
+.button-overlay.menu{
+  padding: 4px 20px;
+  vertical-align: 4px;
+  margin: 0 8px 0 0;
 }
 
 .overlay{
@@ -28,16 +32,32 @@
   text-align: left;
   cursor: pointer;
   white-space: nowrap;
-  right: 0px;
-  bottom: 0px;
   z-index: 505;
+  right: 25px;
+  bottom: 25px;
 }
+
 .button-overlay:hover{
   box-shadow:0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)
 }
 
+text.text-shadow{
+  color: white;
+  text-shadow:0 2px 30px #000000, 0 0px 5px #000000;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+text.menu{
+  vertical-align: 8px;
+}
+
 .xlarge{
   font-size:48px!important
+}
+
+.large{
+  font-size:32px!important
 }
 
 .circle{
@@ -49,18 +69,36 @@
   background-color:#f44336!important
 }
 
-.collapse {
-  visibility: hidden;
-}
-.collapse.in {
-  visibility: visible;
-  display: block;
+.blue, .hover-blue:hover{
+  color: #fff!important;
+  background-color: #7072ea!important
 }
 
-.collapsing.width {
-  -webkit-transition-property: width, visibility;
-  transition-property: width, visibility;
-  width: 0;
-  height: auto;
-}
+#collapse-add-options {
+  padding-right: 15px;
 
+  &.collapse {
+    visibility: hidden;
+  }
+  &.collapse.in {
+    visibility: visible;
+    display: block;
+  }
+
+  &.collapsing {
+    position: relative;
+    height: 0;
+    overflow: hidden;
+    transition-timing-function: ease;
+    transition-duration: .35s;
+    transition-property: height;
+    vertical-align: -11px;
+
+    &.width {
+      width: 0;
+      height: auto;
+      transition-property: width;
+    }
+  }
+
+}

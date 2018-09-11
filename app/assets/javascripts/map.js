@@ -60,8 +60,12 @@ function loadJSForInitMap() {
 
 function toggleSymbol() {
   var btn = document.getElementById("form-button");
-    if (btn.innerHTML=="+") btn.innerHTML = "-";
+    if (btn.innerHTML=="+") btn.innerHTML = ">";
     else btn.innerHTML = "+";
+}
+
+function buttonClick(){
+  alert("Button Clicked");
 }
 
 $(document).on('turbolinks:load', loadJSForInitMap);

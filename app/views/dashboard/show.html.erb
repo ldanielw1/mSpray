@@ -1,16 +1,13 @@
 <%= Gon::Base.render_data %>
 <div class="overlay">
-  <button id="form-button" class="button-overlay xlarge circle red" data-toggle="collapse" data-target="#collapse-add-options" onclick="toggleSymbol()">+</button>
-  <div id="collapse-add-options" class="collapse width overlay" style="bottom: 80px; right: 0px">
-    <form style="padding=50px 20px">
-      First name:<br>
-      <input type="text" name="firstname">
-      <br>
-      Last name:<br>
-      <input type="text" name="lastname">
-      <br><br>
-      <input type="submit" value="Submit">
-    </form>
+  <div id="collapse-add-options" class="collapse width" style="display:inline-block;">
+
+      <button class="button-overlay large circle blue menu" onclick="buttonClick()">?</button>
+      <text class="text-shadow menu">ADD FUTURE SPRAY LOCATION</text>
+
+
   </div>
+  
+  <button id="map-add-button" style= "inline-block" class="button-overlay xlarge circle red" data-toggle="collapse" data-target="#collapse-add-options" onclick="toggleSymbol()">+</button>
 </div>
 <div id="map"></div>
