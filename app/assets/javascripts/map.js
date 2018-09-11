@@ -84,6 +84,24 @@ function clickMap(e) {
 }
 
 /**
+ * Interact with the map when it's clicked on.
+ */
+function toggleAddButton(e) {
+    mapMode = "default";
+    mapButton = $("#map-add-button");
+    mapText = mapButton.find(".fas");
+    chevron = "fa-arrow-circle-right";
+    plus = "fa-plus";
+
+    if (mapButton.html().toString().indexOf("fa-plus") > -1) {
+        mapText.addClass(chevron).removeClass(plus);
+    } else {
+        mapText.addClass(plus).removeClass(chevron);
+    }
+
+}
+
+/**
  * Make listeners on all form elements for data view
  */
 function loadJSForInitMap() {
@@ -98,15 +116,9 @@ function loadJSForInitMap() {
             });
         }
 
-        $("#map-add-button").click(function() { mapMode = "default"; });
+        $("#map-add-button").click(function() { toggleAddButton() });
         $(".toggle-add-future-locations").click(function() { mapMode = addFutureSprayLocations; });
     }
-}
-
-function toggleSymbol() {
-  var btn = document.getElementById("form-button");
-    if (btn.innerHTML=="+") btn.innerHTML = ">";
-    else btn.innerHTML = "+";
 }
 
 $(document).on('turbolinks:load', loadJSForInitMap);

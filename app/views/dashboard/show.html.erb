@@ -1,12 +1,15 @@
 <%= Gon::Base.render_data %>
 <div class="overlay">
-  <div id="collapse-add-options" class="collapse width" style="display:inline-block;">
+  <div id="map-add-button" style= "inline-block" class="button-overlay xlarge red" data-toggle="collapse" data-target="#collapse-add-options">
+    <%= icon('fas', 'plus') %>
+  </div>
 
-    <button class="toggle-add-future-locations button-overlay large blue menu">?</button>
-    <text class="toggle-add-future-locations text-shadow menu">ADD FUTURE SPRAY LOCATION</text>
-
+  <div id="collapse-add-options" class="collapse width">
+    <div class="toggle-add-future-locations button-overlay large blue menu-option">
+        <%= icon('fas', 'calendar-plus') %>
+    </div>
+    <text class="toggle-add-future-locations toggle-add-future-locations-label text-shadow menu-option">ADD FUTURE SPRAY LOCATION</text>
   </div>
   
-  <button id="map-add-button" style= "inline-block" class="button-overlay xlarge red" data-toggle="collapse" data-target="#collapse-add-options" onclick="toggleSymbol()">+</button>
 </div>
 <div id="map"></div>
