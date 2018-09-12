@@ -4,7 +4,6 @@
 function handleOpeningSprayDatumModal(object, e, mode) {
     var modal = $(object).parent().find("." + mode + "_spray_datum_modal");
     modal.modal("toggle");
-    e.preventDefault();
     e.stopPropagation();
 }
 
@@ -13,9 +12,6 @@ function handleOpeningSprayDatumModal(object, e, mode) {
  */
 function handleClosingSprayDatumModal(e, mode) {
     var target = $(e.target);
-    if (!target.hasClass(mode + "_button")) {
-        e.preventDefault();
-    }
     e.stopPropagation();
 }
 
@@ -25,6 +21,12 @@ function handleClosingSprayDatumModal(e, mode) {
 function loadJSForDeletingSprayData() {
     url = getRoute();
     if (url == "spray_data/view") {
+        $(".edit_spray_datum").click(function (e) {
+            handleOpeningSprayDatumModal(this, e, "edit");
+        });
+        $(".edit_spray_datum_modal").click(function (e) {
+            handleClosingSprayDatumModal(e, "edit");
+        });
         $(".delete_spray_datum").click(function (e) {
             handleOpeningSprayDatumModal(this, e, "delete");
         });
