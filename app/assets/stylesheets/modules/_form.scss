@@ -1,0 +1,38 @@
+// FORM LAYOUTS
+
+.form-horizontal {
+  display: inline-block;
+  margin-top: $default-margin * 1.5;
+
+  .form-control-fake {
+    padding: 6px;
+    display: inline-block;
+  }
+
+  .form-group {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+
+    .control-label {
+      float: left;
+      font-weight: 400;
+      margin-bottom: $default-margin / 2;
+      text-align: left !important;
+      text-transform: capitalize;
+      width: 150px;
+    }
+
+    .form-control {
+      width: 400px;
+
+      &:focus {
+        background: inherit;
+        box-shadow: none;
+      }
+    }
+  }
+
+  .form-submit-container {
+    float: right;
+  }
+}
