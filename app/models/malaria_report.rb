@@ -1,0 +1,2 @@
+class MalariaReport < ApplicationRecord
+end

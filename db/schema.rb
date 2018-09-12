@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170713004004) do
+ActiveRecord::Schema.define(version: 20180912220306) do
 
   create_table "allowed_emails", force: :cascade do |t|
     t.string "email", default: ""
@@ -20,6 +20,13 @@ ActiveRecord::Schema.define(version: 20170713004004) do
     t.decimal "lat",      precision: 13, scale: 10, default: "0.0"
     t.decimal "lng",      precision: 13, scale: 10, default: "0.0"
     t.string  "reporter",                           default: ""
+  end
+
+  create_table "malaria_reports", force: :cascade do |t|
+    t.decimal "lat",         precision: 13, scale: 10, default: "0.0"
+    t.decimal "lng",         precision: 13, scale: 10, default: "0.0"
+    t.string  "report_time",                                           null: false
+    t.string  "reporter",                              default: ""
   end
 
   create_table "spray_data", force: :cascade do |t|

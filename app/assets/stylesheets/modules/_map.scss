@@ -29,10 +29,17 @@
 
   &.menu-option {
     margin: 0 8px 0 0;
-    padding: 12px 15px;
 
     font-size: 28px;
     vertical-align: 4px;
+  }
+
+  &.pad1{
+    padding: 12px 15px;
+  }
+
+  &.pad2{
+    padding: 12px 11px;
   }
 
   &:hover{
@@ -41,7 +48,7 @@
 }
 
 text {
-  &.text-shadow{
+  &.text-shadow {
     color: white;
     text-shadow:0 2px 30px #000000, 0 0px 5px #000000;
     font-size: 15px;
@@ -51,10 +58,26 @@ text {
   &.menu-option {
     vertical-align: 8px;
   }
+
+  &:hover {
+    cursor: pointer
+  }
 }
 
 .blue {
-  background-color: #7072ea;
+  background-color: #0288d1;
+}
+
+.yellow {
+  background-color: #fbc02d;
+}
+
+.red{
+  background-color: #ff4444;
+}
+
+.green {
+  background-color: #00C851;
 }
 
 #collapse-add-options {
