@@ -135,6 +135,10 @@ function toggleMode(mode) {
     }
 }
 
+function toggleMapPointer() {
+    $("#map").attr("style", "cursor: pointer");
+}
+
 /**
  * Make listeners on all form elements for data view
  */
@@ -151,7 +155,7 @@ function loadJSForInitMap() {
         }
 
         $("#map-add-button").click(function() { toggleAddButton() });
-        $(".toggle-add-future-locations").click(function() { toggleMode(addFutureSprayLocations) });
+        $(".toggle-add-future-locations").click(function() { toggleMode(addFutureSprayLocations); });
         $(".toggle-add-malaria-report").click(function() { toggleMode(addMalariaReports); });
     }
 }
