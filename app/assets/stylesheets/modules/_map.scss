@@ -29,10 +29,17 @@
 
   &.menu-option {
     margin: 0 8px 0 0;
-    padding: 12px 15px;
 
     font-size: 28px;
     vertical-align: 4px;
+  }
+
+  &.pad1{
+    padding: 12px 15px;
+  }
+
+  &.pad2{
+    padding: 12px 11px;
   }
 
   &:hover{
@@ -51,10 +58,18 @@ text {
   &.menu-option {
     vertical-align: 8px;
   }
+
+  &:hover{
+  cursor: pointer
+  }
 }
 
 .blue {
-  background-color: #7072ea;
+  background-color: #0288d1;
+}
+
+.yellow {
+  background-color: #fbc02d;
 }
 
 #collapse-add-options {

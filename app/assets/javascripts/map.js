@@ -23,9 +23,9 @@ function initMap() {
         var dataLat = sd["lat"];
         var dataLng = sd["lng"];
 
-        var markerColor = "red";
+        var markerColor = "blue";
         if (markerType == "future_spray_locations")
-            markerColor = "blue";
+            markerColor = "yellow";
         var marker = new google.maps.Marker({
             position: { lat: dataLat, lng: dataLng },
             map: map,
