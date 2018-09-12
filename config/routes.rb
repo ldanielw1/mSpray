@@ -32,7 +32,15 @@ Rails.application.routes.draw do
   get 'signout', to: 'sessions#destroy', as: 'signout'
   get 'signin', to: 'sessions#login', as: 'signin'
 
-  resource :dashboard, only: [:show]
+  resource :dashboard, only: [:show] do
+    get :add_future_spray_location, to: "dashboard#add_future_spray_location"
+    get :delete_future_spray_location, to: "dashboard#delete_future_spray_location"
+    get :edit_future_spray_location, to: "dashboard#edit_future_spray_location"
+
+    get :add_malaria_report, to: "dashboard#add_malaria_report"
+    get :delete_malaria_report, to: "dashboard#delete_malaria_report"
+    get :edit_malaria_report, to: "dashboard#edit_malaria_report"
+  end
 
   root to: "dashboard#show"
 end

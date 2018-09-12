@@ -1,0 +1,15 @@
+// FILTER DATA
+
+.filter-view {
+    color: #777;
+}
+.filter-view-button {
+    cursor: pointer;
+
+    &:hover {
+        color: black;
+    }
+    &:hover > strong {
+        text-decoration: underline;
+    }
+}

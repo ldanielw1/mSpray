@@ -25,30 +25,3 @@
     display: none;
   }
 }
-
-// Mobile Notice
-
-.noticeMobile {
-  background: lighten($primary-color, 25%);
-  border-radius: 100px;
-  color: $white;
-  display: none;
-  margin: 0 auto;
-  padding: $default-padding / 3 $default-padding;
-
-  &.noticeMobile-warning {
-    background: $danger-color;
-
-    a {
-      color: darken($danger-color, 30%);
-
-      &:hover {
-        color: darken($danger-color, 40%);
-      }
-    }
-  }
-
-  @media (max-width: 600px) {
-    display: inline-block;
-  }
-}

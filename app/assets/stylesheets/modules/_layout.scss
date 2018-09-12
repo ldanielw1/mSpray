@@ -182,3 +182,15 @@
 .l-text-align-center {
   text-align: center !important;
 }
+
+// Icon Spacing
+// -----------------
+
+.icon-right-spaced {
+  margin-right: $default-margin / 3;
+}
+
+.icon-center-spaced {
+  margin-left: $default-margin / 6;
+  margin-right: $default-margin / 6;
+}

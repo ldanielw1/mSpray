@@ -3,12 +3,12 @@
 
 <table class="table data-table">
   <tr class="highlight-row">
-    <% columns = [["Name", 20], ["E-Mail", 45], ["Admin?", 20], ["", 15]] %>
+    <% columns = [["Name", 20], ["E-Mail", 35], ["Admin?", 10], ["", 35]] %>
 
     <% columns.each do |column_name, width| %>
       <% sort = column_name.downcase.gsub(/[\?\-\ ]/, "") %>
       <th width="<%= width %>%">
-        <%= link_to site_permissions_admin_path(sort: sort, reverse: (sort.to_sym == @sort) ? !@reverse : false), class: "column-header", style: "color: black" do %>
+        <%= link_to site_permissions_admin_path(sort: sort, reverse: (sort.to_sym == @sort) ? !@reverse : false), class: "column-header" do %>
           <%= column_name %>
           <% if (@sort == sort.to_sym) %>
             <i class="fa fa-angle-<%= @reverse ? "up" : "down" %>" style="color: #aaa; vertical-align: middle;"></i>
@@ -28,14 +28,14 @@
         <% end %>
       </td>
       <td>
-        <button type="button" class="button button-small button-primary" data-toggle="modal" data-target="#editPermissions_<%= user.id %>">
-          <%= icon('fas', 'edit', class: 'strong') %>
-          Edit
-        </button>
-
-        <button type="button" class="button button-small button-danger" data-toggle="modal" data-target="#deletePermissions_<%= user.id %>">
+        <button type="button" class="button button-small button-danger admin-button" data-toggle="modal" data-target="#deletePermissions_<%= user.id %>">
           <%= icon('fas', 'trash', class: 'strong') %>
           Delete
+        </button>
+
+        <button type="button" class="button button-small button-primary admin-button" data-toggle="modal" data-target="#editPermissions_<%= user.id %>">
+          <%= icon('fas', 'edit', class: 'strong') %>
+          Edit
         </button>
 
         <div id="editPermissions_<%= user.id %>" class="modal fade" role="dialog">

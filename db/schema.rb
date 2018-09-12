@@ -10,42 +10,53 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170713004004) do
+ActiveRecord::Schema.define(version: 20180912220306) do
 
   create_table "allowed_emails", force: :cascade do |t|
-    t.string "email"
+    t.string "email", default: ""
+  end
+
+  create_table "future_spray_locations", force: :cascade do |t|
+    t.decimal "lat",      precision: 13, scale: 10, default: "0.0"
+    t.decimal "lng",      precision: 13, scale: 10, default: "0.0"
+    t.string  "reporter",                           default: ""
+  end
+
+  create_table "malaria_reports", force: :cascade do |t|
+    t.decimal "lat",         precision: 13, scale: 10, default: "0.0"
+    t.decimal "lng",         precision: 13, scale: 10, default: "0.0"
+    t.string  "report_time",                                           null: false
+    t.string  "reporter",                              default: ""
   end
 
   create_table "spray_data", force: :cascade do |t|
-    t.string  "imei",                                         default: ""
     t.string  "timestamp",                                    default: ""
-    t.decimal "lat",                precision: 13, scale: 10, default: "0.0"
-    t.decimal "lng",                precision: 13, scale: 10, default: "0.0"
-    t.integer "gps_accuracy",                                 default: 0
-    t.boolean "is_mopup_spray",                               default: false
+    t.string  "imei",                                         default: ""
     t.string  "foreman",                                      default: ""
     t.string  "sprayers"
     t.string  "chemical_used",                                default: ""
+    t.string  "stats"
     t.integer "unsprayed_rooms",                              default: 0
     t.integer "unsprayed_shelters",                           default: 0
-    t.string  "stats"
+    t.boolean "is_mopup_spray",                               default: false
+    t.decimal "lat",                precision: 13, scale: 10, default: "0.0"
+    t.decimal "lng",                precision: 13, scale: 10, default: "0.0"
+    t.integer "gps_accuracy",                                 default: 0
   end
 
   create_table "users", force: :cascade do |t|
-    t.string  "provider"
-    t.string  "uid"
-    t.string  "name"
-    t.string  "email"
-    t.string  "profile_img"
+    t.string  "name",        default: ""
+    t.string  "email",       default: ""
+    t.string  "profile_img", default: ""
     t.boolean "admin",       default: false
+    t.string  "provider",    default: ""
+    t.string  "uid",         default: ""
   end
 
   create_table "workers", force: :cascade do |t|
-    t.integer  "worker_id"
-    t.string   "name"
-    t.boolean  "active"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string  "worker_id", default: ""
+    t.string  "name",      default: ""
+    t.boolean "active",    default: true
   end
 
 end
