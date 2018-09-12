@@ -48,7 +48,7 @@
 }
 
 text {
-  &.text-shadow{
+  &.text-shadow {
     color: white;
     text-shadow:0 2px 30px #000000, 0 0px 5px #000000;
     font-size: 15px;
@@ -59,8 +59,8 @@ text {
     vertical-align: 8px;
   }
 
-  &:hover{
-  cursor: pointer
+  &:hover {
+    cursor: pointer
   }
 }
 
