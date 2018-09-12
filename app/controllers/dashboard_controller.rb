@@ -8,13 +8,13 @@ class DashboardController < ApplicationController
     end
 
     # Prep all FutureSprayLocation objects for displaying in map view.
-	future_spray_locations = FutureSprayLocation.all.map do |data|
+	  future_spray_locations = FutureSprayLocation.all.map do |data|
       attribute_hash = data.attributes
       ["lat", "lng"].each { |label| attribute_hash[label] = attribute_hash[label].to_f }
       attribute_hash
     end
 
-  malaria_reports = MalariaReport.all.map do |data|
+    malaria_reports = MalariaReport.all.map do |data|
       attribute_hash = data.attributes
       ["lat", "lng"].each { |label| attribute_hash[label] = attribute_hash[label].to_f }
       attribute_hash
@@ -26,7 +26,7 @@ class DashboardController < ApplicationController
   def add_future_spray_location
   	spray_location = FutureSprayLocation.new(lat: params[:lat], lng: params[:lng], reporter: params[:reporter])
   	spray_location.save!
-	redirect_back(fallback_location: dashboard_path)
+	  redirect_back(fallback_location: dashboard_path)
   end
 
   def delete_future_spray_location
@@ -36,9 +36,9 @@ class DashboardController < ApplicationController
   end
 
   def add_malaria_report
-  	spray_location = MalariaReport.new(lat: params[:lat], lng: params[:lng], report_time: params[:dateTime], reporter: params[:reporter])
-  	spray_location.save!
-	redirect_back(fallback_location: dashboard_path)
+    spray_location = MalariaReport.new(lat: params[:lat], lng: params[:lng], report_time: params[:dateTime], reporter: params[:reporter])
+    spray_location.save!
+    redirect_back(fallback_location: dashboard_path)
   end
 
   def delete_malaria_report

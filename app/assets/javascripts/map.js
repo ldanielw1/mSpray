@@ -44,7 +44,7 @@ function initMap() {
         } else if (markerType == "future_spray_locations") {
             contentString += "<h4>Future Spray Location</h4>";
             contentString += "<strong>Reporter: </strong>" + sd["reporter"] + "<br>";
-        }else if (markerType == "malaria_reports") {
+        } else if (markerType == "malaria_reports") {
             contentString += "<h4>Malaria Report Location</h4>";
             contentString += "<strong>Reporter: </strong>" + sd["reporter"] + "<br>";
             contentString += "<strong>Date: </strong>" + sd["report_time"] + "<br>";
@@ -98,7 +98,7 @@ function clickMap(e) {
         var target = "dashboard/add_future_spray_location";
         window.location.href = target + "?lat=" + lat + "&lng=" + lng + "&reporter=" + email;
     }
-    else if(mapMode==addMalariaReports) {
+    else if(mapMode == addMalariaReports) {
 
         // Send lat, lng, and user email to controller
         var target = "dashboard/add_malaria_report";
@@ -128,9 +128,9 @@ function toggleAddButton(e) {
 }
 
 function toggleMode(mode) {
-    if(mapMode == mode){
+    if (mapMode == mode){
         mapMode = defaultMode;
-    }else{
+    } else {
         mapMode = mode;
     }
 }
