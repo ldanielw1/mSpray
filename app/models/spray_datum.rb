@@ -5,6 +5,7 @@ class SprayDatum < ApplicationRecord
 
   # Add intialize, save, and delete hooks
   after_initialize { |new_sd| init_actions(new_sd) }
+  before_save { |new_sd| update_fields_for_changes(new_sd) }
 
   ##
   # Populate data fields for new SprayDatum object when initialized
@@ -21,6 +22,14 @@ class SprayDatum < ApplicationRecord
 
     # Make sure timestamp exists
     new_sd.timestamp ||= Time.current.to_s.split(" ")[0..1].join(" ")
+  end
+
+  ##
+  # Update fields before saving if they are dependent on other fields that have changed.
+  def update_fields_for_changes(sd)
+    if sd.stats_changed?
+      sd.sprayers = sd.stats.keys
+    end
   end
 
 end

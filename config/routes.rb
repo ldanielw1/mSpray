@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
   # Data routes
   resource :spray_data, only: [] do
+    post :edit
     post :delete
     get  :view
   end
