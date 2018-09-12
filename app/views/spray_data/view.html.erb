@@ -34,7 +34,7 @@
 
 <table class="table data-table">
   <tr class="highlight-row">
-    <% columns = [["Timestamp", 10], ["Foreman", 20], ["Sprayers", 25], ["Latitude", 15], ["Longitude", 15], ["", 15]] %>
+    <% columns = [["Timestamp", 10], ["Foreman", 15], ["Sprayers", 20], ["Latitude", 10], ["Longitude", 10], ["", 35]] %>
 
     <% columns.each do |column_name, width| %>
       <% sort = column_name.downcase.gsub(/[\?\-\ ]/, "") %>
@@ -125,13 +125,14 @@
       <td class="data_latitude"><%= data.lat %></td>
       <td class="data_longitude"><%= data.lng %></td>
       <td class="data_buttons">
-        <button type="button" class="button button-small button-primary edit_spray_datum" data-toggle="modal" data-target="#edit_data_<%= data.id %>">
-        <%= icon('fas', 'edit', class: 'strong') %>
-          Edit
-        </button>
-        <button type="button" class="button button-small button-danger delete_spray_datum" data-toggle="modal" data-target="#delete_<%= data.id %>">
+
+        <button type="button" class="button button-small button-danger delete_spray_datum admin-button" data-toggle="modal" data-target="#delete_<%= data.id %>">
           <%= icon('fas', 'trash', class: 'strong') %>
           Delete
+        </button>
+        <button type="button" class="button button-small button-primary edit_spray_datum admin-button" data-toggle="modal" data-target="#edit_data_<%= data.id %>">
+        <%= icon('fas', 'edit', class: 'strong') %>
+          Edit
         </button>
 
         <div id="edit_data_<%= data.id %>" class="modal fade edit_spray_datum_modal" role="dialog">
