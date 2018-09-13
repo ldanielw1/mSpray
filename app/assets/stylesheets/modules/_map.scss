@@ -69,7 +69,8 @@ text {
 
 .blue {
   background-color: #0288d1;
-  &:hover div, &.active{
+
+  &:hover div, &.active {
     background-color: #0277bd;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
   }
@@ -77,7 +78,12 @@ text {
 
 .toggle-add-future-locations {
   background-color: #ffbb33;
-  &:hover div, &.active{
+
+  &.button-overlay {
+    padding: 12px 15px;
+  }
+
+  &:hover div, &.active {
     background-color: #ce9524;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
   }
@@ -86,7 +92,12 @@ text {
 
 .toggle-add-malaria-report {
   background-color: #ff4444;
-  &:hover div, &.active{
+
+  &.button-overlay {
+    padding: 12px 11px;
+  }
+
+  &:hover div, &.active {
     background-color: #CC0000;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
   }
@@ -94,7 +105,8 @@ text {
 
 .green {
   background-color: #00C851;
-  &:hover div, &.active{
+
+  &:hover div, &.active {
     background-color: #007E33;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
   }
