@@ -78,9 +78,9 @@ function getRoute() {
  */
 $(document).on('turbolinks:load', function() {
     var closeNotice = setInterval(function() {
-    	if ($('.fadeIn').length == 0) {
-    		clearInterval(closeNotice);
-    	}
-    	$('.notice').removeClass('fadeIn').addClass('fadeOut');
+        if ($('.fadeIn').length == 0) {
+            clearInterval(closeNotice);
+        }
+        $('.notice').removeClass('fadeIn').addClass('fadeOut');
     }, 6000);
 });
