@@ -16,7 +16,7 @@
 
     <%= link_to root_path, class: "sidebar_item dashboard" do %>
       <li class="nav_item">
-        <%= icon('fas', 'map', class: 'strong') %>
+        <%= icon('fas', 'map') %>
         &nbsp;
         Dashboard
       </li>
@@ -24,7 +24,7 @@
 
     <%= link_to view_spray_data_path, class: "sidebar_item spray_data" do %>
       <li class="nav_item">
-        <%= icon('fas', 'chart-line', class: 'strong') %>
+        <%= icon('fas', 'chart-line') %>
         &nbsp;
         View Spray Data
       </li>
@@ -32,7 +32,7 @@
 
     <%= link_to view_workers_path, class: "sidebar_item workers" do %>
       <li class="nav_item">
-        <%= icon('fas', 'address-card', class: 'strong') %>
+        <%= icon('fas', 'address-card') %>
         &nbsp;
         View Worker Info
       </li>
@@ -41,7 +41,7 @@
     <% if current_user.admin? %>
       <%= link_to site_permissions_admin_path, class: "sidebar_item admin" do %>
         <li class="nav_item">
-          <%= icon('fas', 'cog', class: 'strong') %>
+          <%= icon('fas', 'cog') %>
           &nbsp;
           Site Admin
         </li>
@@ -50,7 +50,7 @@
 
     <%= link_to signout_path, class: "sidebar_item logout" do %>
       <li class="nav_item">
-        <%= icon('fas', 'sign-out-alt', class: 'strong') %>
+        <%= icon('fas', 'sign-out-alt') %>
         &nbsp;
         Sign out
       </li>
