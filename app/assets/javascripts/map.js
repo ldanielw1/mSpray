@@ -25,7 +25,7 @@ function initMap() {
         var sd = gon.data[markerType][i];
         var dataLat = sd["lat"];
         var dataLng = sd["lng"];
-    
+        
 
         var markerColor = "blue";
         if (markerType == "future_spray_locations")
@@ -44,6 +44,7 @@ function initMap() {
         } else if (markerType == "future_spray_locations") {
             contentString += "<h4>Future Spray Location</h4>";
             contentString += "<strong>Reporter: </strong>" + sd["reporter"] + "<br>";
+            contentString += "<strong>Date: </strong>" + sd["report_time"] + "<br>";
         } else if (markerType == "malaria_reports") {
             contentString += "<h4>Malaria Report Location</h4>";
             contentString += "<strong>Reporter: </strong>" + sd["reporter"] + "<br>";
@@ -91,20 +92,18 @@ function clickMap(e) {
     var email = $(".nav_email").html();
 
     var currentDate = new Date();
+    var yearMonthDay = currentDate.getFullYear() + "/" + currentDate.getMonth() + "/" + currentDate.getDate();
 
     if (mapMode == addFutureSprayLocations) {
 
         // Send lat, lng, and user email to controller
         var target = "dashboard/add_future_spray_location";
-        window.location.href = target + "?lat=" + lat + "&lng=" + lng + "&reporter=" + email;
+        window.location.href = target + "?lat=" + lat + "&lng=" + lng + "&reporter=" + email + "&dateTime=" + yearMonthDay;
     }
     else if(mapMode == addMalariaReports) {
 
         // Send lat, lng, and user email to controller
         var target = "dashboard/add_malaria_report";
-        
-        var yearMonthDay = currentDate.getFullYear() + "/" + currentDate.getMonth() + "/" + currentDate.getDate();
-
         window.location.href = target + "?lat=" + lat + "&lng=" + lng + "&reporter=" + email + "&dateTime=" + yearMonthDay;
     }
 }
