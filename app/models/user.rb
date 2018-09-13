@@ -14,7 +14,7 @@ class User < ApplicationRecord
 
     user.provider = auth["provider"]
     user.uid = auth["uid"]
-    user.name = name if user.name == nil
+    user.name = name if user.name == nil or user.name == ""
     user.email = auth["info"]["email"]
     user.save!
     return user
