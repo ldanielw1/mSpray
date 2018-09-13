@@ -1,5 +1,5 @@
 var defaultMode = "default";
-var addFutureSprayLocations = "add-future-spray-locations";
+var addFutureSprayLocations = "add-future-locations";
 var addMalariaReports = "add-malaria-reports"
 var mapMode = defaultMode;
 
@@ -114,15 +114,35 @@ function toggleAddButton(e) {
     mapMode = "default";
     mapButton = $("#map-add-button");
     mapText = mapButton.find(".fas");
-    chevron = "fa-arrow-circle-right";
+    arrow = "fa-arrow-circle-right";
     plus = "fa-plus";
 
     if (mapButton.html().toString().indexOf("fa-plus") > -1) {
-        mapText.addClass(chevron).removeClass(plus);
+        mapText.addClass(arrow).removeClass(plus);
     } else {
-        mapText.addClass(plus).removeClass(chevron);
+        mapText.addClass(plus).removeClass(arrow);
     }
 
+    setModeDefault()
+}
+
+/**
+ * takes in the mapMode, defined in this JS file
+ */
+
+function toggleSelectedButton(mode) {
+
+    var modeClass = ".toggle-" + mode;
+
+    toggleMode(mode);
+
+    if ($(modeClass).hasClass("active")) {
+        turnOffActiveFromAll();
+    }
+    else {
+        turnOffActiveFromAll();
+        $(modeClass + ".button-overlay").addClass("active");
+    }
 }
 
 function toggleMode(mode) {
@@ -130,16 +150,6 @@ function toggleMode(mode) {
         mapMode = defaultMode;
     } else {
         mapMode = mode;
-    }
-}
-
-function toggleSelectedButton(modeClass) {
-    if ($(modeClass).hasClass("active")) {
-        turnOffActiveFromAll();
-    }
-    else {
-        turnOffActiveFromAll();
-        $(modeClass + ".button-overlay").addClass("active");
     }
 }
 
@@ -171,9 +181,9 @@ function loadJSForInitMap() {
             });
         }
 
-        $("#map-add-button").click(function() { toggleAddButton(); setModeDefault();});
-        $(".toggle-add-future-locations").click(function() { toggleMode(addFutureSprayLocations); toggleSelectedButton(".toggle-add-future-locations"); });
-        $(".toggle-add-malaria-report").click(function() { toggleMode(addMalariaReports); toggleSelectedButton(".toggle-add-malaria-report");});
+        $("#map-add-button").click(function() { toggleAddButton() });
+        $(".toggle-add-future-locations").click(function() { toggleSelectedButton(addFutureSprayLocations) });
+        $(".toggle-add-malaria-reports").click(function() { toggleSelectedButton(addMalariaReports) });
     }
 }
 
