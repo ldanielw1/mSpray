@@ -134,10 +134,10 @@ function toggleMode(mode) {
 }
 
 function toggleSelectedButton(modeClass) {
-    if ($(modeClass).hasClass("active")){
+    if ($(modeClass).hasClass("active")) {
         turnOffActiveFromAll();
     }
-    else{
+    else {
         turnOffActiveFromAll();
         $(modeClass + ".button-overlay").addClass("active");
     }
