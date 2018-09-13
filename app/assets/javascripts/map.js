@@ -25,7 +25,7 @@ function initMap() {
         var sd = gon.data[markerType][i];
         var dataLat = sd["lat"];
         var dataLng = sd["lng"];
-    
+
 
         var markerColor = "blue";
         if (markerType == "future_spray_locations")
@@ -102,7 +102,7 @@ function clickMap(e) {
 
         // Send lat, lng, and user email to controller
         var target = "dashboard/add_malaria_report";
-        
+
         var yearMonthDay = currentDate.getFullYear() + "/" + currentDate.getMonth() + "/" + currentDate.getDate();
 
         window.location.href = target + "?lat=" + lat + "&lng=" + lng + "&reporter=" + email + "&dateTime=" + yearMonthDay;
