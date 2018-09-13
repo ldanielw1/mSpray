@@ -1,5 +1,5 @@
 var defaultMode = "default";
-var addFutureSprayLocations = "add-future-locations";
+var addFutureSprayLocations = "add-future-spray-locations";
 var addMalariaReports = "add-malaria-reports"
 var mapMode = defaultMode;
 
@@ -130,12 +130,11 @@ function toggleAddButton(e) {
 /**
  * takes in the mapMode, defined in this JS file
  */
-
 function toggleSelectedButton(mode) {
 
-    var modeClass = ".toggle-" + mode;
-
     toggleMode(mode);
+
+    var modeClass = ".toggle-" + mode;
 
     if ($(modeClass).hasClass("active")) {
         turnOffActiveFromAll();
@@ -183,7 +182,7 @@ function loadJSForInitMap() {
         }
 
         $("#map-add-button").click(function() { toggleAddButton() });
-        $(".toggle-add-future-locations").click(function() { toggleSelectedButton(addFutureSprayLocations) });
+        $(".toggle-add-future-spray-locations").click(function() { toggleSelectedButton(addFutureSprayLocations) });
         $(".toggle-add-malaria-reports").click(function() { toggleSelectedButton(addMalariaReports) });
     }
 }
