@@ -130,18 +130,12 @@ function toggleAddButton(e) {
  * takes in the mapMode, defined in this JS file
  */
 function toggleSelectedButton(mode) {
-
     toggleMode(mode);
 
     var modeClass = ".toggle-" + mode;
-
-    if ($(modeClass).hasClass("active")) {
-        turnOffActiveFromAll();
-    }
-    else {
-        turnOffActiveFromAll();
+    turnOffActiveFromAll();
+    if (!$(modeClass).hasClass("active"))
         $(modeClass + ".button-overlay").addClass("active");
-    }
 }
 
 function toggleMode(mode) {
