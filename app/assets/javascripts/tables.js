@@ -21,16 +21,16 @@ function handleClosingSprayDatumModal(e, mode) {
 function loadJSForDeletingSprayData() {
     url = getRoute();
     if (url == "spray_data/view") {
-        $(".edit_spray_datum").click(function (e) {
+        $(".edit_spray_datum").click(function(e) {
             handleOpeningSprayDatumModal(this, e, "edit");
         });
-        $(".edit_spray_datum_modal").click(function (e) {
+        $(".edit_spray_datum_modal").click(function(e) {
             handleClosingSprayDatumModal(e, "edit");
         });
-        $(".delete_spray_datum").click(function (e) {
+        $(".delete_spray_datum").click(function(e) {
             handleOpeningSprayDatumModal(this, e, "delete");
         });
-        $(".delete_spray_datum_modal").click(function (e) {
+        $(".delete_spray_datum_modal").click(function(e) {
             handleClosingSprayDatumModal(e, "delete");
         });
     }

@@ -29,7 +29,7 @@ function initMap() {
         var markerColor = "blue";
         if (markerType == "future_spray_locations")
             markerColor = "yellow";
-        else if(markerType == "malaria_reports")
+        else if (markerType == "malaria_reports")
             markerColor = "red";
         var marker = new google.maps.Marker({
             position: { lat: dataLat, lng: dataLng },
@@ -65,20 +65,20 @@ function initMap() {
     var futureMarkers = new Array();
     var malariaReportMarkers = new Array();
 
-    for(var i = 0; i < gon.data["spray_data"].length; i++)
+    for (var i = 0; i < gon.data["spray_data"].length; i++)
         dataMarkers.push(createMarker("spray_data"));
-    for(var i = 0; i < gon.data["future_spray_locations"].length; i++)
+    for (var i = 0; i < gon.data["future_spray_locations"].length; i++)
         futureMarkers.push(createMarker("future_spray_locations"));
-    for(var i = 0; i < gon.data["malaria_reports"].length; i++)
+    for (var i = 0; i < gon.data["malaria_reports"].length; i++)
         malariaReportMarkers.push(createMarker("malaria_reports"));
 
     // Add clustering for markers.
-    var markerCluster = new MarkerClusterer(map, dataMarkers, {imagePath: "../assets/m"});
-    var markerCluster = new MarkerClusterer(map, futureMarkers, {imagePath: "../assets/m"});
-    var markerCluster = new MarkerClusterer(map, malariaReportMarkers, {imagePath: "../assets/m"});
+    var markerCluster = new MarkerClusterer(map, dataMarkers, { imagePath: "../assets/m" });
+    var markerCluster = new MarkerClusterer(map, futureMarkers, { imagePath: "../assets/m" });
+    var markerCluster = new MarkerClusterer(map, malariaReportMarkers, { imagePath: "../assets/m" });
 
     // Add the on-click listener
-    google.maps.event.addListener(map, "click", function (e) { clickMap(e); });
+    google.maps.event.addListener(map, "click", function(e) { clickMap(e); });
 }
 
 /**
@@ -99,7 +99,7 @@ function clickMap(e) {
         var target = "dashboard/add_future_spray_location";
         window.location.href = target + "?lat=" + lat + "&lng=" + lng + "&reporter=" + email + "&dateTime=" + yearMonthDay;
     }
-    else if(mapMode == addMalariaReports) {
+    else if (mapMode == addMalariaReports) {
 
         // Send lat, lng, and user email to controller
         var target = "dashboard/add_malaria_report";
@@ -126,7 +126,7 @@ function toggleAddButton(e) {
 }
 
 function toggleMode(mode) {
-    if (mapMode == mode){
+    if (mapMode == mode) {
         mapMode = defaultMode;
     } else {
         mapMode = mode;
