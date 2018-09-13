@@ -14,6 +14,16 @@ end
 def get_spray_data(ws, cols, row_num)
   timestamp = timestamp_to_str(get_timestamp(ws[row_num, cols['timeStamp']]))
 
+  # Organize stats in ruby format
+  stats = Hash.new
+  JSON.parse(ws[row_num, cols['stats']]).each do |sprayer, s_stats|
+    stats[sprayer] = Hash.new
+    stats[sprayer][:rooms_sprayed] = s_stats["roomsSprayed"]
+    stats[sprayer][:shelters_sprayed] = s_stats["sheltersSprayed"]
+    stats[sprayer][:refilled] = s_stats["refilled"]
+  end
+
+  # Organize attrs as params
   params = Hash.new
   params[:timestamp]          = timestamp
   params[:imei]               = ws[row_num, cols['imei']]
@@ -25,7 +35,7 @@ def get_spray_data(ws, cols, row_num)
   params[:chemical_used]      = ws[row_num, cols['chemicalUsed']]
   params[:unsprayed_rooms]    = ws[row_num, cols['unsprayedRooms']].to_i
   params[:unsprayed_shelters] = ws[row_num, cols['unsprayedShelters']].to_i
-  params[:stats]              = JSON.parse(ws[row_num, cols['stats']])
+  params[:stats]              = stats
 
   return params
 end
