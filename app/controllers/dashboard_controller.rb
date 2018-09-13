@@ -24,7 +24,7 @@ class DashboardController < ApplicationController
   end
 
   def add_future_spray_location
-    spray_location = FutureSprayLocation.new(lat: params[:lat], lng: params[:lng], reporter: params[:reporter])
+    spray_location = FutureSprayLocation.new(lat: params[:lat], lng: params[:lng], report_time: params[:dateTime], reporter: params[:reporter])
     spray_location.save!
     redirect_back(fallback_location: dashboard_path)
   end
