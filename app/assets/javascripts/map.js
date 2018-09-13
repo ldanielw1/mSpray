@@ -114,15 +114,35 @@ function toggleAddButton(e) {
     mapMode = "default";
     mapButton = $("#map-add-button");
     mapText = mapButton.find(".fas");
-    chevron = "fa-arrow-circle-right";
+    arrow = "fa-arrow-circle-right";
     plus = "fa-plus";
 
     if (mapButton.html().toString().indexOf("fa-plus") > -1) {
-        mapText.addClass(chevron).removeClass(plus);
+        mapText.addClass(arrow).removeClass(plus);
     } else {
-        mapText.addClass(plus).removeClass(chevron);
+        mapText.addClass(plus).removeClass(arrow);
     }
 
+    setModeDefault()
+
+}
+
+/**
+ * takes in the mapMode, defined in this JS file
+ */
+function toggleSelectedButton(mode) {
+
+    toggleMode(mode);
+
+    var modeClass = ".toggle-" + mode;
+
+    if ($(modeClass).hasClass("active")) {
+        turnOffActiveFromAll();
+    }
+    else {
+        turnOffActiveFromAll();
+        $(modeClass + ".button-overlay").addClass("active");
+    }
 }
 
 function toggleMode(mode) {
@@ -131,6 +151,15 @@ function toggleMode(mode) {
     } else {
         mapMode = mode;
     }
+}
+
+function turnOffActiveFromAll() {
+    $(".menu-option").removeClass("active");
+}
+
+function setModeDefault() {
+    turnOffActiveFromAll();
+    mapMode = defaultMode;
 }
 
 function toggleMapPointer() {
@@ -153,8 +182,8 @@ function loadJSForInitMap() {
         }
 
         $("#map-add-button").click(function() { toggleAddButton() });
-        $(".toggle-add-future-locations").click(function() { toggleMode(addFutureSprayLocations); });
-        $(".toggle-add-malaria-report").click(function() { toggleMode(addMalariaReports); });
+        $(".toggle-add-future-spray-locations").click(function() { toggleSelectedButton(addFutureSprayLocations) });
+        $(".toggle-add-malaria-reports").click(function() { toggleSelectedButton(addMalariaReports) });
     }
 }
 
