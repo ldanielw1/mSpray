@@ -43,8 +43,8 @@ git push heroku HEAD
 
 ## Authors
 
-* Lemuel Daniel Wu - Project lead and main developer
-* Jermaine Zhang, Kevin Wong - Project developers
+* Lemuel Daniel Wu (BS) - Project lead and main developer
+* Jermaine Zhang (BS), Kevin Wong - Project developers
 
 ## Acknowledgments
 
