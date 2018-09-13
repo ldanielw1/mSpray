@@ -25,7 +25,6 @@ function initMap() {
         var sd = gon.data[markerType][i];
         var dataLat = sd["lat"];
         var dataLng = sd["lng"];
-        
 
         var markerColor = "blue";
         if (markerType == "future_spray_locations")
