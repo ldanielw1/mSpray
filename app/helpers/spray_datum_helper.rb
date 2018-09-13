@@ -19,6 +19,7 @@ module SprayDatumHelper
       stats[sprayer][:shelters_sprayed] = s_stats["sheltersSprayed"]
       stats[sprayer][:refilled] = s_stats["refilled"]
     end
+
     sd.stats = stats
     sd.save
 
