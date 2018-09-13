@@ -36,7 +36,7 @@ class SprayDataController < ApplicationController
     spray_datum.save!
 
     redirect_back(fallback_location: view_spray_data_path)
-    
+
   end
 
   ##
