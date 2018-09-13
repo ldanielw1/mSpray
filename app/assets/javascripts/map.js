@@ -133,6 +133,25 @@ function toggleMode(mode) {
     }
 }
 
+function toggleSelectedButton(modeClass) {
+    if ($(modeClass).hasClass("active")){
+        turnOffActiveFromAll();
+    }
+    else{
+        turnOffActiveFromAll();
+        $(modeClass + ".button-overlay").addClass("active");
+    }
+}
+
+function turnOffActiveFromAll() {
+    $(".menu-option").removeClass("active");
+}
+
+function setModeDefault() {
+    turnOffActiveFromAll();
+    mapMode = defaultMode;
+}
+
 function toggleMapPointer() {
     $("#map").attr("style", "cursor: pointer");
 }
@@ -152,9 +171,9 @@ function loadJSForInitMap() {
             });
         }
 
-        $("#map-add-button").click(function() { toggleAddButton() });
-        $(".toggle-add-future-locations").click(function() { toggleMode(addFutureSprayLocations); });
-        $(".toggle-add-malaria-report").click(function() { toggleMode(addMalariaReports); });
+        $("#map-add-button").click(function() { toggleAddButton(); setModeDefault();});
+        $(".toggle-add-future-locations").click(function() { toggleMode(addFutureSprayLocations); toggleSelectedButton(".toggle-add-future-locations"); });
+        $(".toggle-add-malaria-report").click(function() { toggleMode(addMalariaReports); toggleSelectedButton(".toggle-add-malaria-report");});
     }
 }
 
