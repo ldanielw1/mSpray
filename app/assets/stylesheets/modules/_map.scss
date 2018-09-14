@@ -25,7 +25,6 @@
 
   color: #fff;
   background-color: #db4437;
-  overflow:hidden;
   text-align:center;
 
   &.menu-option {
@@ -69,18 +68,49 @@ text {
 .toggle-add-future-spray-locations {
   background-color: #ffbb33;
   box-shadow: 0 10px 12px 0 rgba(0,0,0,0.2);
-  margin-right: 90px;
+  margin-right: 74px;
 
   &.button-overlay {
     padding: 12px 15px;
   }
 
-  &:hover div, &.active {
+  &:hover, &.active {
     background-color: #ce9524;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
   }
-}
 
+  &:hover .f-tooltiptext {
+    visibility: visible;
+  }
+
+  .f-tooltiptext {
+    visibility: hidden;
+    width: 213px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1000;
+    
+    font-size: 15px;
+  
+    bottom: 84%;
+    left: -96%;
+    margin-left: -27px;
+  
+    &::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: black transparent transparent transparent;
+    } 
+  }
+}
 
 .toggle-add-malaria-reports {
   background-color: #db4437;
@@ -91,9 +121,41 @@ text {
     padding: 12px 11px;
   }
 
-  &:hover div, &.active {
+  &:hover, &.active {
     background-color: rgb(163, 4, 4);
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  }
+
+  &:hover .m-tooltiptext {
+    visibility: visible;
+  }
+
+  .m-tooltiptext {
+    visibility: hidden;
+    width: 200px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1000;
+    
+    font-size: 15px;
+  
+    bottom: 84%;
+    left: -87%;
+    margin-left: -27px;
+  
+    &::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: black transparent transparent transparent;
+    } 
   }
 }
 
@@ -144,7 +206,7 @@ text {
 
 #map-add-button {
   float: right;
-  z-index: 999;
+  z-index: 888;
 
   padding: 12px 17px;
   width: 75px;

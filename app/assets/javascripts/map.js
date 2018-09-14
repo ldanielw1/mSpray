@@ -183,3 +183,5 @@ function loadJSForInitMap() {
 }
 
 $(document).on('turbolinks:load', loadJSForInitMap);
+
+
