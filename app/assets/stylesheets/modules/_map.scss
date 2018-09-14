@@ -25,12 +25,9 @@
 
   color: #fff;
   background-color: #db4437;
-  overflow:hidden;
   text-align:center;
 
   &.menu-option {
-    margin: 0 8px 0 0;
-
     font-size: 28px;
     vertical-align: 4px;
   }
@@ -39,24 +36,6 @@
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
   }
 
-}
-
-text {
-  &.text-shadow {
-    color: white;
-    background-color: transparent;
-    text-shadow:0 2px 30px #000000, 0 0px 5px #000000;
-    font-size: 15px;
-    font-weight: bold;
-  }
-
-  &.menu-option {
-    vertical-align: 8px;
-  }
-
-  &:hover {
-    cursor: pointer
-  }
 }
 
 .blue {
@@ -71,28 +50,28 @@ text {
 .toggle-add-future-spray-locations {
   background-color: #ffbb33;
   box-shadow: 0 10px 12px 0 rgba(0,0,0,0.2);
+  margin-right: 74px;
 
   &.button-overlay {
     padding: 12px 15px;
   }
 
-  &:hover div, &.active {
+  &:hover, &.active {
     background-color: #ce9524;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
   }
 }
 
-
 .toggle-add-malaria-reports {
   background-color: #db4437;
   box-shadow: 0 10px 12px 0 rgba(0,0,0,0.2);
-
+  margin-right: 10px;
 
   &.button-overlay {
     padding: 12px 11px;
   }
 
-  &:hover div, &.active {
+  &:hover, &.active {
     background-color: rgb(163, 4, 4);
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
   }
