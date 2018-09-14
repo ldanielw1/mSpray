@@ -37,11 +37,13 @@
 .toggle-add-future-spray-locations {
   &:hover .f-tooltiptext {
     visibility: visible;
+    transition-delay:0.5s;
   }
 }
 
 .toggle-add-malaria-reports {
   &:hover .m-tooltiptext {
     visibility: visible;
+    transition-delay:0.5s;
   }
 }
