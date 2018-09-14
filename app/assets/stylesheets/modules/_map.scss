@@ -29,8 +29,6 @@
   text-align:center;
 
   &.menu-option {
-    margin: 0 8px 0 0;
-
     font-size: 28px;
     vertical-align: 4px;
   }
@@ -71,6 +69,7 @@ text {
 .toggle-add-future-spray-locations {
   background-color: #ffbb33;
   box-shadow: 0 10px 12px 0 rgba(0,0,0,0.2);
+  margin-right: 90px;
 
   &.button-overlay {
     padding: 12px 15px;
@@ -86,7 +85,7 @@ text {
 .toggle-add-malaria-reports {
   background-color: #db4437;
   box-shadow: 0 10px 12px 0 rgba(0,0,0,0.2);
-
+  margin-right: 10px;
 
   &.button-overlay {
     padding: 12px 11px;
