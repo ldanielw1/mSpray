@@ -100,10 +100,12 @@
 
   &.collapsing {
     position: relative;
-    overflow: hidden;
 
-    height: 0;
+    height: auto;
     vertical-align: -12px;
+    
+    margin-right: -60px;
+    padding-right: 0px;
 
     transition-timing-function: ease;
     transition-duration: .35s;
@@ -116,10 +118,6 @@
     }
   }
 
-}
-
-.toggle-add-future-locations-label {
-  margin-right: 90px;
 }
 
 #map-add-button {
