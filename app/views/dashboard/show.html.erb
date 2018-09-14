@@ -1,4 +1,5 @@
 <%= Gon::Base.render_data %>
+
 <div class="overlay">
   <div id="map-add-button" style= "inline-block" class="button-overlay xlarge red" data-toggle="collapse" data-target="#collapse-add-options">
     <%= icon('fas', 'plus') %>
@@ -6,15 +7,15 @@
 
   <div id="collapse-add-options" class="collapse width" style="width: 0px">
 
-  <!-- <div class="toggle-add-malaria-reports button-overlay menu-option tooltip">
-        <%= icon('fas', 'bullhorn') %>
+    <div class="toggle-add-malaria-reports button-overlay menu-option">
+      <p class="m-tooltiptext">Report Malaria Outbreak</p>
+      <%= icon('fas', 'bullhorn') %>
     </div>
-    <text class="toggle-add-malaria-reports text-shadow menu-option">REPORT MALARIA OUTBREAK</text> -->
 
-    <div class="toggle-add-future-spray-locations button-overlay menu-option tooltip">
-        <%= icon('fas', 'calendar-plus') %>
+    <div class="toggle-add-future-spray-locations button-overlay menu-option">
+      <p class="f-tooltiptext">Add Future Spray Location</p>
+      <%= icon('fas', 'calendar-plus') %>
     </div>
-    <!-- <text class="toggle-add-future-spray-locations toggle-add-future-locations-label text-shadow menu-option">ADD FUTURE SPRAY LOCATION</text> -->
   </div>
   
 </div>
