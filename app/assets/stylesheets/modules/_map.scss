@@ -38,24 +38,6 @@
 
 }
 
-text {
-  &.text-shadow {
-    color: white;
-    background-color: transparent;
-    text-shadow:0 2px 30px #000000, 0 0px 5px #000000;
-    font-size: 15px;
-    font-weight: bold;
-  }
-
-  &.menu-option {
-    vertical-align: 8px;
-  }
-
-  &:hover {
-    cursor: pointer
-  }
-}
-
 .blue {
   background-color: #0288d1;
 
@@ -78,38 +60,6 @@ text {
     background-color: #ce9524;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
   }
-
-  &:hover .f-tooltiptext {
-    visibility: visible;
-  }
-
-  .f-tooltiptext {
-    visibility: hidden;
-    width: 213px;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    padding: 5px 0;
-    position: absolute;
-    z-index: 1000;
-    
-    font-size: 15px;
-  
-    bottom: 84%;
-    left: -96%;
-    margin-left: -27px;
-  
-    &::after {
-      content: "";
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      margin-left: -5px;
-      border-width: 5px;
-      border-style: solid;
-      border-color: black transparent transparent transparent;
-    } 
-  }
 }
 
 .toggle-add-malaria-reports {
@@ -124,38 +74,6 @@ text {
   &:hover, &.active {
     background-color: rgb(163, 4, 4);
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-  }
-
-  &:hover .m-tooltiptext {
-    visibility: visible;
-  }
-
-  .m-tooltiptext {
-    visibility: hidden;
-    width: 200px;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    padding: 5px 0;
-    position: absolute;
-    z-index: 1000;
-    
-    font-size: 15px;
-  
-    bottom: 84%;
-    left: -87%;
-    margin-left: -27px;
-  
-    &::after {
-      content: "";
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      margin-left: -5px;
-      border-width: 5px;
-      border-style: solid;
-      border-color: black transparent transparent transparent;
-    } 
   }
 }
 
