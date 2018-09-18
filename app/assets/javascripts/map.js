@@ -2,7 +2,6 @@ var defaultMode = "default";
 var addFutureSprayLocations = "add-future-spray-locations";
 var addMalariaReports = "add-malaria-reports"
 var mapMode = defaultMode;
-var showOptions = false;
 
 function initMap() {
     // Create the new map.
@@ -105,8 +104,10 @@ function clickMap(e) {
         var target = "dashboard/add_malaria_report";
         window.location.href = target + "?lat=" + lat + "&lng=" + lng + "&reporter=" + email + "&dateTime=" + yearMonthDay;
     } else {
-        if (showOptions)
-            $("#map-add-button").click();
+        if (!$(e.target).closest("#map-add-button, #collapse-add-options").length) {
+            if ($("#collapse-add-options").is(":visible"))
+                $("#map-add-button").click();
+        }
     }
 }
 
@@ -126,7 +127,6 @@ function toggleAddButton(e) {
         mapText.addClass(plus).removeClass(arrow);
     }
 
-    showOptions = !showOptions;
     setModeDefault()
 }
 
