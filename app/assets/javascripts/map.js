@@ -3,8 +3,6 @@ var addFutureSprayLocations = "add-future-spray-locations";
 var addMalariaReports = "add-malaria-reports"
 var mapMode = defaultMode;
 
-var defaultDragCursor = 'url("https://maps.gstatic.com/mapfiles/openhand_8_8.cur"), default';
-
 function initMap() {
     // Create the new map.
     var mapSettings = {
@@ -115,8 +113,10 @@ function clickMap(e) {
 }
 
 function hoverMap(map) {
+    var defaultDragCursor = 'url("https://maps.gstatic.com/mapfiles/openhand_8_8.cur"), default';
+    var markerColor;
+
     if(mapMode != defaultMode) { 
-        var markerColor;
         if (mapMode == addFutureSprayLocations) {
             markerColor = "yellow";
         } else if (mapMode == addMalariaReports) {
