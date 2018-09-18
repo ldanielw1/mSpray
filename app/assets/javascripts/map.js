@@ -3,6 +3,8 @@ var addFutureSprayLocations = "add-future-spray-locations";
 var addMalariaReports = "add-malaria-reports"
 var mapMode = defaultMode;
 
+var defaultDragCursor = 'url("https://maps.gstatic.com/mapfiles/openhand_8_8.cur"), default';
+
 function initMap() {
     // Create the new map.
     var mapSettings = {
@@ -77,8 +79,9 @@ function initMap() {
     var markerCluster = new MarkerClusterer(map, futureMarkers, { imagePath: "../assets/m" });
     var markerCluster = new MarkerClusterer(map, malariaReportMarkers, { imagePath: "../assets/m" });
 
-    // Add the on-click listener
+    // Add the on-click and mouseover listeners
     google.maps.event.addListener(map, "click", function(e) { clickMap(e); });
+    google.maps.event.addListener(map, "mouseover", function(e) { hoverMap(map) })
 }
 
 /**
@@ -109,6 +112,24 @@ function clickMap(e) {
                 $("#map-add-button").click();
         }
     }
+}
+
+function hoverMap(map) {
+    if(mapMode != defaultMode) { 
+        var markerColor;
+        if (mapMode == addFutureSprayLocations) {
+            markerColor = "yellow";
+        } else if (mapMode == addMalariaReports) {
+            markerColor = "red";
+        }
+        map.setOptions({draggableCursor: markerCursor(markerColor)});
+    } else {
+        map.setOptions({draggableCursor: defaultDragCursor});
+    }
+}
+
+function markerCursor(markerColor) {
+    return "url(../assets/marker_" + markerColor + ".png) 13.5 43, default"
 }
 
 /**
