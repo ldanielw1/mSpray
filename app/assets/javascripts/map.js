@@ -116,7 +116,7 @@ function hoverMap(map) {
     var defaultDragCursor = 'url("https://maps.gstatic.com/mapfiles/openhand_8_8.cur"), default';
     var markerColor;
 
-    if(mapMode != defaultMode) { 
+    if (mapMode != defaultMode) { 
         if (mapMode == addFutureSprayLocations) {
             markerColor = "yellow";
         } else if (mapMode == addMalariaReports) {
