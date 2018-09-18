@@ -98,12 +98,16 @@ function clickMap(e) {
         // Send lat, lng, and user email to controller
         var target = "dashboard/add_future_spray_location";
         window.location.href = target + "?lat=" + lat + "&lng=" + lng + "&reporter=" + email + "&dateTime=" + yearMonthDay;
-    }
-    else if (mapMode == addMalariaReports) {
+    } else if (mapMode == addMalariaReports) {
 
         // Send lat, lng, and user email to controller
         var target = "dashboard/add_malaria_report";
         window.location.href = target + "?lat=" + lat + "&lng=" + lng + "&reporter=" + email + "&dateTime=" + yearMonthDay;
+    } else {
+        if (!$(e.target).closest("#map-add-button, #collapse-add-options").length) {
+            if ($("#collapse-add-options").is(":visible"))
+                $("#map-add-button").click();
+        }
     }
 }
 
