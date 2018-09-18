@@ -4,9 +4,16 @@ Malaria is a serious problem, but cheap solutions like spraying homes and reside
 
 ## Getting Started
 
-Once code is all checked, developers need to install all of the Ruby dependencies to run the application (see installing Ruby if you don't have Ruby installed).
+Once code is all checked out, developers need to install PostGres (PG), the DB for development environments. If developers are on a mac, they can install PG by following the instructions at this URL:
+```
+https://postgresapp.com/
+```
+If developers are on a Ubuntu machine, they can just run this command:
+```
+sudo apt-get install libpq-dev
+```
 
-To install Ruby 2.3.0 after installing RVM:
+After installing PG, developers need to install Ruby 2.3.0. Here's how to do it with RVM, if it is available:
 ```
 rvm install 2.3.0
 rvm use 2.3.0 --default
