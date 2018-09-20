@@ -10,26 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180913181351) do
+ActiveRecord::Schema.define(version: 20170713004004) do
 
   create_table "allowed_emails", force: :cascade do |t|
     t.string "email", default: ""
   end
 
   create_table "future_spray_locations", force: :cascade do |t|
+    t.string "report_date", default: ""
+    t.string "reporter",    default: ""
     t.float  "lat",         default: 0.0
     t.float  "lng",         default: 0.0
-    t.string "reporter",    default: ""
-    t.string "report_time", default: ""
-    t.index ["lat", "lng"], name: "index_future_spray_locations_on_lat_and_lng"
   end
 
   create_table "malaria_reports", force: :cascade do |t|
+    t.string "report_date", default: ""
+    t.string "reporter",    default: ""
     t.float  "lat",         default: 0.0
     t.float  "lng",         default: 0.0
-    t.string "report_time", default: ""
-    t.string "reporter",    default: ""
-    t.index ["lat", "lng"], name: "index_malaria_reports_on_lat_and_lng"
   end
 
   create_table "spray_data", force: :cascade do |t|

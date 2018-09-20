@@ -26,14 +26,14 @@ class InitialSetup < ActiveRecord::Migration[5.0]
     end
 
     create_table :malaria_reports do |t|
-      t.string   :report_time,                     :default => ""
+      t.string   :report_date,                     :default => ""
       t.string   :reporter,                        :default => ""
       t.float    :lat,                             :default => 0.0
       t.float    :lng,                             :default => 0.0
     end
 
     create_table :future_spray_locations do |t|
-      t.string   :report_time,                     :default => ""
+      t.string   :report_date,                     :default => ""
       t.string   :reporter,                        :default => ""
       t.float    :lat,                             :default => 0.0
       t.float    :lng,                             :default => 0.0
