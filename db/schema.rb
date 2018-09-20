@@ -17,34 +17,34 @@ ActiveRecord::Schema.define(version: 20180913181351) do
   end
 
   create_table "future_spray_locations", force: :cascade do |t|
-    t.decimal "lat",         precision: 13, scale: 10, default: "0.0"
-    t.decimal "lng",         precision: 13, scale: 10, default: "0.0"
-    t.string  "reporter",                              default: ""
-    t.string  "report_time",                           default: ""
+    t.float  "lat",         default: 0.0
+    t.float  "lng",         default: 0.0
+    t.string "reporter",    default: ""
+    t.string "report_time", default: ""
     t.index ["lat", "lng"], name: "index_future_spray_locations_on_lat_and_lng"
   end
 
   create_table "malaria_reports", force: :cascade do |t|
-    t.decimal "lat",         precision: 13, scale: 10, default: "0.0"
-    t.decimal "lng",         precision: 13, scale: 10, default: "0.0"
-    t.string  "report_time",                           default: ""
-    t.string  "reporter",                              default: ""
+    t.float  "lat",         default: 0.0
+    t.float  "lng",         default: 0.0
+    t.string "report_time", default: ""
+    t.string "reporter",    default: ""
     t.index ["lat", "lng"], name: "index_malaria_reports_on_lat_and_lng"
   end
 
   create_table "spray_data", force: :cascade do |t|
-    t.string  "timestamp",                                    default: ""
-    t.string  "imei",                                         default: ""
-    t.string  "foreman",                                      default: ""
+    t.string  "timestamp",          default: ""
+    t.string  "imei",               default: ""
+    t.string  "foreman",            default: ""
     t.string  "sprayers"
-    t.string  "chemical_used",                                default: ""
+    t.string  "chemical_used",      default: ""
     t.string  "stats"
-    t.integer "unsprayed_rooms",                              default: 0
-    t.integer "unsprayed_shelters",                           default: 0
-    t.boolean "is_mopup_spray",                               default: false
-    t.decimal "lat",                precision: 13, scale: 10, default: "0.0"
-    t.decimal "lng",                precision: 13, scale: 10, default: "0.0"
-    t.integer "gps_accuracy",                                 default: 0
+    t.integer "unsprayed_rooms",    default: 0
+    t.integer "unsprayed_shelters", default: 0
+    t.boolean "is_mopup_spray",     default: false
+    t.float   "lat",                default: 0.0
+    t.float   "lng",                default: 0.0
+    t.integer "gps_accuracy",       default: 0
   end
 
   create_table "users", force: :cascade do |t|
