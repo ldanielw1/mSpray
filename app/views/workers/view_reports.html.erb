@@ -1,0 +1,68 @@
+<h1>Reports for Worker: <%= @worker.name %> (ID: <%= @worker.worker_id %>)</h1>
+
+<!-- <h4> <%= @spray_datum %> </h4> -->
+
+</br>
+
+<% if @spray_datum.length == 0 %>
+  <h3>This worker has no available reports</h3>
+
+<% elsif @spray_datum.length >= 1 %>
+  <table class="table data-table">
+    <tr class="highlight-row">
+      <% columns = [["Date", 60], ["Forms", 40]] %>
+
+      <% columns.each do |column_name, width| %>
+        <% sort = column_name.downcase.gsub(/[\?\-\ ]/, "") %>
+        <% sort = "timestamp" if sort == "date" %>
+        <% sort = "sprayer_2_id" if sort == "sprayer2" %>
+        <% sort = "lat" if sort == "latitude" %>
+        <% sort = "lng" if sort == "longitude" %>
+
+        <th width="<%= width %>%">
+          <%= link_to view_workers_path(sort: sort, reverse: (sort.to_sym == @sort) ? !@reverse : false), class: "column-header" do %>
+            <%= column_name %>
+            <% if (@sort == sort.to_sym) %>
+              <i class="fa fa-angle-<%= @reverse ? "up" : "down" %>" style="color: #aaa; vertical-align: middle;"></i>
+            <% end %>
+          <% end %>
+        </th>
+      <% end %>
+    </tr>
+
+    <% @spray_datum.each do |first_of_week, week_spray_data| %>
+      <tr class="data-row">
+          <td>
+            <h6>Week <%= first_of_week.cweek %></h6>
+            </br>
+            <% week_begin = first_of_week - first_of_week.wday%>
+            <% week_end = first_of_week + (6 - first_of_week.wday)%>
+            <%= "#{week_begin.month}/#{week_begin.day}/#{week_begin.year}" %> - <%= "#{week_end.month}/#{week_end.day}/#{week_end.year}" %>
+          </td>
+          <td>
+            <%= link_to view_reports_workers_path(:worker_id => @worker.id), class: "button button-small button-primary" do %>
+              <%= icon('fas', 'file-image') %>
+              SP3
+            <% end %>
+          </td>
+      </tr>
+
+      <% week_spray_data.each do |date, spray_data| %>
+        <tr class="data-row">
+          <td><%= date %></td>
+          <td>
+            <%= link_to view_reports_workers_path(:worker_id => @worker.id), class: "button button-small button-primary" do %>
+              <%= icon('fas', 'file-image') %>
+              SP1
+            <% end %>
+            <%= link_to view_reports_workers_path(:worker_id => @worker.id), class: "button button-small button-primary" do %>
+              <%= icon('fas', 'file-image') %>
+              SP2
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+
+    <% end %>
+  </table>
+<% end %>
