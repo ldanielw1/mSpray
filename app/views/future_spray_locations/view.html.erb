@@ -1,0 +1,126 @@
+<h1>View Future Spray Locations (for Planning)</h1>
+<br>
+
+<div class="course-subtitle">
+  <div id="collapse-filter" class="collapse" style="clear: both">
+    <%= form_for("#", html: {class: 'form-horizontal l-v-top-spaced', style: 'width: 100%; margin: 0px'}, method: :get) do |f| %>
+      <% [["Report Date", "Reporter"], ["Latitude", "Longitude"]].each do |row_labels| %>
+        <% row_labels.each do |label_text| %>
+          <% filter = label_text.downcase.gsub(/ /, '_') %>
+          <% filter_val = @filters.has_key?(filter) ? @filters[filter] : "" %>
+          <% filter_id = "location_filter_#{filter}" %>
+
+          <div class="field form-group" style="display: inline-block; width: 50%">
+            <%= f.label label_text, "#{label_text}", for: filter_id, class: "control-label", style: "width: 30%" %>
+            <%= f.text_field label_text, class: 'form-control filter-field', style: "width: 65%; display: inline-block", id: filter_id, value: filter_val %>
+          </div>
+
+        <% end %>
+        <br>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="filter-view" style="float: right">
+    <strong>
+      <span class="filter-view-button" data-toggle="collapse" data-target="#collapse-filter">
+        <i class="fa fa-search"></i>
+        <strong>Filter Locations</strong>
+        <i class="fa fa-angle-up"></i>
+      </span>
+    </strong>
+  </div>
+</div>
+
+<table class="table data-table">
+  <tr class="highlight-row">
+    <% columns = [["Report Date", 10], ["Reporter", 35], ["Latitude", 10], ["Longitude", 10], ["", 35]] %>
+
+    <% columns.each do |column_name, width| %>
+      <% sort = column_name.downcase.gsub(/ /, "_") %>
+      <% sort = "lat" if sort == "latitude" %>
+      <% sort = "lng" if sort == "longitude" %>
+
+      <th width="<%= width %>%">
+        <%= link_to view_future_spray_locations_path(sort: sort, reverse: (sort.to_sym == @sort) ? !@reverse : false), class: "column-header" do %>
+          <%= column_name %>
+          <% if (@sort == sort.to_sym) %>
+            <i class="fa fa-angle-<%= @reverse ? "up" : "down" %>" style="color: #aaa; vertical-align: middle;"></i>
+          <% end %>
+        <% end %>
+      </th>
+    <% end %>
+  </tr>
+
+  <% @locations.each do |location| %>
+    <% collapse_info = "data-toggle=collapse data-target=#collapse-#{location.id}" %>
+    <tr class="data-row" <%= collapse_info %>>
+      <td class="location_report_date"><%= location.report_date %></td>
+      <td class="location_reporter"><%= location.reporter %></td>
+      <td class="location_latitude"><%= location.lat %></td>
+      <td class="location_longitude"><%= location.lng %></td>
+      <td class="location_buttons">
+
+        <button type="button" class="button button-small button-danger delete_future_spray_location admin-button" data-toggle="modal" data-target="#delete_<%= location.id %>">
+          <%= icon('fas', 'trash') %>
+          Delete
+        </button>
+        <button type="button" class="button button-small button-primary edit_future_spray_location admin-button" data-toggle="modal" data-target="#edit_<%= location.id %>">
+        <%= icon('fas', 'edit') %>
+          Edit
+        </button>
+
+        <div id="edit_<%= location.id %>" class="modal fade edit_future_spray_location_modal" role="dialog">
+          <div class="modal-dialog modal-md">
+            <%= form_for(location, html: {class: 'form-horizontal'}, url: edit_future_spray_locations_path(location.id), method: :post) do |f| %>
+              <div class="modal-content" style="width: 600px">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Edit Future Spray Location <%= location.id %></h4>
+                </div>
+                <div class="modal-body">
+                  <h6 class="l-v-bottom-spaced">Edit Future Spray Location</h6>
+                  <p class="l-v-bottom-half-spaced">Edit information for future spray location.</p>
+                  <%= f.hidden_field :id, value: location.id%>
+                  <% [:report_date, :reporter].each do |category| %>
+                    <div class="field form-group">
+                      <%= f.label category, class: "control-label" %>
+                      <%= f.text_field category %>
+                    </div>
+                  <% end %>
+                </div>
+                <div class="modal-footer">
+                  <%= f.submit 'Submit', class: "button button-primary modal-default" %>
+                  <button type="button" class="button" data-dismiss="modal">Cancel</button>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <div id="delete_<%= location.id %>" class="modal fade delete_future_spray_location_modal" role="dialog">
+          <div class="modal-dialog modal-md">
+            <%= form_for(location, html: {class: 'form-horizontal'}, url: delete_future_spray_locations_path(location.id), method: :post) do |f| %>
+              <div class="modal-content" style="width: 600px">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Delete Future Spray Location</h4>
+                </div>
+                <div class="modal-body">
+                  <h6 class="l-v-bottom-spaced">Delete Future Spray Location</h6>
+                  <p class="l-v-bottom-half-spaced">Are you sure you want to delete location (ID: <%= location.id %>), recorded at <%= location.report_date %>?</p>
+                  <%= f.hidden_field :id, value: location.id %>
+                </div>
+                <div class="modal-footer">
+                  <%= f.submit 'Delete', class: "button button-danger modal-default" %>
+                  <button type="button" class="button" data-dismiss="modal">Cancel</button>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+      </td>
+    </tr>
+  <% end %>
+</table>

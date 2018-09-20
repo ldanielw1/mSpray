@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  # Dashboard routes
+  resource :dashboard, only: [] do
+    get :view
+  end
+  root to: "dashboard#view"
+
   # Worker routes
   resource :workers, only: [] do
     post :edit
@@ -14,7 +20,13 @@ Rails.application.routes.draw do
     get  :view
   end
   resource :malaria_reports, only: [] do
-    get :add
+    get  :add
+    post :edit
+    post :delete
+    get  :view
+  end
+  resource :future_spray_locations, only: [] do
+    get  :add
     post :edit
     post :delete
     get  :view_reports
@@ -25,7 +37,10 @@ Rails.application.routes.draw do
   end
 
   # User routes
-  resources :users, only: [:edit, :update]
+  resources :users, only: [] do
+    get  :edit
+    get  :update
+  end
 
   # Admin routes
   resource :admin, only: [] do
@@ -36,17 +51,8 @@ Rails.application.routes.draw do
 
   # Session routes
   resources :sessions , only: [:create, :destroy, :login]
-  get 'auth/:provider/callback', to: 'sessions#create'
-  get 'auth/failure', to: redirect('/')
-  get 'signout', to: 'sessions#destroy', as: 'signout'
-  get 'signin', to: 'sessions#login', as: 'signin'
-
-  # Dashboard routes
-  resource :dashboard, only: [:show] do
-    get :add_future_spray_location, to: "dashboard#add_future_spray_location"
-    get :delete_future_spray_location, to: "dashboard#delete_future_spray_location"
-    get :edit_future_spray_location, to: "dashboard#edit_future_spray_location"
-  end
-
-  root to: "dashboard#show"
+  get 'auth/:provider/callback',       to: 'sessions#create'
+  get 'auth/failure',                  to: redirect('/')
+  get 'signout',                       to: 'sessions#destroy', as: 'signout'
+  get 'signin',                        to: 'sessions#login',   as: 'signin'
 end

@@ -12,6 +12,10 @@ function getFilters(filterType) {
         idPrefix = "#data_filter_";
         textFilters = ["timestamp", "foreman", "sprayers", "latitude", "longitude"];
 
+    } else if (filterType == "future_spray_locations") {
+        idPrefix = "#location_filter_";
+        textFilters = ["report_date", "reporter", "latitude", "longitude"];
+
     } else if (filterType == "malaria_reports") {
         idPrefix = "#report_filter_";
         textFilters = ["report_date", "reporter", "latitude", "longitude"];
@@ -151,3 +155,4 @@ function loadJSForFilters(filterType) {
 $(document).on('turbolinks:load', function() { loadJSForFilters("workers"); });
 $(document).on('turbolinks:load', function() { loadJSForFilters("spray_data"); });
 $(document).on('turbolinks:load', function() { loadJSForFilters("malaria_reports"); });
+$(document).on('turbolinks:load', function() { loadJSForFilters("future_spray_locations"); });
