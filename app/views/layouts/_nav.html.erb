@@ -30,6 +30,14 @@
       </li>
     <% end %>  
 
+    <%= link_to view_malaria_reports_path, class: "sidebar_item malaria_reports" do %>
+      <li class="nav_item">
+        <%= icon('fas', 'flag') %>
+        &nbsp;
+        View Malaria Reports
+      </li>
+    <% end %>  
+
     <%= link_to view_workers_path, class: "sidebar_item workers" do %>
       <li class="nav_item">
         <%= icon('fas', 'address-card') %>
