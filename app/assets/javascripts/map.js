@@ -77,8 +77,9 @@ function initMap() {
     var markerCluster = new MarkerClusterer(map, futureMarkers, { imagePath: "../assets/m" });
     var markerCluster = new MarkerClusterer(map, malariaReportMarkers, { imagePath: "../assets/m" });
 
-    // Add the on-click listener
+    // Add the on-click and mouseover listeners
     google.maps.event.addListener(map, "click", function(e) { clickMap(e); });
+    google.maps.event.addListener(map, "mouseover", function(e) { hoverMap(map) })
 }
 
 /**
@@ -98,13 +99,37 @@ function clickMap(e) {
         // Send lat, lng, and user email to controller
         var target = "dashboard/add_future_spray_location";
         window.location.href = target + "?lat=" + lat + "&lng=" + lng + "&reporter=" + email + "&dateTime=" + yearMonthDay;
-    }
-    else if (mapMode == addMalariaReports) {
+    } else if (mapMode == addMalariaReports) {
 
         // Send lat, lng, and user email to controller
         var target = "dashboard/add_malaria_report";
         window.location.href = target + "?lat=" + lat + "&lng=" + lng + "&reporter=" + email + "&dateTime=" + yearMonthDay;
+    } else {
+        if (!$(e.target).closest("#map-add-button, #collapse-add-options").length) {
+            if ($("#collapse-add-options").is(":visible"))
+                $("#map-add-button").click();
+        }
     }
+}
+
+function hoverMap(map) {
+    var defaultDragCursor = 'url("https://maps.gstatic.com/mapfiles/openhand_8_8.cur"), default';
+    var markerColor;
+
+    if (mapMode != defaultMode) { 
+        if (mapMode == addFutureSprayLocations) {
+            markerColor = "yellow";
+        } else if (mapMode == addMalariaReports) {
+            markerColor = "red";
+        }
+        map.setOptions({draggableCursor: markerCursor(markerColor)});
+    } else {
+        map.setOptions({draggableCursor: defaultDragCursor});
+    }
+}
+
+function markerCursor(markerColor) {
+    return "url(../assets/marker_" + markerColor + ".png) 13.5 43, default"
 }
 
 /**
