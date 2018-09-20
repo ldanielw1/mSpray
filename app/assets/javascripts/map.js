@@ -96,7 +96,7 @@ function clickMap(e) {
 
     if (mapMode == addFutureSprayLocations) {
         // Send lat, lng, and user email to controller
-        var target = "dashboard/add_future_spray_location";
+        var target = "future_spray_locations/add";
         window.location.href = target + "?lat=" + lat + "&lng=" + lng + "&reporter=" + email + "&dateTime=" + reportDate;
 
     } else if (mapMode == addMalariaReports) {

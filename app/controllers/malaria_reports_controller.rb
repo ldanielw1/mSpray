@@ -15,16 +15,16 @@ class MalariaReportsController < ApplicationController
   ##
   # Add data
   def add
-    spray_location = MalariaReport.new(lat: params[:lat], lng: params[:lng], report_date: params[:dateTime], reporter: params[:reporter])
-    spray_location.save!
-    redirect_back(fallback_location: dashboard_path)
+    report = MalariaReport.new(report_date: params[:dateTime], reporter: params[:reporter], lat: params[:lat], lng: params[:lng])
+    report.save!
+    redirect_back(fallback_location: root_path)
   end
 
   ##
   # Edits data
   def edit
     report = MalariaReport.find(get_params[:id])
-    report.report_time = get_params[:report_time]
+    report.report_date = get_params[:report_date]
     report.reporter    = get_params[:reporter]
     report.save!
     redirect_back(fallback_location: view_malaria_reports_path)

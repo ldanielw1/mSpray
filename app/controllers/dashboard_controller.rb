@@ -1,5 +1,5 @@
 class DashboardController < ApplicationController
-  def show
+  def view
     # Prep all SprayDatum objects for displaying in map view.
     spray_data = SprayDatum.all.map do |data|
       attribute_hash = data.attributes
@@ -22,11 +22,4 @@ class DashboardController < ApplicationController
 
     gon.data = { spray_data: spray_data, future_spray_locations: future_spray_locations, malaria_reports: malaria_reports }
   end
-
-  def add_future_spray_location
-    spray_location = FutureSprayLocation.new(lat: params[:lat], lng: params[:lng], report_time: params[:dateTime], reporter: params[:reporter])
-    spray_location.save!
-    redirect_back(fallback_location: dashboard_path)
-  end
-
 end
