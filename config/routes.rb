@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   resource :workers, only: [] do
     post :edit
     post :delete
+    get  :sp1_form
     get  :view_reports
     get  :view
   end

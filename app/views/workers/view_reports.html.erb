@@ -49,9 +49,11 @@
 
       <% week_spray_data.each do |date, spray_data| %>
         <tr class="data-row">
-          <td><%= date %></td>
           <td>
-            <%= link_to view_reports_workers_path(:worker_id => @worker.id), class: "button button-small button-primary" do %>
+            <%= date %>
+          </td>
+          <td>
+            <%= link_to sp1_form_workers_path(:worker_id => @worker.id, :date => Date.strptime(spray_data[0].timestamp) ), class: "button button-small button-primary" do %>
               <%= icon('fas', 'file-image') %>
               SP1
             <% end %>
