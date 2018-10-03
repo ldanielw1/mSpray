@@ -9,8 +9,6 @@ class WorkersController < ApplicationController
 
   before_action { get_display_settings(:worker_id) }
 
-  attr_accessor :sp1_form
-
   ##
   # Displays all worker info
   def view
