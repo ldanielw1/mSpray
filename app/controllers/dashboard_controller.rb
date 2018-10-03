@@ -14,6 +14,7 @@ class DashboardController < ApplicationController
       attribute_hash
     end
 
+    # Prep all MalariaReport objects for displaying in map view.
     malaria_reports = MalariaReport.all.map do |data|
       attribute_hash = data.attributes
       ["lat", "lng"].each { |label| attribute_hash[label] = attribute_hash[label].to_f }

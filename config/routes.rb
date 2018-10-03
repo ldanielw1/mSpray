@@ -8,34 +8,32 @@ Rails.application.routes.draw do
 
   # Worker routes
   resource :workers, only: [] do
+    get  :view
+    get  :view_reports
+    get  :sp1_form
+    get  :sp2_form
+    get  :sp3_form
     post :edit
     post :delete
-    get  :view
   end
 
   # Data routes
   resource :spray_data, only: [] do
+    get  :view
     post :edit
     post :delete
-    get  :view
   end
   resource :malaria_reports, only: [] do
+    get  :view
     get  :add
     post :edit
     post :delete
-    get  :view
   end
   resource :future_spray_locations, only: [] do
+    get  :view
     get  :add
     post :edit
     post :delete
-    get  :view
-  end
-
-  # User routes
-  resources :users, only: [] do
-    get  :edit
-    get  :update
   end
 
   # Admin routes

@@ -70,3 +70,4 @@ group :development, :test do
   gem 'whenever'
 end
 
+gem 'fillable-pdf'

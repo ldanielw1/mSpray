@@ -64,6 +64,8 @@ GEM
     faraday (0.12.2)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.25)
+    fillable-pdf (0.6)
+      rjb (~> 1.5)
     font-awesome-sass (5.0.13)
       sassc (>= 1.11)
     globalid (0.4.1)
@@ -185,6 +187,7 @@ GEM
     request_store (1.4.1)
       rack (>= 1.4)
     retriable (3.1.2)
+    rjb (1.5.5)
     rspec-core (3.5.4)
       rspec-support (~> 3.5.0)
     rspec-expectations (3.5.0)
@@ -267,6 +270,7 @@ DEPENDENCIES
   byebug
   coffee-rails (= 4.2.2)
   execjs
+  fillable-pdf
   font-awesome-sass (~> 5.0.13)
   gon
   google_drive
@@ -290,4 +294,4 @@ DEPENDENCIES
   whenever
 
 BUNDLED WITH
-   1.16.3
+   1.16.4

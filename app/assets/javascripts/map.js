@@ -97,12 +97,12 @@ function clickMap(e) {
     if (mapMode == addFutureSprayLocations) {
         // Send lat, lng, and user email to controller
         var target = "future_spray_locations/add";
-        window.location.href = target + "?lat=" + lat + "&lng=" + lng + "&reporter=" + email + "&dateTime=" + reportDate;
+        window.location.href = target + "?lat=" + lat + "&lng=" + lng + "&reporter=" + email + "&datetime=" + reportDate;
 
     } else if (mapMode == addMalariaReports) {
         // Send lat, lng, and user email to controller
         var target = "malaria_reports/add";
-        window.location.href = target + "?lat=" + lat + "&lng=" + lng + "&reporter=" + email + "&dateTime=" + reportDate;
+        window.location.href = target + "?lat=" + lat + "&lng=" + lng + "&reporter=" + email + "&datetime=" + reportDate;
 
     } else {
         if (!$(e.target).closest("#map-add-button, #collapse-add-options").length) {
@@ -149,7 +149,6 @@ function toggleAddButton(e) {
     }
 
     setModeDefault()
-
 }
 
 /**

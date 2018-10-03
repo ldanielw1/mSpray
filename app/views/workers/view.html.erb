@@ -71,6 +71,10 @@
         <%= icon('fas', 'edit') %>
         Edit
       </button>
+      <%= link_to view_reports_workers_path(:worker_id => worker.id), class: "button button-small button-primary admin-button" do %>
+        <%= icon('fas', 'money-bill') %>
+        Reports
+      <% end %>
 
       <div id="edit_worker_<%= worker.id %>" class="modal fade" role="dialog">
         <div class="modal-dialog modal-md">
