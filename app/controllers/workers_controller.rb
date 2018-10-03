@@ -148,6 +148,7 @@ class WorkersController < ApplicationController
   def sp3_form
     week = params[:week].to_i
     first_of_week = nil
+    foremen = ""
 
     spray_data = Hash.new # date => {data per day}
     worker_per_day = Hash.new # date => [worker]
@@ -156,6 +157,8 @@ class WorkersController < ApplicationController
     data = SprayDatum.all.select { |d| Date.strptime(d.timestamp).cweek == week }
     data = data.sort_by{ |d| d.timestamp }
     data.each do |d|
+      (foremen == "") ?  foremen += "#{d.foreman}" : foremen += ", #{d.foreman}" if !foremen.include?(d.foreman)
+
       date = d.timestamp.split(" ")[0]
       worker_per_day[date] = [] if not worker_per_day.has_key?(date)
       spray_data[date] = sp3_fill_init_data if not spray_data.has_key?(date)
@@ -185,7 +188,7 @@ class WorkersController < ApplicationController
       end
     end
 
-    create_sp3_form(spray_data, total_data, first_of_week)
+    create_sp3_form(spray_data, total_data, first_of_week, foremen)
   end
 
 end

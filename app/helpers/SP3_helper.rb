@@ -3,11 +3,11 @@ require 'pdf_helper'
 module Sp3Helper
   include PdfHelper
 
-  def create_sp3_form(spray_data, total_data, first_of_week)
+  def create_sp3_form(spray_data, total_data, first_of_week, foremen)
 
     @form = FillablePDF.new('public/assets/Form-SP3.pdf')
     set_field(:region, "Limpopo")
-    set_field(:team, "Team 1")
+    set_field(:team, foremen)
     set_field(:district, "Vhembe")
     set_field(:sector, "Vhembe")
 
