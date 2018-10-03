@@ -40,7 +40,7 @@
             <%= "#{week_begin.month}/#{week_begin.day}/#{week_begin.year}" %> - <%= "#{week_end.month}/#{week_end.day}/#{week_end.year}" %>
           </td>
           <td>
-            <%= link_to view_reports_workers_path(:worker_id => @worker.id), class: "button button-small button-primary" do %>
+            <%= link_to sp3_form_workers_path(:week => first_of_week.cweek), class: "button button-small button-primary" do %>
               <%= icon('fas', 'file-image') %>
               SP3
             <% end %>
@@ -57,7 +57,7 @@
               <%= icon('fas', 'file-image') %>
               SP1
             <% end %>
-            <%= link_to view_reports_workers_path(:worker_id => @worker.id), class: "button button-small button-primary" do %>
+            <%= link_to sp2_form_workers_path(:date => Date.strptime(spray_data[0].timestamp)), class: "button button-small button-primary" do %>
               <%= icon('fas', 'file-image') %>
               SP2
             <% end %>

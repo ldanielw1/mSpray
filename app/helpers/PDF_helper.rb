@@ -1,24 +1,25 @@
 require 'fillable-pdf'
+
 module PdfHelper
-  global_pdf = nil
   SELECTION_MARK = "X"
 
-  def set_pdf (fillable_pdf)
-    global_pdf = fillable_pdf
+  def set_field(field, value)
+    @form.set_field(field, value)
   end
 
-  def setField(field, value)
-    global_pdf.set_field(field, value)
+  def check_field(field)
+    @form.set_field(field, SELECTION_MARK)
   end
 
-  def checkField(field)
-    global_pdf.set_field(field, SELECTION_MARK)
+  def uncheck_field(field)
+    @form.set_field(field, "")
   end
 
-  def uncheckField(field)
-    global_pdf.set_field(field, "")
+  def download_and_delete(name)
+    @form.save_as(name)
+    File.open(name, "r") do |f|
+      send_data f.read.force_encoding("BINARY"), :filename => name, :type => "application/pdf", :disposition => "attachment"
+    end
+    File.delete(name)
   end
-
-  def save()
-    global_pdf.save_as("test_form")
 end

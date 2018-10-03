@@ -1,79 +1,43 @@
-require 'pdf_helper'
-
 module Sp1Helper
+  include PdfHelper
 
-#records the number of rooms sprayed
-def setSprayedRooms(roomsSprayed)
-  checkBoxes(:sprayedRooms, roomsSprayed)
-  setField(:sprayedRooms, sheltersSprayed)
-end
+  # Creates a new SP1 form
+  def create_sp1_form(spray_data, worker_id)
+    @form = FillablePDF.new('public/assets/Form-SP1.pdf')
+    set_field(:fieldOfficer, "Brenda Eskenazi")
+    set_field(:district, "Vhembe")
+    set_field(:locality, "Limpopo")
 
-#records the number of shelters sprayed
-def setSprayedShelters(sheltersSprayed)
-  checkBoxes(:sprayedShelters, sheltersSprayed)
-  setField(:sprayedShelters, sheltersSprayed)
-end
+    set_field(:date, spray_data[:timestamp])
+    set_field(:foreman, spray_data[:foreman])
+    set_field(:sprayman, spray_data[:sprayer])
+    set_chemical(spray_data[:chemical_used])
 
-  #records the number of unsprayed rooms
-  def setUnsprayedRooms(roomsUnsprayed)
-    checkBoxes(:unsprayedRooms, roomsUnsprayed)
-    setField(:unsprayedRooms, roomsUnsprayed)
+    set_field_and_check_boxes(:sprayedRooms, spray_data[:rooms_sprayed])
+    set_field_and_check_boxes(:sprayedShelters, spray_data[:shelters_sprayed])
+    set_field_and_check_boxes(:unsprayedRooms, spray_data[:rooms_unsprayed])
+    set_field_and_check_boxes(:refills, spray_data[:refilled])
+
+    timestamp_in_filename = Time.now.to_s.gsub(/[-:]/, '').split(" ")[0..1].join("_")
+    download_and_delete("SP1_Form_#{worker_id}_#{timestamp_in_filename}.pdf")
+  end
+
+  def set_field_and_check_boxes(fieldName, value)
+    check_boxes(fieldName, value)
+    set_field(fieldName, value)
   end
 
   #records the chemical used for the spraying
-  def setChemical(chemical)
-    uncheckField(:ddtUsed)
-    uncheckField(:baythroidUsed)
-    uncheckField(:kothrineUsed)
-    if chemical.upper == "DDT"
-      checkField(:ddtUsed)
-    elsif
-      checkField(:kothrineUsed)
-    end
-  end
-
-  #records the name of the sprayer
-  def setSprayer(sprayer)
-    setField(:sprayman, sprayer)
-  end
-
-  #records teh name of the foreman
-  def setForeman(foreman)
-    setField(:foreman, foreman)
-  end
-
-  #records the officer name
-  def setFieldOfficer(officer)
-    setField(:fieldOfficer, officer)
-  end
-
-  #records the district name
-  def setDistrict(district)
-    setField(:district, district)
-  end
-
-  #recording the locality of spraying
-  def setLocality(locality)
-    setField(:locality, locality)
-  end
-  
-  #records the date of spraying
-  def setDate(date)
-    setField(:date, date)
-  end
-
-  #records all data related to a spraying
-  def setData(sprayData)
-    setSprayedRooms(sprayData.rooms_sprayed)
-    setSprayedShelters(sprayData.shelters_sprayed)
-    setUnsprayedRooms(sprayData.unsprayed_rooms)
-    setCanRefills(sprayData.refilled)
+  def set_chemical(chemical)
+    [:ddtUsed, :baythroidUsed, :kothrineUsed].each { |chemical| uncheck_field(chemical) }
+    check_field(chemical.upcase == "DDT" ? :ddtUsed : :kothrineUsed)
   end
 
   #checks off a number of boxes in a row
-  def checkBoxes(genericField, boxes)
-    for i in 1..boxes
-      checkField(genericField.to_s + i)
+  def check_boxes(genericField, num_boxes)
+    (1..num_boxes).each do |i|
+      check_field(genericField.to_s + i.to_s)
+    end
   end
 
 end

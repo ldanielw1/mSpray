@@ -22,9 +22,11 @@ Rails.application.routes.draw do
   resource :workers, only: [] do
     post :edit
     post :delete
-    get  :sp1_form
     get  :view_reports
     get  :view
+    get  :sp1_form
+    get  :sp2_form
+    get  :sp3_form
   end
 
   # Session routes
