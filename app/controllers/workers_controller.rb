@@ -79,14 +79,15 @@ class WorkersController < ApplicationController
     spray_data[:shelters_sprayed] = 0
     spray_data[:rooms_unsprayed] = 0
     spray_data[:timestamp] = spray_date
-    spray_data[:sprayer] = worker.name
+    spray_data[:foreman] = ""
+    spray_data[:sprayer] = "#{worker_id} - #{worker.name}"
 
     # Parse through all data in SprayDatum table
     data = SprayDatum.all.select { |d| d.sprayers.include?(worker_id) and d.timestamp.split(" ")[0] == spray_date }
     data = data.sort_by { |d| d.timestamp }
     data.each do |d|
       stats = d.stats[worker_id]
-      spray_data[:foreman] = d.foreman
+      (spray_data[:foreman] == "") ?  spray_data[:foreman] += "#{d.foreman}" : spray_data[:foreman] += ", #{d.foreman}" if !spray_data[:foreman].include?(d.foreman)
       spray_data[:chemical_used] = d.chemical_used
       spray_data[:refilled] += 1 if stats[:refilled]
       spray_data[:rooms_sprayed] += stats[:rooms_sprayed].to_i
@@ -103,13 +104,15 @@ class WorkersController < ApplicationController
 
     # This is where all data gets aggregated
     spray_data = Hash.new
-    mopup_data = sp2_fill_init_data(Hash.new)
-    total_data = sp2_fill_init_data(Hash.new)
+    mopup_data = sp2_fill_init_data
+    total_data = sp2_fill_init_data
+    foremen = ""
 
     # Parse through all SprayDatum objects
     data = SprayDatum.all.select { |d| d.timestamp.split(" ")[0] == spray_date }
     data = data.sort_by{ |d| d.timestamp }
     data.each do |d|
+      (foremen == "") ?  foremen += "#{d.foreman}" : foremen += ", #{d.foreman}" if !foremen.include?(d.foreman)
       d.sprayers.each do |w_id|
         # Get worker and spray data
         worker = Worker.find(w_id)
@@ -119,8 +122,8 @@ class WorkersController < ApplicationController
 
         # Initialize empty worker data in spray_data
         if not spray_data.has_key?(worker_id)
-          spray_data[worker_id] = sp2_fill_init_data(Hash.new)
-          spray_data[worker_id][:sprayer] = worker.name
+          spray_data[worker_id] = sp2_fill_init_data()
+          spray_data[worker_id][:sprayer] = "#{worker_id} - #{worker.name}"
         end
 
         # Update all affected datasets with this spray datum
@@ -139,41 +142,37 @@ class WorkersController < ApplicationController
         end
       end
     end
-
-    createSP2Form(spray_data, total_data, mopup_data, spray_date)
+    create_sp2_form(spray_data, total_data, mopup_data, spray_date, foremen)
   end
 
   def sp3_form
     week = params[:week].to_i
     first_of_week = nil
 
-    spray_data = Hash.new # date, {data per day}
-    worker_per_day = Hash.new # data, [worker]
-    total_data = sp3_fill_init_data(Hash.new)
+    spray_data = Hash.new # date => {data per day}
+    worker_per_day = Hash.new # date => [worker]
+    total_data = sp3_fill_init_data
 
     data = SprayDatum.all.select { |d| Date.strptime(d.timestamp).cweek == week }
     data = data.sort_by{ |d| d.timestamp }
-
     data.each do |d|
       date = d.timestamp.split(" ")[0]
+      worker_per_day[date] = [] if not worker_per_day.has_key?(date)
+      spray_data[date] = sp3_fill_init_data if not spray_data.has_key?(date)
       first_of_week = Date.strptime(d.timestamp) if first_of_week ==  nil
 
-      if not worker_per_day.has_key?(date)
-        worker_per_day[date] = []
-      end
+      chemical = d.chemical_used.upcase == "DDT" ? :ddt : :other
 
       d.sprayers.each do |w_id|
+        new_worker_on_day = !worker_per_day[date].include?(w_id)
+        worker_per_day[date] << w_id if new_worker_on_day
+
         stats = d.stats[w_id]
-        chemical = d.chemical_used.upcase == "DDT" ? :ddt : :other
-
-        # Initialize empty date column in spray_data
-        if not spray_data.has_key?(date)
-          spray_data[date] = sp3_fill_init_data(Hash.new)
-        end
-
-        categories = [:rooms_sprayed, :shelters_sprayed, :rooms_unsprayed, :refilled]
         affected_datasets = [spray_data[date], total_data]
         affected_datasets.each do |dataset|
+          dataset[:sprayman_days] += 1 if new_worker_on_day
+
+          categories = [:rooms_sprayed, :shelters_sprayed, :rooms_unsprayed, :refilled]
           categories.each do |category|
             new_category = "#{chemical}_#{category}".to_sym
             if category == :refilled
@@ -183,16 +182,10 @@ class WorkersController < ApplicationController
             end
           end
         end
-        if not worker_per_day[date].include?(w_id)
-          worker_per_day[date] << w_id
-          affected_datasets.each do |dataset|
-            dataset[:sprayman_days] += 1
-          end
-        end
       end
     end
 
-    createSP3Form(spray_data, total_data, first_of_week)
+    create_sp3_form(spray_data, total_data, first_of_week)
   end
 
 end
