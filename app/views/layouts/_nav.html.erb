@@ -46,6 +46,22 @@
       </li>
     <% end %>  
 
+    <%= link_to view_future_spray_locations_path, class: "sidebar_item future_spray_locations" do %>
+      <li class="nav_item">
+        <%= icon('fas', 'calendar-plus') %>
+        &nbsp;
+        Future Spray Locations
+      </li>
+    <% end %>  
+
+    <%= link_to view_malaria_reports_path, class: "sidebar_item malaria_reports" do %>
+      <li class="nav_item">
+        <%= icon('fas', 'flag') %>
+        &nbsp;
+        Malaria Reports
+      </li>
+    <% end %>  
+
     <%= link_to view_workers_path, class: "sidebar_item workers" do %>
       <li class="nav_item">
         <%= icon('fas', 'address-card') %>
