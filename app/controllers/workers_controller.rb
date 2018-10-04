@@ -43,16 +43,19 @@ class WorkersController < ApplicationController
     @worker = Worker.find(params[:worker_id])
     @spray_datum = Hash.new
     @dates = Set.new
+    @foreman_for_date = Hash.new
 
     first_spray_of_week_date = nil
     spray_datum_all = SprayDatum.all.sort_by { |x| x.timestamp }
     spray_datum_all.each do |d|
-      if d.sprayers.include?(@worker.worker_id)
+      if d.sprayers.include?(@worker.worker_id) or d.foreman.include?(@worker.name)
+
         date = Date.strptime(d.timestamp)
         # Add data into @week_spray_datum
         if first_spray_of_week_date == nil or (date.cweek != first_spray_of_week_date.cweek)
           first_spray_of_week_date = date
           @spray_datum[date] = Hash.new
+          @foreman_for_date[date] = Hash.new
         end
 
         # Add data into @spray_datum
@@ -61,6 +64,8 @@ class WorkersController < ApplicationController
           @spray_datum[first_spray_of_week_date][date] = []
         end
         @spray_datum[first_spray_of_week_date][date] << d
+
+        @foreman_for_date[first_spray_of_week_date][date] = true if @worker.name == d.foreman
       end
     end
   end
