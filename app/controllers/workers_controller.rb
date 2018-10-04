@@ -98,8 +98,8 @@ class WorkersController < ApplicationController
     spray_data[:sprayer] = "#{worker_id} - #{worker.name}"
 
     # Parse through all data in SprayDatum table
-    data = SprayDatum.all.select { |d| d.sprayers.include?(worker_id) and d.timestamp.split(" ")[0] == spray_date}
-    data = data.select { |d| d.chemical_used == chem_used}
+    data = SprayDatum.all.select { |d| d.sprayers.include?(worker_id) and d.timestamp.split(" ")[0] == spray_date }
+    data = data.select { |d| d.chemical_used == chem_used }
     data = data.sort_by { |d| d.timestamp }
     data.each do |d|
       stats = d.stats[worker_id]
@@ -126,8 +126,8 @@ class WorkersController < ApplicationController
     foremen = ""
     # Parse through all SprayDatum objects
     data = SprayDatum.all.select { |d| d.timestamp.split(" ")[0] == spray_date }
-    data = data.select { |d| d.foreman == worker.name} if mode == "foreman"
-    data = data.select { |d| d.foreman != worker.name} if mode == "sprayer"
+    data = data.select { |d| d.foreman == worker.name } if mode == "foreman"
+    data = data.select { |d| d.foreman != worker.name } if mode == "sprayer"
     data = data.sort_by{ |d| d.timestamp }
     data.each do |d|
       (foremen == "") ?  foremen += "#{d.foreman}" : foremen += ", #{d.foreman}" if !foremen.include?(d.foreman)
@@ -177,8 +177,8 @@ class WorkersController < ApplicationController
     total_data = sp3_fill_init_data
 
     data = SprayDatum.all.select { |d| Date.strptime(d.timestamp).cweek == week }
-    data = data.select { |d| d.foreman == worker.name} if mode == "foreman"
-    data = data.select { |d| d.foreman != worker.name} if mode == "sprayer"
+    data = data.select { |d| d.foreman == worker.name } if mode == "foreman"
+    data = data.select { |d| d.foreman != worker.name } if mode == "sprayer"
     data = data.sort_by{ |d| d.timestamp }
     data.each do |d|
       (foremen == "") ?  foremen += "#{d.foreman}" : foremen += ", #{d.foreman}" if !foremen.include?(d.foreman)

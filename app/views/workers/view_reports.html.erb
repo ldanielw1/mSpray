@@ -33,10 +33,10 @@
       <% sprayer_this_week = false %>
       <% @foreman_for_date[first_of_week].each do |day, foreman_true|%>
         <% foreman_this_week = true if foreman_true %>
-      <%end%>
+      <% end %>
       <% @sprayer_for_date[first_of_week].each do |day, sprayer_true|%>
         <% sprayer_this_week = true if sprayer_true %>
-      <%end%>
+      <% end %>
       <tr class="data-row">
           <td>
             <h6>Week <%= first_of_week.cweek %></h6>
