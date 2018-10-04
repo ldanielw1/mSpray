@@ -8,7 +8,7 @@
 <% elsif @spray_datum.length >= 1 %>
   <table class="table data-table">
     <tr class="highlight-row">
-      <% columns = [["Date", 60], ["Forms", 40]] %>
+      <% columns = [["Date", 40], ["SP1 Forms", 30], ["SP2 & SP3 Forms", 30]] %>
 
       <% columns.each do |column_name, width| %>
         <% sort = column_name.downcase.gsub(/[\?\-\ ]/, "") %>
@@ -30,8 +30,12 @@
 
     <% @spray_datum.each do |first_of_week, week_spray_data| %>
       <% foreman_this_week = false %>
+      <% sprayer_this_week = false %>
       <% @foreman_for_date[first_of_week].each do |day, foreman_true|%>
         <% foreman_this_week = true if foreman_true %>
+      <%end%>
+      <% @sprayer_for_date[first_of_week].each do |day, sprayer_true|%>
+        <% sprayer_this_week = true if sprayer_true %>
       <%end%>
       <tr class="data-row">
           <td>
@@ -42,14 +46,17 @@
             <%= "#{week_begin.month}/#{week_begin.day}/#{week_begin.year}" %> - <%= "#{week_end.month}/#{week_end.day}/#{week_end.year}" %>
           </td>
           <td>
-
-            <%= link_to sp3_form_workers_path(:week => first_of_week.cweek, :mode => "sprayer"), class: "button button-small button-primary", target: :_blank do %>
-              <%= icon('fas', 'file-image') %>
-              SP3 (Sprayer)
+          </td>
+          <td>
+            <% if sprayer_this_week %>
+              <%= link_to sp3_form_workers_path(:worker_id => @worker.id, :week => first_of_week.cweek, :mode => "sprayer"), class: "button button-small button-primary", target: :_blank do %>
+                <%= icon('fas', 'file-image') %>
+                SP3 (Sprayer)
+              <% end %>
             <% end %>
 
             <% if foreman_this_week %>
-              <%= link_to sp3_form_workers_path(:week => first_of_week.cweek, :mode => "foreman"), class: "button button-small button-primary", target: :_blank do %>
+              <%= link_to sp3_form_workers_path(:worker_id => @worker.id, :week => first_of_week.cweek, :mode => "foreman"), class: "button button-small button-primary", target: :_blank do %>
                 <%= icon('fas', 'file-image') %>
                 SP3 (Foreman)
               <% end %>
@@ -64,18 +71,25 @@
             <%= date %>
           </td>
           <td>
-            <%= link_to sp1_form_workers_path(:worker_id => @worker.id, :date => Date.strptime(spray_data[0].timestamp) ), class: "button button-small button-primary", target: :_blank do %>
-              <%= icon('fas', 'file-image') %>
-              SP1
+            <% @chem_per_date[date].each do |chemical| %>
+              <% chemical == "N/A" ? chemical_label = "No Spray" : chemical_label = chemical %>
+              <%= link_to sp1_form_workers_path(:worker_id => @worker.id, :date => Date.strptime(spray_data[0].timestamp), :chemical => chemical ), class: "button button-small button-primary", target: :_blank do %>
+                <%= icon('fas', 'file-image') %>
+                <%= "SP1 (#{chemical_label})"  %>
+              <% end %>
             <% end %>
 
-            <%= link_to sp2_form_workers_path(:date => Date.strptime(spray_data[0].timestamp), :mode => "sprayer"), class: "button button-small button-primary", target: :_blank do %>
-              <%= icon('fas', 'file-image') %>
-              SP2 (Sprayer)
+          </td>
+          <td>
+            <% if @sprayer_for_date[first_of_week][date] %>
+              <%= link_to sp2_form_workers_path(:worker_id => @worker.id, :date => Date.strptime(spray_data[0].timestamp), :mode => "sprayer"), class: "button button-small button-primary", target: :_blank do %>
+                <%= icon('fas', 'file-image') %>
+                SP2 (Sprayer)
+              <% end %>
             <% end %>
 
             <% if @foreman_for_date[first_of_week][date] %>
-              <%= link_to sp2_form_workers_path(:date => Date.strptime(spray_data[0].timestamp), :mode => "foreman"), class: "button button-small button-primary", target: :_blank do %>
+              <%= link_to sp2_form_workers_path(:worker_id => @worker.id, :date => Date.strptime(spray_data[0].timestamp), :mode => "foreman"), class: "button button-small button-primary", target: :_blank do %>
                 <%= icon('fas', 'file-image') %>
                 SP2 (Foreman)
               <% end %>
