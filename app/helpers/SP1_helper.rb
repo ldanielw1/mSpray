@@ -30,7 +30,15 @@ module Sp1Helper
   #records the chemical used for the spraying
   def set_chemical(chemical)
     [:ddtUsed, :baythroidUsed, :kothrineUsed].each { |chemical| uncheck_field(chemical) }
-    check_field(chemical.upcase == "DDT" ? :ddtUsed : :kothrineUsed)
+    if chemical.upcase == "DDT"
+      check_field(:ddtUsed)
+    elsif chemical.upcase == "K-ORTHRINE"
+      check_field(:kothrineUsed)
+    elsif chemical.upcase == "BAYTHROID"
+      check_field(:baythroidUsed)
+    elsif chemical.upcase == "FENDONA"
+      set_field(:baythroidUsed, "Fendona")
+    end
   end
 
   #checks off a number of boxes in a row
