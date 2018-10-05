@@ -132,9 +132,9 @@ function filter(filterType) {
         $(this).attr("href", updateURLForFilters(currentURL, filters, hasFilters));
     });
 
-    //TODO fix pushstate
     // Update URL's REST API params.
-    //history.pushState({}, null, updateURLForFilters(window.location.href, filters, hasFilters));
+    var newUrl = updateURLForFilters(window.location.href, filters, hasFilters)
+    history.replaceState({ turbolinks: true, url: newUrl }, "", newUrl)
 }
 
 /**
