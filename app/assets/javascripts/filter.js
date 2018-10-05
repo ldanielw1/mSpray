@@ -28,7 +28,7 @@ function getFilters(filterType) {
 
     // Add text filters into filters variable.
     if (textFilters.length > 0) {
-        textFilters.forEach(function(filter) { 
+        textFilters.forEach(function(filter) {
             filters[filter] = getTextFieldValue(idPrefix + filter);
         });
     }
@@ -132,8 +132,9 @@ function filter(filterType) {
         $(this).attr("href", updateURLForFilters(currentURL, filters, hasFilters));
     });
 
+    //TODO fix pushstate
     // Update URL's REST API params.
-    history.pushState({}, null, updateURLForFilters(window.location.href, filters, hasFilters));
+    //history.pushState({}, null, updateURLForFilters(window.location.href, filters, hasFilters));
 }
 
 /**
@@ -149,6 +150,7 @@ function loadJSForFilters(filterType) {
         $(".filter-field-checkbox").change(function() { filter(filterType); });
 
         filter(filterType);
+
     }
 }
 

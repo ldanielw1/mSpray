@@ -14,6 +14,7 @@ class WorkersController < ApplicationController
   def view
     @sort_hash = get_proper_sort_categories([:worker_id, :name, :active])
     @workers = Worker.all.order(@sort_hash)
+
   end
 
   ##
@@ -112,6 +113,7 @@ class WorkersController < ApplicationController
       spray_data[:rooms_unsprayed] += d["unsprayed_shelters"].to_i
     end
     create_sp1_form(spray_data, worker_id)
+    redirect_back(fallback_location: view_reports_workers_path)
   end
 
   def sp2_form
