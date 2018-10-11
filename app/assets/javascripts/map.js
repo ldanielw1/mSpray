@@ -106,7 +106,7 @@ function clickMap(e) {
 
     } else {
         if (!$(e.target).closest("#map-add-button, #collapse-add-options").length) {
-            if ($("#collapse-add-options").is(":visible"))
+            if ($("#collapse-add-options").hasClass("in"))
                 $("#map-add-button").click();
         }
     }
