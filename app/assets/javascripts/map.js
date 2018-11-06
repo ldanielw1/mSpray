@@ -3,6 +3,10 @@ var addFutureSprayLocations = "add-future-spray-locations";
 var addMalariaReports = "add-malaria-reports"
 var mapMode = defaultMode;
 
+function createGoogleMapUrl(lat, lng) {
+    return "https://www.google.com/maps/search/?api=1&query=" + lat + "," + lng;
+}
+
 function initMap() {
     // Create the new map.
     var mapSettings = {
@@ -18,7 +22,15 @@ function initMap() {
 
     var mapDiv = document.getElementById('map');
     var map = new google.maps.Map(mapDiv, mapSettings);
+    map.setOptions({ minZoom: 7 })
+
+    var allowedBounds = new google.maps.LatLngBounds(
+        new google.maps.LatLng(-36.51369800826651, 10.712649477748528),
+        new google.maps.LatLng(-18.796702001128146, 42.13354791524853)
+    );
     var infowindow = new google.maps.InfoWindow({ content: '' });
+
+    //boundaries NE: (-18.796702001128146, 42.13354791524853) SW: (-36.51369800826651, 10.712649477748528)
 
     // Create an array of new markers.
     function createMarker(markerType) {
@@ -50,7 +62,10 @@ function initMap() {
             contentString += "<strong>Date: </strong>" + sd["report_time"] + "<br>";
         }
 
-        contentString += "<strong>LatLng: </strong>" + dataLat.toString() + ', ' + dataLng.toString();
+        map_url = createGoogleMapUrl(dataLat.toString(), dataLng.toString());
+
+        contentString += "<strong>LatLng: </strong>" + dataLat.toString() + ", " + dataLng.toString() + "<br>";
+        contentString += "<a href=" + map_url + " target='_blank'>See In Google Maps</a>"
         contentString = '<div>' + contentString + '</div>';
 
         marker.addListener('click', function() {
@@ -79,7 +94,8 @@ function initMap() {
 
     // Add the on-click and mouseover listeners
     google.maps.event.addListener(map, "click", function(e) { clickMap(e); });
-    google.maps.event.addListener(map, "mouseover", function(e) { hoverMap(map) })
+    google.maps.event.addListener(map, "mouseover", function(e) { hoverMap(map) });
+    google.maps.event.addListener(map, "center_changed", function(e) { checkBounds(map, allowedBounds) });
 }
 
 /**
@@ -116,15 +132,65 @@ function hoverMap(map) {
     var defaultDragCursor = 'url("https://maps.gstatic.com/mapfiles/openhand_8_8.cur"), default';
     var markerColor;
 
-    if (mapMode != defaultMode) { 
+    if (mapMode != defaultMode) {
         if (mapMode == addFutureSprayLocations) {
             markerColor = "yellow";
         } else if (mapMode == addMalariaReports) {
             markerColor = "red";
         }
-        map.setOptions({draggableCursor: markerCursor(markerColor)});
+        map.setOptions({ draggableCursor: markerCursor(markerColor) });
     } else {
-        map.setOptions({draggableCursor: defaultDragCursor});
+        map.setOptions({ draggableCursor: defaultDragCursor });
+    }
+}
+
+function mapFloorThousandth(num) {
+    intNum = Math.floor(num * 1000);
+    return intNum / 1000;
+}
+
+function mapCeilThousandth(num) {
+    intNum = Math.ceil(num * 1000);
+    return intNum / 1000;
+}
+
+function checkBounds(map, allowedBounds) {
+
+    // Get current viewport stats
+    var mapBounds = map.getBounds();
+    var mapHeight = mapBounds.getNorthEast().lat() - mapBounds.getSouthWest().lat();
+    var mapLength = mapBounds.getNorthEast().lng() - mapBounds.getSouthWest().lng();
+    var mapNE = mapBounds.getNorthEast();
+    var mapSW = mapBounds.getSouthWest();
+
+    // Get allowed viewport stats
+    var allowedNE = allowedBounds.getNorthEast();
+    var allowedSW = allowedBounds.getSouthWest();
+    var maxLng = mapFloorThousandth(allowedNE.lng() - (mapLength / 2));
+    var maxLat = mapFloorThousandth(allowedNE.lat() - (mapHeight / 2));
+    var minLng = mapCeilThousandth(allowedSW.lng() + (mapLength / 2));
+    var minLat = mapCeilThousandth(allowedSW.lat() + (mapHeight / 2));
+
+    var c = map.getCenter();
+    var lng = c.lng();
+    var lat = c.lat();
+
+    // Only shift the map if it's out of bounds
+    if (lng < minLng || lng > maxLng || lat < minLat || lat > maxLat) {
+        var spacing = 0.02;
+        if (lng < minLng)
+            lng = minLng + spacing;
+        else if (lng > maxLng)
+            lng = maxLng - spacing;
+        if (lat < minLat)
+            lat = minLat + spacing;
+        else if (lat > maxLat)
+            lat = maxLat + spacing;
+
+        console.log("\nout of bounds");
+        console.log(lat + ", " + lng);
+        map.panTo(new google.maps.LatLng(lat, lng));
+
     }
 }
 
@@ -205,5 +271,6 @@ function loadJSForInitMap() {
         $(".toggle-add-malaria-reports").click(function() { toggleSelectedButton(addMalariaReports) });
     }
 }
+
 
 $(document).on('turbolinks:load', loadJSForInitMap);
