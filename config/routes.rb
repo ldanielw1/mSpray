@@ -25,13 +25,13 @@ Rails.application.routes.draw do
   end
   resource :malaria_reports, only: [] do
     get  :view
-    get  :add
+    post  :add
     post :edit
     post :delete
   end
   resource :future_spray_locations, only: [] do
     get  :view
-    get  :add
+    post  :add
     post :edit
     post :delete
   end

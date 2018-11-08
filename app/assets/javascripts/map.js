@@ -117,14 +117,14 @@ function clickMap(e) {
     var reportDate = currentDate.getMonth() + "/" + currentDate.getDate() + "/" + currentDate.getFullYear();
 
     if (mapMode == addFutureSprayLocations) {
-        // Send lat, lng, and user email to controller
-        var target = "future_spray_locations/add";
-        window.location.href = target + "?lat=" + lat + "&lng=" + lng + "&reporter=" + email + "&datetime=" + reportDate;
+        // Send lat, lng, and user email to add_future_spray_locations modal
+        setAddFutureSprayLocations(lat, lng, email, reportDate)
+        $("#add_future_spray_locations").modal();
 
     } else if (mapMode == addMalariaReports) {
-        // Send lat, lng, and user email to controller
-        var target = "malaria_reports/add";
-        window.location.href = target + "?lat=" + lat + "&lng=" + lng + "&reporter=" + email + "&datetime=" + reportDate;
+        // Send lat, lng, and user email to add_malaria_reports modal
+        setAddMalariaReports(lat, lng, email, reportDate)
+        $("#add_malaria_reports").modal();
 
     } else {
         if (!$(e.target).closest("#map-add-button, #collapse-add-options").length) {
@@ -255,6 +255,28 @@ function setModeDefault() {
 
 function toggleMapPointer() {
     $("#map").attr("style", "cursor: pointer");
+}
+
+function setAddMalariaReports(lat, lng, reporter, date) {
+    var modal = $("#add_malaria_reports");
+    modal.find(".report_lat").html(lat);
+    modal.find(".report_lng").html(lat);
+
+    modal.find("#add_malaria_reports_lat").attr("value", lat)
+    modal.find("#add_malaria_reports_lng").attr("value", lng)
+    modal.find("#add_malaria_reports_reporter").attr("value", reporter)
+    modal.find("#add_malaria_reports_dateTime").attr("value", date)
+}
+
+function setAddFutureSprayLocations(lat, lng, reporter, date) {
+    var modal = $("#add_future_spray_locations");
+    modal.find(".report_lat").html(lat);
+    modal.find(".report_lng").html(lat);
+
+    modal.find("#add_future_spray_location_lat").attr("value", lat)
+    modal.find("#add_future_spray_location_lng").attr("value", lng)
+    modal.find("#add_future_spray_location_reporter").attr("value", reporter)
+    modal.find("#add_future_spray_location_dateTime").attr("value", date)
 }
 
 function setDeleteMalariaReportsID(report_id) {

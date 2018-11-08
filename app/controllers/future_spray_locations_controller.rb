@@ -15,7 +15,7 @@ class FutureSprayLocationsController < ApplicationController
   ##
   # Add data
   def add
-    location = FutureSprayLocation.new(report_date: params[:datetime], reporter: params[:reporter], lat: params[:lat], lng: params[:lng])
+    location = FutureSprayLocation.new(report_date: get_params[:dateTime], reporter: get_params[:reporter], lat: get_params[:lat], lng: get_params[:lng])
     location.save!
     redirect_back(fallback_location: root_path)
   end
