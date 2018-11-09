@@ -15,7 +15,8 @@ class MalariaReportsController < ApplicationController
   ##
   # Add data
   def add
-    report = MalariaReport.new(report_date: params[:datetime], reporter: params[:reporter], lat: params[:lat], lng: params[:lng])
+
+    report = MalariaReport.new(report_date: get_params[:dateTime], reporter: get_params[:reporter], lat: get_params[:lat], lng: get_params[:lng])
     report.save!
     redirect_back(fallback_location: root_path)
   end

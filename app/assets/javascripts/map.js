@@ -35,9 +35,13 @@ function initMap() {
     // Create an array of new markers.
     function createMarker(markerType) {
         var sd = gon.data[markerType][i];
+
+        // Extract data lat and lng from gon
         var dataLat = sd["lat"];
         var dataLng = sd["lng"];
+        var map_url = createGoogleMapUrl(dataLat.toString(), dataLng.toString());
 
+        // Create marker, define marker color
         var markerColor = "blue";
         if (markerType == "future_spray_locations")
             markerColor = "yellow";
@@ -49,25 +53,27 @@ function initMap() {
             icon: "../assets/marker_" + markerColor + ".png"
         });
 
-        var contentString = "";
-        if (markerType == "spray_data") {
-            contentString += "<h4>Spray Data</h4>";
-        } else if (markerType == "future_spray_locations") {
-            contentString += "<h4>Future Spray Location</h4>";
-            contentString += "<strong>Reporter: </strong>" + sd["reporter"] + "<br>";
-            contentString += "<strong>Date: </strong>" + sd["report_time"] + "<br>";
-        } else if (markerType == "malaria_reports") {
-            contentString += "<h4>Malaria Report Location</h4>";
-            contentString += "<strong>Reporter: </strong>" + sd["reporter"] + "<br>";
-            contentString += "<strong>Date: </strong>" + sd["report_time"] + "<br>";
+        // Create variables for use in contentString, particularly for deletion
+        var title = markerType.split("_").map(word => word[0].toUpperCase() + word.substr(1)).join(" ");
+        var deleteTarget = "delete_" + markerType;
+        var deleteUrl = markerType + "/delete?id=" + sd["id"];
+        var deleteType = title.split(' ').join('');
+        var deleteButtonId = deleteTarget + "_button_" + sd["id"];
+
+        // contentString creation
+        var contentString = "<div id=\"" + markerType + "_" + sd["id"] + "\">";
+        contentString += "<h4>" + title + "</h4>";
+        if (markerType != "spray_data") {
+            contentString += "<strong>Reporter: </strong><span class=\"reporter\">" + sd["reporter"] + "</span></strong><br>";
+            contentString += "<strong>Date: </strong><span class=\"report_date\">" + sd["report_date"] + "</span></strong><br>";
         }
-
-        map_url = createGoogleMapUrl(dataLat.toString(), dataLng.toString());
-
         contentString += "<strong>LatLng: </strong>" + dataLat.toString() + ", " + dataLng.toString() + "<br>";
-        contentString += "<a href=" + map_url + " target='_blank'>See In Google Maps</a>"
-        contentString = '<div>' + contentString + '</div>';
+        contentString += "<a href=" + map_url + " target='_blank'>See In Google Maps</a>";
+        contentString += "<br>";
+        contentString += "<button id=" + deleteButtonId + " class=\"btn btn-primary delete_marker\" data-toggle=\"modal\" data-target=\"#" + deleteTarget + "\" onclick=\"setDelete" + deleteType + "ID(" + sd["id"] + ")\">Delete Marker</button>";
+        contentString += "</div>"
 
+        // Add listener to display contentString on clicking on the marker
         marker.addListener('click', function() {
             infowindow.setContent(contentString);
             infowindow.open(map, marker);
@@ -111,14 +117,14 @@ function clickMap(e) {
     var reportDate = currentDate.getMonth() + "/" + currentDate.getDate() + "/" + currentDate.getFullYear();
 
     if (mapMode == addFutureSprayLocations) {
-        // Send lat, lng, and user email to controller
-        var target = "future_spray_locations/add";
-        window.location.href = target + "?lat=" + lat + "&lng=" + lng + "&reporter=" + email + "&datetime=" + reportDate;
+        // Send lat, lng, and user email to add_future_spray_locations modal
+        setAddFutureSprayLocations(lat, lng, email, reportDate)
+        $("#add_future_spray_locations").modal();
 
     } else if (mapMode == addMalariaReports) {
-        // Send lat, lng, and user email to controller
-        var target = "malaria_reports/add";
-        window.location.href = target + "?lat=" + lat + "&lng=" + lng + "&reporter=" + email + "&datetime=" + reportDate;
+        // Send lat, lng, and user email to add_malaria_reports modal
+        setAddMalariaReports(lat, lng, email, reportDate)
+        $("#add_malaria_reports").modal();
 
     } else {
         if (!$(e.target).closest("#map-add-button, #collapse-add-options").length) {
@@ -249,6 +255,48 @@ function setModeDefault() {
 
 function toggleMapPointer() {
     $("#map").attr("style", "cursor: pointer");
+}
+
+function setAddMalariaReports(lat, lng, reporter, date) {
+    var modal = $("#add_malaria_reports");
+    modal.find(".report_lat").html(lat);
+    modal.find(".report_lng").html(lat);
+
+    modal.find("#add_malaria_reports_lat").attr("value", lat)
+    modal.find("#add_malaria_reports_lng").attr("value", lng)
+    modal.find("#add_malaria_reports_reporter").attr("value", reporter)
+    modal.find("#add_malaria_reports_dateTime").attr("value", date)
+}
+
+function setAddFutureSprayLocations(lat, lng, reporter, date) {
+    var modal = $("#add_future_spray_locations");
+    modal.find(".report_lat").html(lat);
+    modal.find(".report_lng").html(lat);
+
+    modal.find("#add_future_spray_location_lat").attr("value", lat)
+    modal.find("#add_future_spray_location_lng").attr("value", lng)
+    modal.find("#add_future_spray_location_reporter").attr("value", reporter)
+    modal.find("#add_future_spray_location_dateTime").attr("value", date)
+}
+
+function setDeleteMalariaReportsID(report_id) {
+    var report = $("#malaria_reports_" + report_id);
+    var report_date = report.find(".report_date");
+
+    var modal = $("#delete_malaria_reports");
+    modal.find(".report_id").html(report_id);
+    modal.find(".report_date").html(report_date);
+    modal.find("#delete_malaria_reports_id").attr("value", report_id)
+}
+
+function setDeleteFutureSprayLocationsID(report_id) {
+    var report = $("#future_spray_locations_" + report_id);
+    var report_date = report.find(".report_date");
+
+    var modal = $("#delete_future_spray_locations");
+    modal.find(".report_id").html(report_id);
+    modal.find(".report_date").html(report_date);
+    modal.find("#delete_future_spray_locations_id").attr("value", report_id)
 }
 
 /**
