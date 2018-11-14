@@ -32,17 +32,20 @@
         <div class="modal-body">
           <h6 class="l-v-bottom-spaced">Add Malaria Report</h6>
           <p class="l-v-bottom-half-spaced">
-            Are you sure you want to add a report at
-            lat: &nbsp;
+            Are you sure you want to add a report at <br>
+            LatLng: (&nbsp;
             <span class="report_lat"></span>
-            , lng: &nbsp;
+            , &nbsp;
             <span class="report_lng"></span>
-            ?
+            )?
           </p>
           <%= f.hidden_field :lat, value: 0, id: "add_malaria_reports_lat", name: "malaria_report[lat]" %>
           <%= f.hidden_field :lng, value: 0, id: "add_malaria_reports_lng", name: "malaria_report[lng]" %>
-          <%= f.hidden_field :reporter, value: "", id: "add_malaria_reports_reporter", name: "malaria_report[reporter]" %>
-          <%= f.hidden_field :dateTime, value: "", id: "add_malaria_reports_dateTime", name: "malaria_report[dateTime]" %>
+          <%= label_tag(:add_malaria_reports_reporter, "Reporter:") %>
+          <%= f.text_field :reporter, value: "", id: "add_malaria_reports_reporter", name: "malaria_report[reporter]" %>
+          <br>
+          <%= label_tag(:add_malaria_reports_dateTime, "Report Time:") %>
+          <%= f.text_field :dateTime, value: "", id: "add_malaria_reports_dateTime", name: "malaria_report[dateTime]" %>
         </div>
         <div class="modal-footer">
           <%= f.submit 'Add', class: "button button-danger modal-default" %>
@@ -64,17 +67,20 @@
         <div class="modal-body">
           <h6 class="l-v-bottom-spaced">Add Future Spray Location</h6>
           <p class="l-v-bottom-half-spaced">
-            Are you sure you want to add location at
-            lat: &nbsp;
+            Are you sure you want to add a report at <br>
+            LatLng: (&nbsp;
             <span class="report_lat"></span>
-            , lng: &nbsp;
+            , &nbsp;
             <span class="report_lng"></span>
-            ?
+            )?
           </p>
           <%= f.hidden_field :lat, value: 0, id: "add_future_spray_location_lat", name: "future_spray_location[lat]" %>
           <%= f.hidden_field :lng, value: 0, id: "add_future_spray_location_lng", name: "future_spray_location[lng]" %>
-          <%= f.hidden_field :reporter, value: "", id: "add_future_spray_location_reporter", name: "future_spray_location[reporter]" %>
-          <%= f.hidden_field :dateTime, value: "", id: "add_future_spray_location_dateTime", name: "future_spray_location[dateTime]" %>
+          <%= label_tag(:add_future_spray_location_reporter, "Reporter:") %>
+          <%= f.text_field :reporter, value: "", id: "add_future_spray_location_reporter", name: "future_spray_location[reporter]" %>
+          <br>
+          <%= label_tag(:add_future_spray_location_dateTime, "Report Time:") %>
+          <%= f.text_field :dateTime, value: "", id: "add_future_spray_location_dateTime", name: "future_spray_location[dateTime]" %>
         </div>
         <div class="modal-footer">
           <%= f.submit 'Add', class: "button button-danger modal-default" %>
