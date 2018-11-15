@@ -253,7 +253,6 @@ function toggleMapPointer() {
 }
 
 function setAddModalFormInfo(formType, lat, lng, reporter, date) {
-    // formtype = "add-malaria-reports" DELETE LATER
     var formTitle = formType.split("-").map(word => word[0].toUpperCase() + word.substr(1)).join(" ").slice(0, -1);
     var formUrl = formType.split("-").slice(1).join("_");
     //takes the "s" off the end of the string
@@ -276,12 +275,12 @@ function setAddModalFormInfo(formType, lat, lng, reporter, date) {
 }
 
 function setDeleteModalFormInfo(deleteType, report_id) {
-    // deleteType = "malaria_reports"
     var report = $("#" + deleteType + "_" + report_id);
     var report_date = report.find(".report_date");
 
     var formTitle = deleteType.split("_").map(word => word[0].toUpperCase() + word.substr(1)).join(" ").slice(0, -1);
     var formUrl = deleteType;
+    //takes the "s" off the end of the string
     var formName = deleteType.slice(0, -1)
 
     var modal = $("#delete_report");
