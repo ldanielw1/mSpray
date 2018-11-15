@@ -111,6 +111,7 @@ function clickMap(e) {
     var latLng = e.latLng;
     var lat = latLng.lat();
     var lng = latLng.lng();
+    var username = $(".nav_username").html();
     var email = $(".nav_email").html();
 
     var currentDate = new Date();
@@ -118,8 +119,8 @@ function clickMap(e) {
 
     if (mapMode == addFutureSprayLocations || mapMode == addMalariaReports) {
         // Send lat, lng, and user email to add_report_modal
-        setAddModalFormInfo(mapMode, lat, lng, email, reportDate)
-        $("#add_reports").modal();
+        setAddModalFormInfo(mapMode, lat, lng, username, email, reportDate)
+        $("#add_report").modal();
 
     } else {
         if (!$(e.target).closest("#map-add-button, #collapse-add-options").length) {
@@ -252,23 +253,30 @@ function toggleMapPointer() {
     $("#map").attr("style", "cursor: pointer");
 }
 
-function setAddModalFormInfo(formType, lat, lng, reporter, date) {
+function setAddModalFormInfo(formType, lat, lng, reporter_name, reporter_email, date) {
     var formTitle = formType.split("-").map(word => word[0].toUpperCase() + word.substr(1)).join(" ").slice(0, -1);
     var formUrl = formType.split("-").slice(1).join("_");
     //takes the "s" off the end of the string
     var formName = formUrl.slice(0, -1);
     var modal = $("#add_report");
 
+    var lat = Number(lat);
+    var lng = Number(lng);
+    var latString, lngString;
+
+    latString = convertLatLngToString(lat, "lat");
+    lngString = convertLatLngToString(lng, "lng");
+
     modal.find(".report_title").html(formTitle);
-    modal.find(".report_lat").html(lat);
-    modal.find(".report_lng").html(lat);
+    modal.find(".report_lat").html(latString);
+    modal.find(".report_lng").html(lngString);
     modal.find(".form-horizontal").attr("action", "/" + formUrl + "/add");
 
     modal.find("#add_report_lat").attr("value", lat);
     modal.find("#add_report_lat").attr("name", formName + "[lat]");
     modal.find("#add_report_lng").attr("value", lng);
     modal.find("#add_report_lng").attr("name", formName + "[lng]");
-    modal.find("#add_report_reporter").attr("value", reporter);
+    modal.find("#add_report_reporter").attr("value", reporter_name.toString() + " (" + reporter_email.toString() + ")");
     modal.find("#add_report_reporter").attr("name", formName + "[reporter]");
     modal.find("#add_report_dateTime").attr("value", date);
     modal.find("#add_report_dateTime").attr("name", formName + "[dateTime]");
@@ -292,6 +300,28 @@ function setDeleteModalFormInfo(deleteType, report_id) {
     modal.find("#delete_report_id").attr("name", formName + "[id]")
 }
 
+function convertLatLngToString(coord, latLng) {
+    coordString = "";
+
+    if (coord < 0) {
+        coordString = Math.abs(coord.toFixed(5)).toString();
+        if (latLng == "lat") {
+            coordString += " S";
+        } else if (latLng == "lng") {
+            coordString += " W";
+        }
+    } else {
+        coordString = coord.toFixed(5).toString();
+        if (latLng == "lat") {
+            coordString += " N";
+        } else if (latLng == "lng") {
+            coordString += " E";
+        }
+    }
+
+    return coordString;
+}
+
 /**
  * Make listeners on all form elements for data view
  */
@@ -310,6 +340,7 @@ function loadJSForInitMap() {
         $("#map-add-button").click(function() { toggleAddButton() });
         $(".toggle-add-future-spray-locations").click(function() { toggleSelectedButton(addFutureSprayLocations) });
         $(".toggle-add-malaria-reports").click(function() { toggleSelectedButton(addMalariaReports) });
+        $(".sidebar_item").click(function() { mapMode = defaultMode });
     }
 }
 
