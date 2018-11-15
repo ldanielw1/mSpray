@@ -21,16 +21,20 @@
 </div>
 <div id="map"></div>
 
-<div id="add_malaria_reports" class="modal fade add_malaria_reports_modal" role="dialog">
+<div id="add_report" class="modal fade add_report_modal" role="dialog">
   <div class="modal-dialog modal-md">
-    <%= form_for("", html: {class: 'form-horizontal'}, url: add_malaria_reports_path, method: :post) do |f| %>
+    <%= form_for("", html: {class: 'form-horizontal'}, url: "", method: :post) do |f| %>
       <div class="modal-content" style="width: 600px">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Add Malaria Report</h4>
+          <h4 class="modal-title">&nbsp;
+            <span class="report_title"></span>
+          </h4>
         </div>
         <div class="modal-body">
-          <h6 class="l-v-bottom-spaced">Add Malaria Report</h6>
+          <h6 class="l-v-bottom-spaced">&nbsp;
+            <span class="report_title"></span>
+          </h6>
           <p class="l-v-bottom-half-spaced">
             Are you sure you want to add a report at <br>
             LatLng: (&nbsp;
@@ -39,13 +43,13 @@
             <span class="report_lng"></span>
             )?
           </p>
-          <%= f.hidden_field :lat, value: 0, id: "add_malaria_reports_lat", name: "malaria_report[lat]" %>
-          <%= f.hidden_field :lng, value: 0, id: "add_malaria_reports_lng", name: "malaria_report[lng]" %>
+          <%= f.hidden_field :lat, value: 0, id: "add_report_lat", name: "" %>
+          <%= f.hidden_field :lng, value: 0, id: "add_report_lng", name: "" %>
           <%= label_tag(:add_malaria_reports_reporter, "Reporter:") %>
-          <%= f.text_field :reporter, value: "", id: "add_malaria_reports_reporter", name: "malaria_report[reporter]" %>
+          <%= f.text_field :reporter, value: "", id: "add_report_reporter", name: "" %>
           <br>
           <%= label_tag(:add_malaria_reports_dateTime, "Report Time:") %>
-          <%= f.text_field :dateTime, value: "", id: "add_malaria_reports_dateTime", name: "malaria_report[dateTime]" %>
+          <%= f.text_field :dateTime, value: "", id: "add_report_dateTime", name: "" %>
         </div>
         <div class="modal-footer">
           <%= f.submit 'Add', class: "button button-danger modal-default" %>
@@ -56,48 +60,15 @@
   </div>
 </div>
 
-<div id="add_future_spray_locations" class="modal fade add_malaria_reports_modal" role="dialog">
+<div id="delete_report" class="modal fade delete_report_modal" role="dialog">
   <div class="modal-dialog modal-md">
-    <%= form_for("", html: {class: 'form-horizontal'}, url: add_future_spray_locations_path, method: :post) do |f| %>
+    <%= form_for("", html: {class: 'form-horizontal'}, url: "", method: :post) do |f| %>
       <div class="modal-content" style="width: 600px">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Add Future Spray Location</h4>
-        </div>
-        <div class="modal-body">
-          <h6 class="l-v-bottom-spaced">Add Future Spray Location</h6>
-          <p class="l-v-bottom-half-spaced">
-            Are you sure you want to add a report at <br>
-            LatLng: (&nbsp;
-            <span class="report_lat"></span>
-            , &nbsp;
-            <span class="report_lng"></span>
-            )?
-          </p>
-          <%= f.hidden_field :lat, value: 0, id: "add_future_spray_location_lat", name: "future_spray_location[lat]" %>
-          <%= f.hidden_field :lng, value: 0, id: "add_future_spray_location_lng", name: "future_spray_location[lng]" %>
-          <%= label_tag(:add_future_spray_location_reporter, "Reporter:") %>
-          <%= f.text_field :reporter, value: "", id: "add_future_spray_location_reporter", name: "future_spray_location[reporter]" %>
-          <br>
-          <%= label_tag(:add_future_spray_location_dateTime, "Report Time:") %>
-          <%= f.text_field :dateTime, value: "", id: "add_future_spray_location_dateTime", name: "future_spray_location[dateTime]" %>
-        </div>
-        <div class="modal-footer">
-          <%= f.submit 'Add', class: "button button-danger modal-default" %>
-          <button type="button" class="button" data-dismiss="modal">Cancel</button>
-        </div>
-      </div>
-    <% end %>
-  </div>
-</div>
-
-<div id="delete_malaria_reports" class="modal fade delete_malaria_reports_modal" role="dialog">
-  <div class="modal-dialog modal-md">
-    <%= form_for("", html: {class: 'form-horizontal'}, url: delete_malaria_reports_path(1), method: :post) do |f| %>
-      <div class="modal-content" style="width: 600px">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Delete Malaria Report</h4>
+          <h4 class="modal-title">&nbsp;
+          <span class="report_title"></span>
+          </h4>
         </div>
         <div class="modal-body">
           <h6 class="l-v-bottom-spaced">Delete Report</h6>
@@ -108,35 +79,7 @@
             <span class="report_date"></span>
             ?
           </p>
-          <%= f.hidden_field :id, value: 0, id: "delete_malaria_reports_id", name: "malaria_report[id]" %>
-        </div>
-        <div class="modal-footer">
-          <%= f.submit 'Delete', class: "button button-danger modal-default" %>
-          <button type="button" class="button" data-dismiss="modal">Cancel</button>
-        </div>
-      </div>
-    <% end %>
-  </div>
-</div>
-
-<div id="delete_future_spray_locations" class="modal fade delete_future_spray_locations_modal" role="dialog">
-  <div class="modal-dialog modal-md">
-    <%= form_for("", html: {class: 'form-horizontal'}, url: delete_future_spray_locations_path(1), method: :post) do |f| %>
-      <div class="modal-content" style="width: 600px">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Delete Future Spray Location</h4>
-        </div>
-        <div class="modal-body">
-          <h6 class="l-v-bottom-spaced">Delete Report</h6>
-          <p class="l-v-bottom-half-spaced">
-            Are you sure you want to delete report (ID:&nbsp;
-            <span class="report_id"></span>
-            ), recorded at&nbsp;
-            <span class="report_date"></span>
-            ?
-          </p>
-          <%= f.hidden_field :id, value: 0, id: "delete_future_spray_locations_id", name: "future_spray_location[id]" %>
+          <%= f.hidden_field :id, value: 0, id: "delete_report_id", name: "malaria_report[id]" %>
         </div>
         <div class="modal-footer">
           <%= f.submit 'Delete', class: "button button-danger modal-default" %>
