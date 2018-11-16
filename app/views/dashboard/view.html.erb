@@ -36,20 +36,18 @@
             <span class="report_title"></span>
           </h6>
           <p class="l-v-bottom-half-spaced">
-            Are you sure you want to add a report at <br>
-            LatLng: (&nbsp;
-            <span class="report_lat"></span>
-            , &nbsp;
-            <span class="report_lng"></span>
-            )?
+            Are you sure you want to add a report at: <strong><span class="report_lat"></span>, <span class="report_lng"></span></strong>?
           </p>
           <%= f.hidden_field :lat, value: 0, id: "add_report_lat", name: "" %>
           <%= f.hidden_field :lng, value: 0, id: "add_report_lng", name: "" %>
-          <%= label_tag(:add_malaria_reports_reporter, "Reporter:") %>
-          <%= f.text_field :reporter, value: "", id: "add_report_reporter", name: "" %>
-          <br>
-          <%= label_tag(:add_malaria_reports_dateTime, "Report Time:") %>
-          <%= f.text_field :dateTime, value: "", id: "add_report_dateTime", name: "" %>
+          <div class="field form-group">
+            <%= label_tag( :add_malaria_reports_reporter, "Reporter:", class: "control-label" ) %>
+            <%= f.text_field :reporter, value: "", id: "add_report_reporter", name: "" %>
+          </div>
+          <div class="field form-group">
+            <%= label_tag(:add_malaria_reports_dateTime, "Report Time:", class: "control-label") %>
+            <%= f.text_field :dateTime, value: "", id: "add_report_dateTime", name: "" %>
+          </div>
         </div>
         <div class="modal-footer">
           <%= f.submit 'Add', class: "button button-danger modal-default" %>
