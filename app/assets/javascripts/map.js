@@ -207,7 +207,7 @@ function toggleAddButton(e) {
     mapMode = "default";
     mapButton = $("#map-add-button");
     mapText = mapButton.find(".fas");
-    arrow = "fa-arrow-circle-right";
+    arrow = "fa-arrow-right";
     plus = "fa-plus";
 
     if (mapButton.html().toString().indexOf("fa-plus") > -1) {
