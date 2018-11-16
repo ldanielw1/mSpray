@@ -301,25 +301,11 @@ function setDeleteModalFormInfo(deleteType, report_id) {
 }
 
 function convertLatLngToString(coord, latLng) {
-    coordString = "";
-
-    if (coord < 0) {
-        coordString = Math.abs(coord.toFixed(5)).toString();
-        if (latLng == "lat") {
-            coordString += " S";
-        } else if (latLng == "lng") {
-            coordString += " W";
-        }
-    } else {
-        coordString = coord.toFixed(5).toString();
-        if (latLng == "lat") {
-            coordString += " N";
-        } else if (latLng == "lng") {
-            coordString += " E";
-        }
-    }
-
-    return coordString;
+    if ((latLng != "lat") && (latLng != "lng"))
+        throw "latLng is neither 'lat' nor 'lng': " + latLng;
+    var isLat = latLng == "lat";
+    var dir = (coord < 0) ? (isLat ? "S" : "W") : (isLat ? "N" : "E");
+    return Math.abs(coord.toFixed(5)).toString() + " " + dir;
 }
 
 /**
