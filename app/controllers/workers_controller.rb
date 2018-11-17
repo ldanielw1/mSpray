@@ -19,23 +19,31 @@ class WorkersController < ApplicationController
   ##
   # Edits a worker's info
   def edit
-    w_params = params[:worker]
-    worker = Worker.find(w_params[:id])
+    if current_user.admin?
+      w_params = params[:worker]
+      worker = Worker.find(w_params[:id])
 
-    worker.worker_id = w_params[:worker_id]
-    worker.name      = w_params[:name]
-    worker.active    = w_params[:active]
+      worker.worker_id = w_params[:worker_id]
+      worker.name      = w_params[:name]
+      worker.active    = w_params[:active]
 
-    worker.save!
-    redirect_back(fallback_location: view_workers_path)
+      worker.save!
+    else
+      flash[:error] = "#{current_user.name} (#{current_user.email}) does not have the privileges to edit worker data"
+    end
+      redirect_back(fallback_location: view_workers_path)
   end
 
   ##
   # Deletes a worker's info
   def delete
-    w_params = params[:worker]
-    worker = Worker.find(w_params[:id])
-    worker.destroy!
+    if current_user.admin?
+      w_params = params[:worker]
+      worker = Worker.find(w_params[:id])
+      worker.destroy!
+    else
+      flash[:error] = "#{current_user.name} (#{current_user.email}) does not have the privileges to delete worker data"
+    end
     redirect_back(fallback_location: view_workers_path)
   end
 

@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   # Ensures that only admins can view the current page
   def admin_only
     unless current_user.admin?
-      redirect_to root_path
+      redirect_back(fallback_location: root_path)
     end
   end
 
