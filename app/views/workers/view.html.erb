@@ -63,6 +63,8 @@
     <td class="worker_name"><%= worker.name %></td>
     <td class="worker_active"><%= worker.active ? "true" : "false" %></td>
     <td class="worker_edit">
+
+    <% if @current_user.admin %>
       <button type="button" class="button button-small button-danger admin-button" data-toggle="modal" data-target="#delete_worker_<%= worker.id %>">
         <%= icon('fas', 'trash') %>
         Delete
@@ -71,10 +73,6 @@
         <%= icon('fas', 'edit') %>
         Edit
       </button>
-      <%= link_to view_reports_workers_path(:worker_id => worker.id), class: "button button-small button-primary admin-button" do %>
-        <%= icon('fas', 'money-bill') %>
-        Reports
-      <% end %>
 
       <div id="edit_worker_<%= worker.id %>" class="modal fade" role="dialog">
         <div class="modal-dialog modal-md">
@@ -131,6 +129,12 @@
           <% end %>
         </div>
       </div>
+    <% end %>
+
+      <%= link_to view_reports_workers_path(:worker_id => worker.id), class: "button button-small button-primary admin-button" do %>
+        <%= icon('fas', 'money-bill') %>
+        Reports
+      <% end %>
 
     </td>
   </tr>
