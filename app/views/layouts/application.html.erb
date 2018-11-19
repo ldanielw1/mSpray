@@ -15,6 +15,20 @@
   </head>
 
   <body>
+    <% notice_class = current_user ? "" : "notice-fullscreen" %>
+    <% if flash[:notice] %>
+      <div class="notice <%= notice_class %> animated fadeIn">
+        <i class="fa fa-check-circle icon-right-spaced"></i>
+        <%= raw(flash[:notice]) %>
+      </div>
+    <% end %>
+    <% if flash[:error] %>
+      <div class="notice notice-warning <%= notice_class %> animated fadeIn">
+        <i class="fa fa-check-circle icon-right-spaced"></i>
+        <%= raw(flash[:error]) %>
+      </div>
+    <% end %>
+
     <% if current_user %>
       <div class="content">
         <% cache([current_user, "web_view"]) do %>
@@ -22,18 +36,6 @@
         <% end %>
 
         <div class="<%= controller.controller_name == "dashboard" ? "main-map-content" : "main-content"%>">
-          <% if flash[:notice] %>
-            <div class="notice animated fadeIn">
-              <i class="fa fa-check-circle icon-right-spaced"></i>
-              <%= raw(flash[:notice]) %>
-            </div>
-          <% end %>
-          <% if flash[:error] %>
-            <div class="notice notice-warning animated fadeIn">
-              <i class="fa fa-check-circle icon-right-spaced"></i>
-              <%= raw(flash[:error]) %>
-            </div>
-          <% end %>
           <%= content_for?(:admins) ? yield(:admins) : yield %>
         </div>
       </div>
@@ -46,6 +48,6 @@
       </div>
     <% end %>
 
-   
+
   </body>
 </html>
