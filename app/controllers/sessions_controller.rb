@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
 
   def login
     redirect_to root_path if current_user
-end
+  end
 
   def create
     profile_img = request.env["omniauth.auth"]["extra"]["raw_info"]["picture"]
@@ -16,11 +16,11 @@ end
       redirect_to signin_path
     else
       # Set profile_img for the sidebar
-    user.profile_img = profile_img
-    user.save if user.changed?
+      user.profile_img = profile_img
+      user.save if user.changed?
 
-    session[:user_id] = user.id
-    redirect_to root_path
+      session[:user_id] = user.id
+      redirect_to root_path
     end
   end
 
