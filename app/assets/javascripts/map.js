@@ -17,7 +17,8 @@ function initMap() {
         },
         streetViewControlOptions: {
             position: google.maps.ControlPosition.LEFT_BOTTOM
-        }
+        },
+        clickableIcons: false
     };
 
     var mapDiv = document.getElementById('map');
