@@ -44,9 +44,7 @@ class InitialSetup < ActiveRecord::Migration[5.0]
       t.string   :email,                           :default => ""
       t.string   :profile_img,                     :default => ""
       t.boolean  :admin,                           :default => false
-
-      t.string   :provider,                        :default => ""
-      t.string   :uid,                             :default => ""
+      t.string   :user_id,                         :default => ""
     end
 
     create_table :allowed_emails do |t|

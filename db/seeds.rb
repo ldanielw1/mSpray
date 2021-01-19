@@ -3,6 +3,8 @@
 include SprayDatumHelper
 include WorkerHelper
 
+AllowedEmail.where(email: "ldanielcwu@gmail.com").first_or_create
+
 create_worker('1', 'Daniel', true)
 create_worker('2', 'Kevin', true)
 create_worker('3', 'Jermaine', true)

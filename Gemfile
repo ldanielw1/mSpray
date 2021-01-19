@@ -63,7 +63,7 @@ gem 'gon'
 ######################################################################
 # Utilities
 ######################################################################
-gem 'omniauth-google-oauth2', '~> 0.2.1'
+gem 'google_sign_in'
 gem 'google_drive'
 
 group :development, :test do

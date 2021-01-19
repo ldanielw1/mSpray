@@ -45,7 +45,7 @@ Rails.application.routes.draw do
 
   # Session routes
   resources :sessions , only: [:create, :destroy, :login]
-  get 'auth/:provider/callback',       to: 'sessions#create'
+  get 'session/create',                to: 'sessions#create'
   get 'auth/failure',                  to: redirect('/')
   get 'signout',                       to: 'sessions#destroy', as: 'signout'
   get 'signin',                        to: 'sessions#login',   as: 'signin'

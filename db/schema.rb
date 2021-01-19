@@ -50,8 +50,7 @@ ActiveRecord::Schema.define(version: 2017_07_13_004004) do
     t.string "email", default: ""
     t.string "profile_img", default: ""
     t.boolean "admin", default: false
-    t.string "provider", default: ""
-    t.string "uid", default: ""
+    t.string "user_id", default: ""
   end
 
   create_table "workers", force: :cascade do |t|
