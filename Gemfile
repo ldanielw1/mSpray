@@ -8,27 +8,27 @@ end
 ######################################################################
 # Rails Framework
 ######################################################################
-gem 'rails', '5.0.3'
-gem 'puma', '3.9.1'
-gem 'turbolinks', '5.0.1'
+gem 'rails', '~> 6.0.3', '>= 6.0.3.2'
+gem 'puma', '~> 5.0'
+gem 'turbolinks', '~> 5'
 
 group :production do
   gem 'pg' # Must make sure libpq-dev is installed on Ubuntu
 end
 
 group :development, :test do
-  gem 'sqlite3', '1.3.13'
+  gem 'sqlite3', '~> 1.4'
 
   gem 'byebug', platform: :mri
-  gem 'rspec-rails', '3.5.1'
+  gem 'rspec-rails'
 end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem 'web-console', '3.5.1'
-  gem 'listen', '3.0.8'
-  gem 'spring', '2.0.2'
-  gem 'spring-watcher-listen', '2.0.1'
+  gem 'web-console'
+  gem 'listen'
+  gem 'spring'
+  gem 'spring-watcher-listen'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -41,21 +41,21 @@ gem 'bootstrap-sass', '~> 3.2.0'
 gem 'font-awesome-sass', '~> 5.0.13'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '5.0.6'
+gem 'sass-rails', '~> 5.0'
 
 ######################################################################
 # JS Framework
 ######################################################################
-gem 'coffee-rails', '4.2.2'
-gem 'jquery-rails', '4.3.1'
-gem 'jbuilder', '2.6.1'
+gem 'coffee-rails'
+gem 'jquery-rails'
+gem 'jbuilder', '~> 2.7'
 
 # JS assets compressor
-gem 'uglifier', '3.2.0'
+gem 'uglifier', '~> 3.2'
 
 # JS runtime
 gem 'execjs'
-gem 'therubyracer'
+gem 'mini_racer', '~> 0.3'
 
 # Use Gon gem to make data accessible in JS
 gem 'gon'
