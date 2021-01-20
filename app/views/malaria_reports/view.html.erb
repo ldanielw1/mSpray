@@ -61,65 +61,54 @@
       <td class="report_longitude"><%= report.lng %></td>
       <td class="report_buttons">
 
-        <button type="button" class="button button-small button-danger delete_malaria_report admin-button" data-toggle="modal" data-target="#delete_<%= report.id %>">
-          <%= icon('fas', 'trash') %>
-          Delete
-        </button>
-        <button type="button" class="button button-small button-primary edit_malaria_report admin-button" data-toggle="modal" data-target="#edit_<%= report.id %>">
-        <%= icon('fas', 'edit') %>
-          Edit
-        </button>
-
-        <div id="edit_<%= report.id %>" class="modal fade edit_malaria_report_modal" role="dialog">
-          <div class="modal-dialog modal-md">
-            <%= form_for(report, html: {class: 'form-horizontal'}, url: edit_malaria_reports_path(report.id), method: :post) do |f| %>
-              <div class="modal-content" style="width: 600px">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 class="modal-title">Edit Malaria Report <%= report.id %></h4>
-                </div>
-                <div class="modal-body">
-                  <h6 class="l-v-bottom-spaced">Edit Malaria Report</h6>
-                  <p class="l-v-bottom-half-spaced">Edit information for malaria report.</p>
-                  <%= f.hidden_field :id, value: report.id%>
-                  <% [:report_date, :reporter].each do |category| %>
-                    <div class="field form-group">
-                      <%= f.label category, class: "control-label" %>
-                      <%= f.text_field category %>
-                    </div>
-                  <% end %>
-                </div>
-                <div class="modal-footer">
-                  <%= f.submit 'Submit', class: "button button-primary modal-default" %>
-                  <button type="button" class="button" data-dismiss="modal">Cancel</button>
-                </div>
-              </div>
-            <% end %>
-          </div>
+        <div class="right">
+          <button class="btn admin-button modal-trigger blue lighten-3" data-target="edit_<%= report.id %>">
+            <%= icon('fas', 'edit') %> Edit
+          </button>
+          <button class="btn admin-button modal-trigger red lighten-2" data-target="delete_<%= report.id %>">
+            <%= icon('fas', 'trash') %> Delete
+          </button>
         </div>
 
-        <div id="delete_<%= report.id %>" class="modal fade delete_malaria_report_modal" role="dialog">
-          <div class="modal-dialog modal-md">
-            <%= form_for(report, html: {class: 'form-horizontal'}, url: delete_malaria_reports_path(report.id), method: :post) do |f| %>
-              <div class="modal-content" style="width: 600px">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 class="modal-title">Delete Malaria Report</h4>
+        <div id="edit_<%= report.id %>" class="modal">
+          <%= form_for(report, html: {class: 'form-horizontal'}, url: edit_malaria_reports_path(report.id), method: :post) do |f| %>
+            <div class="modal-content">
+              <button type="button" class="right close modal-close">&times;</button>
+              <h4 class="modal-title">Edit Malaria Report <%= report.id %></h4>
+              <h6>Edit Malaria Report</h6>
+              <br>
+              <p>Edit information for malaria report.</p>
+              <%= f.hidden_field :id, value: report.id %>
+              <% [:report_date, :reporter].each do |category| %>
+                <div class="field form-group">
+                  <%= f.label category, class: "control-label" %>
+                  <%= f.text_field category %>
                 </div>
-                <div class="modal-body">
-                  <h6 class="l-v-bottom-spaced">Delete Report</h6>
-                  <p class="l-v-bottom-half-spaced">Are you sure you want to delete report (ID: <%= report.id %>), recorded at <%= report.report_date %>?</p>
-                  <%= f.hidden_field :id, value: report.id %>
-                </div>
-                <div class="modal-footer">
-                  <%= f.submit 'Delete', class: "button button-danger modal-default" %>
-                  <button type="button" class="button" data-dismiss="modal">Cancel</button>
-                </div>
-              </div>
-            <% end %>
-          </div>
+              <% end %>
+            </div>
+            <div class="modal-footer">
+              <a class="btn grey modal-close">Cancel</a>
+              <%= f.submit 'Submit', class: "btn modal-close" %>
+            </div>
+          <% end %>
         </div>
 
+        <div id="delete_<%= report.id %>" class="modal">
+          <%= form_for(report, html: {class: 'form-horizontal'}, url: delete_malaria_reports_path(report.id), method: :post) do |f| %>
+            <div class="modal-content">
+              <button type="button" class="right close modal-close">&times;</button>
+              <h4 class="modal-title">Delete Malaria Report</h4>
+              <h6>Delete Report</h6>
+              <br>
+              <p>Are you sure you want to delete report (ID: <%= report.id %>), recorded at <%= report.report_date %>?</p>
+              <%= f.hidden_field :id, value: report.id %>
+            </div>
+            <div class="modal-footer">
+              <a class="btn grey modal-close">Cancel</a>
+              <%= f.submit 'Delete', class: "btn modal-close red lighten-2" %>
+            </div>
+          <% end %>
+        </div>
 
       </td>
     </tr>
