@@ -19,7 +19,7 @@
       color: #384173;
     }
 
-    &:hover {
+    &:hover, &.active {
       background-color: #efeff8;
 
       a {

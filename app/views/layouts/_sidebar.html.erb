@@ -1,33 +1,33 @@
 <div class="sidebar">
   <div class="row">
     <ul>
-      <li class="sidebar__link">
+      <li class="sidebar__link <%= (controller_name == "dashboard") ? "active" : "" %>">
         <%= link_to root_path do %>
           <%= icon("fas", "map") %> Dashboard
         <% end %>
       </li>
-      <li class="sidebar__link">
+      <li class="sidebar__link <%= (controller_name == "spray_data") ? "active" : "" %>">
         <%= link_to view_spray_data_path do %>
           <%= icon("fas", "chart-line") %> Spray Data
         <% end %>
       </li>
-      <li class="sidebar__link">
+      <li class="sidebar__link <%= (controller_name == "future_spray_locations") ? "active" : "" %>">
         <%= link_to view_future_spray_locations_path do %>
           <%= icon("fas", "calendar-plus") %> Future Spray Locations
         <% end %>
       </li>
-      <li class="sidebar__link">
+      <li class="sidebar__link <%= (controller_name == "malaria_reports") ? "active" : "" %>">
         <%= link_to view_malaria_reports_path do %>
           <%= icon("fas", "flag") %> Malaria Reports
         <% end %>
       </li>
-      <li class="sidebar__link">
+      <li class="sidebar__link <%= (controller_name == "workers") ? "active" : "" %>">
         <%= link_to view_workers_path do %>
           <%= icon("fas", "address-card") %> Worker Info & Reports
         <% end %>
       </li>
       <% if current_user.admin? %>
-        <li class="sidebar__link">
+        <li class="sidebar__link <%= (controller_name == "admins") ? "active" : "" %>">
           <%= link_to site_permissions_admin_path do %>
             <%= icon("fas", "cog") %> Site Admin
           <% end %>
