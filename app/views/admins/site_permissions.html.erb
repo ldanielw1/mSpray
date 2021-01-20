@@ -41,7 +41,7 @@
         <div id="edit_<%= user.id %>" class="modal">
           <%= form_for(user, html: {class: 'form-horizontal'}, url: change_permissions_admin_path(user.id), method: :post) do |f| %>
             <div class="modal-content">
-              <button type="button" class="right close modal-close">&times;</button>
+              <button class="right close modal-close">&times;</button>
               <h4 class="modal-title"><%= user.name %> (<%= user.email %>)</h4>
               <h6>Edit User</h6>
               <br>
@@ -63,7 +63,7 @@
         <div id="delete_<%= user.id %>" class="modal">
           <%= form_for(user, html: {class: 'form-horizontal'}, url: delete_user_admin_path(user.id), method: :post) do |f| %>
             <div class="modal-content">
-              <button type="button" class="right close modal-close">&times;</button>
+              <button class="right close modal-close">&times;</button>
               <h4 class="modal-title"><%= user.name %> (<%= user.email %>)</h4>
               <h6>Delete User</h6>
               <br>

@@ -124,7 +124,7 @@
       </td>
       <td class="data_latitude"><%= data.lat %></td>
       <td class="data_longitude"><%= data.lng %></td>
-      <td class="data_buttons">
+      <td>
 
       <% if @current_user.admin %>
         <div class="right">
@@ -139,7 +139,7 @@
         <div id="edit_<%= data.id %>" class="modal">
             <%= form_for(data, html: {class: 'form-horizontal'}, url: edit_spray_data_path(data.id), method: :post) do |f| %>
             <div class="modal-content">
-              <button type="button" class="right close modal-close">&times;</button>
+              <button class="right close modal-close">&times;</button>
               <h4 class="modal-title">Edit mSpray Data <%= data.id %></h4>
               <h6>Edit mSpray Data</h6>
               <br>
@@ -196,7 +196,7 @@
         <div id="delete_<%= data.id %>" class="modal">
           <%= form_for(data, html: {class: 'form-horizontal'}, url: delete_spray_data_path(data.id), method: :post) do |f| %>
             <div class="modal-content">
-              <button type="button" class="right close modal-close">&times;</button>
+              <button class="right close modal-close">&times;</button>
               <h4 class="modal-title">Delete Spray Data</h4>
               <h6>Delete Data</h6>
               <br>

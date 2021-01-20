@@ -71,7 +71,7 @@ function initMap() {
     contentString += "<strong>LatLng: </strong>" + dataLat.toString() + ", " + dataLng.toString() + "<br>";
     contentString += "<a href=" + map_url + " target='_blank'>See In Google Maps</a>";
     contentString += "<br>";
-    contentString += "<button id=" + deleteButtonId + " class=\"btn modal-trigger delete_marker\" data-target=\"delete_report\" onclick=\"setDeleteModalFormInfo('" + markerType + "', " + sd["id"] + ")\">Delete Marker</button>";
+    contentString += "<button id=" + deleteButtonId + " class=\"btn modal-trigger delete_marker\" data-target=\"delete_pin\" onclick=\"setDeleteModalFormInfo('" + markerType + "', " + sd["id"] + ")\">Delete Marker</button>";
     contentString += "</div>"
 
     // Add listener to display contentString on clicking on the marker
@@ -119,9 +119,9 @@ function clickMap(e) {
   var reportDate = currentDate.getMonth() + "/" + currentDate.getDate() + "/" + currentDate.getFullYear();
 
   if (mapMode == addFutureSprayLocations || mapMode == addMalariaReports) {
-    // Send lat, lng, and user email to add_report_modal
+    // Send lat, lng, and user email to add_pin_modal
     setAddModalFormInfo(mapMode, lat, lng, username, email, reportDate)
-    $("#add_report").modal('open');
+    $("#add_pin").modal('open');
 
   } else {
     if ($(".fixed-action-btn").hasClass("active")) {
@@ -209,8 +209,6 @@ function toggleSelectedButton(mode) {
   var modeClass = ".toggle-" + mode;
   var isActive = $(modeClass).hasClass("active");
   turnOffActiveFromAll();
-  if (!isActive)
-    $(modeClass + ".button-overlay").addClass("active");
 }
 
 function toggleMode(mode) {
@@ -239,7 +237,7 @@ function setAddModalFormInfo(formType, lat, lng, reporter_name, reporter_email, 
   var formUrl = formType.split("-").slice(1).join("_");
   //takes the "s" off the end of the string
   var formName = formUrl.slice(0, -1);
-  var modal = $("#add_report");
+  var modal = $("#add_pin");
 
   var lat = Number(lat);
   var lng = Number(lng);
@@ -253,14 +251,14 @@ function setAddModalFormInfo(formType, lat, lng, reporter_name, reporter_email, 
   modal.find(".report_lng").html(lngString);
   modal.find(".form-horizontal").attr("action", "/" + formUrl + "/add");
 
-  modal.find("#add_report_lat").attr("value", lat);
-  modal.find("#add_report_lat").attr("name", formName + "[lat]");
-  modal.find("#add_report_lng").attr("value", lng);
-  modal.find("#add_report_lng").attr("name", formName + "[lng]");
-  modal.find("#add_report_reporter").attr("value", reporter_name.toString() + " (" + reporter_email.toString() + ")");
-  modal.find("#add_report_reporter").attr("name", formName + "[reporter]");
-  modal.find("#add_report_dateTime").attr("value", date);
-  modal.find("#add_report_dateTime").attr("name", formName + "[dateTime]");
+  modal.find("#add_pin_lat").attr("value", lat);
+  modal.find("#add_pin_lat").attr("name", formName + "[lat]");
+  modal.find("#add_pin_lng").attr("value", lng);
+  modal.find("#add_pin_lng").attr("name", formName + "[lng]");
+  modal.find("#add_pin_reporter").attr("value", reporter_name.toString() + " (" + reporter_email.toString() + ")");
+  modal.find("#add_pin_reporter").attr("name", formName + "[reporter]");
+  modal.find("#add_pin_dateTime").attr("value", date);
+  modal.find("#add_pin_dateTime").attr("name", formName + "[dateTime]");
 }
 
 function setDeleteModalFormInfo(deleteType, report_id) {
@@ -272,13 +270,13 @@ function setDeleteModalFormInfo(deleteType, report_id) {
   //takes the "s" off the end of the string
   var formName = deleteType.slice(0, -1)
 
-  var modal = $("#delete_report");
+  var modal = $("#delete_pin");
   modal.find(".report_title").html(formTitle);
   modal.find(".form-horizontal").attr("action", "/" + formUrl + "/delete");
   modal.find(".report_id").html(report_id);
   modal.find(".report_date").html(report_date);
-  modal.find("#delete_report_id").attr("value", report_id)
-  modal.find("#delete_report_id").attr("name", formName + "[id]")
+  modal.find("#delete_pin_id").attr("value", report_id)
+  modal.find("#delete_pin_id").attr("name", formName + "[id]")
 }
 
 function convertLatLngToString(coord, latLng) {

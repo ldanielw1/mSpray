@@ -73,7 +73,7 @@
         <div id="edit_<%= report.id %>" class="modal">
           <%= form_for(report, html: {class: 'form-horizontal'}, url: edit_malaria_reports_path(report.id), method: :post) do |f| %>
             <div class="modal-content">
-              <button type="button" class="right close modal-close">&times;</button>
+              <button class="right close modal-close">&times;</button>
               <h4 class="modal-title">Edit Malaria Report <%= report.id %></h4>
               <h6>Edit Malaria Report</h6>
               <br>
@@ -96,7 +96,7 @@
         <div id="delete_<%= report.id %>" class="modal">
           <%= form_for(report, html: {class: 'form-horizontal'}, url: delete_malaria_reports_path(report.id), method: :post) do |f| %>
             <div class="modal-content">
-              <button type="button" class="right close modal-close">&times;</button>
+              <button class="right close modal-close">&times;</button>
               <h4 class="modal-title">Delete Malaria Report</h4>
               <h6>Delete Report</h6>
               <br>

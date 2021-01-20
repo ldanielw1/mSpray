@@ -15,29 +15,6 @@
   bottom: 25px;
 }
 
-.button-overlay{
-  position: relative;
-  display: inline-flex;
-  cursor:pointer;
-
-  border:none;
-  border-radius:50%;
-
-  color: #fff;
-  background-color: #db4437;
-  text-align:center;
-
-  &.menu-option {
-    font-size: 28px;
-    vertical-align: 4px;
-  }
-
-  &:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-  }
-
-}
-
 .blue {
   background-color: #0288d1;
 
@@ -51,10 +28,6 @@
   background-color: #ffbb33;
   box-shadow: 0 10px 12px 0 rgba(0,0,0,0.2);
 
-  &.button-overlay {
-    padding: 12px 15px;
-  }
-
   &:hover, &.active {
     background-color: #ce9524;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
@@ -64,10 +37,6 @@
 .toggle-add-malaria-reports {
   background-color: #db4437;
   box-shadow: 0 10px 12px 0 rgba(0,0,0,0.2);
-
-  &.button-overlay {
-    padding: 12px 11px;
-  }
 
   &:hover, &.active {
     background-color: rgb(163, 4, 4);

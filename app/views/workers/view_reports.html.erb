@@ -74,7 +74,7 @@
               <% chemical == "N/A" ? chemical_label = "No Spray" : chemical_label = chemical %>
               <%= link_to sp1_form_workers_path(:worker_id => @worker.id, :date => Date.strptime(spray_data[0].timestamp), :chemical => chemical), class: "btn blue lighten-3", target: :_blank do %>
                 <%= icon('fas', 'file-image') %>
-                <%= "SP1 (#{chemical_label})"  %>
+                <%= "SP1 (#{chemical_label})" %>
               <% end %>
             <% end %>
 

@@ -80,7 +80,7 @@
             <div id="edit_<%= worker.id %>" class="modal">
               <%= form_for(worker, html: {class: 'form-horizontal'}, url: edit_workers_path(worker.id), method: :post) do |f| %>
                 <div class="modal-content">
-                  <button type="button" class="right close modal-close">&times;</button>
+                  <button class="right close modal-close">&times;</button>
                   <h4 class="modal-title">Worker <%= worker.worker_id %> (<%= worker.name %>)</h4>
                   <h6>Edit Worker Info</h6>
                   <br>
@@ -110,7 +110,7 @@
             <div id="delete_<%= worker.id %>" class="modal">
               <%= form_for(worker, html: {class: 'form-horizontal'}, url: delete_workers_path(worker.id), method: :post) do |f| %>
                 <div class="modal-content">
-                  <button type="button" class="right close modal-close">&times;</button>
+                  <button class="right close modal-close">&times;</button>
                   <h4 class="modal-title"><%= worker.name %> (Worker ID: <%= worker.id %>)</h4>
                   <h6>Delete Worker</h6>
                   <br>
