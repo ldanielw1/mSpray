@@ -1,23 +1,22 @@
-  <div class="signIn-left">
-    <div class="signIn-title l-v-bottom-spaced">
-      <div class="signIn-logo">
-        <div>mSpray</div>
-        <div>Monitor</div>
-        <div>Dashboard</div>
-      </div>
+<div class="login-background">
+  <div class="login__container center">
+    <%= image_tag("/assets/mspray_signin_banner.png", class: "login__container-header") %>
+
+    <div class="login__container-contents">
+      <% if flash[:alert] %>
+        <div class="alert"><%= flash[:alert] %></div>
+      <% end %>
+
+      <h4>Welcome to MSpray</h4>
+      <h5><i>Log in to start streamlining your life!</i> ⏱</h5>
+      <br>
+      <br>
+      <%= google_sign_in_button proceed_to: session_create_path, class: "btn-large red" do %>
+        <div class="left google__logo"> <%= icon("fab", "google") %> </div>
+        <div class="right google__text"> Sign in with Google </div>
+      <% end %>
+
     </div>
-    <p>
-      mSpray is an application for keeping track of malaria treatment programs</a>.
-    </p>
+
   </div>
-  
-  <div class="signIn-right">
-    <div>
-      <div class="l-text-align-center">
-        <%= google_sign_in_button proceed_to: session_create_path, class: "btn-large red" do %>
-          <div class="left google__logo"> <%= icon("fab", "google") %> </div>
-          <div class="right google__text"> Sign in with Google </div>
-        <% end %>
-      </div>
-    </div>
-  </div>
+</div>
