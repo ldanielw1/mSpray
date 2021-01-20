@@ -56,11 +56,8 @@
         </div>
       <% end %>
 
-      <div class="content">
-
-        <div class="<%= controller.controller_name == "dashboard" ? "main-map-content" : "main-content"%>">
-          <%= content_for?(:admins) ? yield(:admins) : yield %>
-        </div>
+      <div class="<%= controller.controller_name == "dashboard" ? "main-map-content" : "main-content"%>">
+        <%= content_for?(:admins) ? yield(:admins) : yield %>
       </div>
 
     <% else %>
@@ -77,7 +74,7 @@
         </div>
       <% end %>
 
-      <div class="content signIn">
+      <div class="sign-in">
         <%= yield %>
       </div>
     <% end %>

@@ -1,24 +1,13 @@
 <%= Gon::Base.render_data %>
 
-<div class="overlay">
-  <div id="map-add-button" style= "inline-block" class="button-overlay xlarge red" data-toggle="collapse" data-target="#collapse-add-options">
-    <%= icon('fas', 'plus') %>
-  </div>
-
-  <div id="collapse-add-options" class="collapse width" style="width: 0px">
-
-    <div class="toggle-add-malaria-reports button-overlay menu-option">
-      <p class="tooltiptext m-tooltiptext">Report Malaria Outbreak</p>
-      <%= icon('fas', 'flag') %>
-    </div>
-
-    <div class="toggle-add-future-spray-locations button-overlay menu-option">
-      <p class="tooltiptext f-tooltiptext">Add Future Spray Location</p>
-      <%= icon('fas', 'calendar-plus') %>
-    </div>
-  </div>
-
+<div class="fixed-action-btn">
+  <a class="btn-floating btn-large red"><%= icon('fas', 'plus') %></a>
+    <ul>
+      <li><a class="btn-floating red toggle-add-malaria-reports"><%= icon('fas', 'flag') %></a></li>
+      <li><a class="btn-floating yellow darken-2 toggle-add-future-spray-locations"><%= icon('fas', 'calendar-plus') %></a></li>
+  </ul>
 </div>
+
 <div id="map"></div>
 
 <div id="add_report" class="modal fade add_report_modal" role="dialog">

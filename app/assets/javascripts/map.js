@@ -124,10 +124,9 @@ function clickMap(e) {
         $("#add_report").modal();
 
     } else {
-        if (!$(e.target).closest("#map-add-button, #collapse-add-options").length) {
-            if ($("#collapse-add-options").hasClass("in"))
-                $("#map-add-button").click();
-        }
+      if ($(".fixed-action-btn").hasClass("active")) {
+        $(".fixed-action-btn").click();
+      }
     }
 }
 
@@ -199,25 +198,6 @@ function checkBounds(map, allowedBounds) {
 
 function markerCursor(markerColor) {
     return "url(../assets/marker_" + markerColor + ".png) 13.5 43, default"
-}
-
-/**
- * Interact with the map when it's clicked on.
- */
-function toggleAddButton(e) {
-    mapMode = "default";
-    mapButton = $("#map-add-button");
-    mapText = mapButton.find(".fas");
-    arrow = "fa-arrow-right";
-    plus = "fa-plus";
-
-    if (mapButton.html().toString().indexOf("fa-plus") > -1) {
-        mapText.addClass(arrow).removeClass(plus);
-    } else {
-        mapText.addClass(plus).removeClass(arrow);
-    }
-
-    setModeDefault()
 }
 
 /**
@@ -324,7 +304,6 @@ function loadJSForInitMap() {
             });
         }
 
-        $("#map-add-button").click(function() { toggleAddButton() });
         $(".toggle-add-future-spray-locations").click(function() { toggleSelectedButton(addFutureSprayLocations) });
         $(".toggle-add-malaria-reports").click(function() { toggleSelectedButton(addMalariaReports) });
         $(".sidebar_item").click(function() { mapMode = defaultMode });
