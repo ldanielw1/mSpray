@@ -1,76 +1,38 @@
-<div class="nav" data-no-transition-cache>
-  <div class="nav_header">
-    <div class="nav_userInfo">
-      <div class="nav_userIcon">
-        <% if current_user.profile_img == nil %>
-          <i class="fa fa-user"></i>
-        <% else %>
-          <img src="<%= current_user.profile_img %>" class="profile" />
+<div class="sidebar">
+  <div class="row">
+    <ul>
+      <li class="sidebar__link">
+        <%= link_to root_path do %>
+          <%= icon("fas", "map") %> Dashboard
         <% end %>
-      </div>
-      <div class="nav_username"><%= "#{current_user.name}" %></div>
-      <div class="nav_email"><%= "#{current_user.email}" %></div>
-    </div>
-  </div>
-  <ul class="nav_items">
-
-    <%= link_to root_path, class: "sidebar_item dashboard" do %>
-      <li class="nav_item">
-        <%= icon('fas', 'map') %>
-        &nbsp;
-        Dashboard
       </li>
-    <% end %>
-
-    <%= link_to view_spray_data_path, class: "sidebar_item spray_data" do %>
-      <li class="nav_item">
-        <%= icon('fas', 'chart-line') %>
-        &nbsp;
-        Spray Data
+      <li class="sidebar__link">
+        <%= link_to view_spray_data_path do %>
+          <%= icon("fas", "chart-line") %> Spray Data
+        <% end %>
       </li>
-    <% end %>  
-
-    <%= link_to view_future_spray_locations_path, class: "sidebar_item future_spray_locations" do %>
-      <li class="nav_item">
-        <%= icon('fas', 'calendar-plus') %>
-        &nbsp;
-        Future Spray Locations
+      <li class="sidebar__link">
+        <%= link_to view_future_spray_locations_path do %>
+          <%= icon("fas", "calendar-plus") %> Future Spray Locations
+        <% end %>
       </li>
-    <% end %>  
-
-    <%= link_to view_malaria_reports_path, class: "sidebar_item malaria_reports" do %>
-      <li class="nav_item">
-        <%= icon('fas', 'flag') %>
-        &nbsp;
-        Malaria Reports
+      <li class="sidebar__link">
+        <%= link_to view_malaria_reports_path do %>
+          <%= icon("fas", "flag") %> Malaria Reports
+        <% end %>
       </li>
-    <% end %>  
-
-    <%= link_to view_workers_path, class: "sidebar_item workers" do %>
-      <li class="nav_item">
-        <%= icon('fas', 'address-card') %>
-        &nbsp;
-        Worker Info & Reports
+      <li class="sidebar__link">
+        <%= link_to view_workers_path do %>
+          <%= icon("fas", "address-card") %> Worker Info & Reports
+        <% end %>
       </li>
-    <% end %>  
-
-    <% if current_user.admin? %>
-      <%= link_to site_permissions_admin_path, class: "sidebar_item admin" do %>
-        <li class="nav_item">
-          <%= icon('fas', 'cog') %>
-          &nbsp;
-          Site Admin
+      <% if current_user.admin? %>
+        <li class="sidebar__link">
+          <%= link_to site_permissions_admin_path do %>
+            <%= icon("fas", "cog") %> Site Admin
+          <% end %>
         </li>
       <% end %>
-    <% end %>
-
-    <%= link_to signout_path, class: "sidebar_item logout" do %>
-      <li class="nav_item">
-        <%= icon('fas', 'sign-out-alt') %>
-        &nbsp;
-        Sign out
-      </li>
-    <% end %>
-
-  </ul>
+    </ul>
+  </div>
 </div>

@@ -40,6 +40,9 @@
             </li>
           </ul>
       </div>
+      <% cache([current_user, "web_view"]) do %>
+        <%= render "layouts/sidebar" %>
+      <% end %>
       <% if flash[:notice] %>
         <div class="notice <%= notice_class %> animated fadeIn">
           <i class="fa fa-check-circle icon-right-spaced"></i>
@@ -54,9 +57,6 @@
       <% end %>
 
       <div class="content">
-        <% cache([current_user, "web_view"]) do %>
-          <%= render "layouts/sidebar" %>
-        <% end %>
 
         <div class="<%= controller.controller_name == "dashboard" ? "main-map-content" : "main-content"%>">
           <%= content_for?(:admins) ? yield(:admins) : yield %>
