@@ -1,11 +1,11 @@
 .navbar-fixed {
-  background-color: #384173;
+  background-color: #000;
   color: white;
   margin-bottom: 0px;
 }
 
 .brand-logo {
-  box-shadow: 3px 0px 10px #4c5782;
+  box-shadow: 3px 0px 10px #2f2f2f;
   font-family: "Abel";
   font-size: 20px;
   height: 56px;
@@ -28,7 +28,7 @@
   transition: all 0.3s;
 
   &:hover {
-    background-color: #4c5782;
+    background-color: #2f2f2f;
   }
 }
 
@@ -58,7 +58,7 @@
   .brand-logo {
     height: 64px;
     width: $sidebar-width;
-    background-color: #4c5782;
+    background-color: #2f2f2f;
   }
 
   .profile {
