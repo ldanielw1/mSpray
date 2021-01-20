@@ -16,23 +16,46 @@
 
   <body>
     <% notice_class = current_user ? "" : "notice-fullscreen" %>
-    <% if flash[:notice] %>
-      <div class="notice <%= notice_class %> animated fadeIn">
-        <i class="fa fa-check-circle icon-right-spaced"></i>
-        <%= raw(flash[:notice]) %>
-      </div>
-    <% end %>
-    <% if flash[:error] %>
-      <div class="notice notice-warning <%= notice_class %> animated fadeIn">
-        <i class="fa fa-check-circle icon-right-spaced"></i>
-        <%= raw(flash[:error]) %>
-      </div>
-    <% end %>
-
     <% if current_user %>
+      <div class="row navbar-fixed">
+        <div class="left brand-logo">
+          <%= link_to root_url do %>
+            <%= image_tag("/assets/mspray_logo.png", class: "brand-logo__image") %>
+            MSpray
+          <% end %>
+        </div>
+        <div class="right profile dropdown-trigger" data-target='profile__options'>
+          <%= image_tag(@current_user.profile_img , :class => "left circle profile__img") %>
+          <div class="right profile_info">
+            <span class="profile__name"><%= @current_user.name %> </span>
+            <br>
+            <span class="profile__email"><%= @current_user.email %> </span>
+          </div>
+        </div>
+          <ul id='profile__options' class='dropdown-content'>
+            <li class="dropdown__link">
+              <%= link_to signout_path do%>
+                <%= icon("fas", "sign-out-alt") %> Sign Out
+              <% end %>
+            </li>
+          </ul>
+      </div>
+      <% if flash[:notice] %>
+        <div class="notice <%= notice_class %> animated fadeIn">
+          <i class="fa fa-check-circle icon-right-spaced"></i>
+          <%= raw(flash[:notice]) %>
+        </div>
+      <% end %>
+      <% if flash[:error] %>
+        <div class="notice notice-warning <%= notice_class %> animated fadeIn">
+          <i class="fa fa-check-circle icon-right-spaced"></i>
+          <%= raw(flash[:error]) %>
+        </div>
+      <% end %>
+
       <div class="content">
         <% cache([current_user, "web_view"]) do %>
-          <%= render "layouts/nav" %>
+          <%= render "layouts/sidebar" %>
         <% end %>
 
         <div class="<%= controller.controller_name == "dashboard" ? "main-map-content" : "main-content"%>">
@@ -41,11 +64,23 @@
       </div>
 
     <% else %>
+      <% if flash[:notice] %>
+        <div class="notice <%= notice_class %> animated fadeIn">
+          <i class="fa fa-check-circle icon-right-spaced"></i>
+          <%= raw(flash[:notice]) %>
+        </div>
+      <% end %>
+      <% if flash[:error] %>
+        <div class="notice notice-warning <%= notice_class %> animated fadeIn">
+          <i class="fa fa-check-circle icon-right-spaced"></i>
+          <%= raw(flash[:error]) %>
+        </div>
+      <% end %>
+
       <div class="content signIn">
         <%= yield %>
       </div>
     <% end %>
-
 
   </body>
 </html>

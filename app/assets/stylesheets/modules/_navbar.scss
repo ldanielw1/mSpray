@@ -1,0 +1,82 @@
+.navbar-fixed {
+  background-color: #384173;
+  color: white;
+  margin-bottom: 0px;
+}
+
+.brand-logo {
+  box-shadow: 3px 0px 10px #4c5782;
+  font-family: "Abel";
+  font-size: 20px;
+  height: 56px;
+  padding-left: 30px;
+  padding-top: 15px;
+
+  a {
+    color: #fff;
+  }
+}
+
+.brand-logo__image {
+  width: 30px;
+}
+
+.profile {
+  cursor: pointer;
+  margin-right: 5vw;
+  height: 56px;
+  transition: all 0.3s;
+
+  &:hover {
+    background-color: #4c5782;
+  }
+}
+
+.profile__img {
+  max-width: 36px;
+  max-height: 36px;
+  margin-top: 15px;
+  margin-right: 15px;
+}
+
+.profile_info {
+  margin-left: 0px;
+  margin-top: 10px;
+  user-select: none;
+}
+
+.profile__name {
+  color: white;
+  font-weight: bold;
+}
+
+.profile__email {
+  color: #a9a9a9;
+}
+
+@media only screen and (min-width: 601px) {
+  .brand-logo {
+    height: 64px;
+    width: $sidebar-width;
+    background-color: #4c5782;
+  }
+
+  .profile {
+    height: 64px;
+    padding: 0px 10px;
+  }
+}
+
+#profile__options {
+  top: -64px;
+  z-index: 999;
+  transform: scaleY(1) !important;
+}
+
+.dropdown-content li.dropdown__link:hover {
+  background-color: #efeff8;
+
+  a {
+    color: #2d81ff;
+  }
+}
