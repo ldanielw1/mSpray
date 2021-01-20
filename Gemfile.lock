@@ -58,9 +58,9 @@ GEM
       zeitwerk (~> 2.2, >= 2.2.2)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
+    autoprefixer-rails (10.2.0.0)
+      execjs
     bindex (0.8.1)
-    bootstrap-sass (3.2.0.4)
-      sass (~> 3.2)
     builder (3.2.4)
     byebug (11.1.3)
     chronic (0.10.2)
@@ -154,6 +154,8 @@ GEM
       mini_mime (>= 0.1.1)
     marcel (0.3.3)
       mimemagic (~> 0.3.2)
+    materialize-sass (1.0.0)
+      autoprefixer-rails (>= 6.0.3)
     memoist (0.16.2)
     method_source (1.0.0)
     mimemagic (0.3.5)
@@ -298,7 +300,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bootstrap-sass (~> 3.2.0)
   byebug
   coffee-rails
   execjs
@@ -310,6 +311,7 @@ DEPENDENCIES
   jbuilder (~> 2.7)
   jquery-rails
   listen
+  materialize-sass
   mini_racer (~> 0.3)
   pg
   puma (~> 5.0)

@@ -37,7 +37,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 ######################################################################
 # UI Framework
 ######################################################################
-gem 'bootstrap-sass', '~> 3.2.0'
+gem 'materialize-sass'
 gem 'font-awesome-sass', '~> 5.0.13'
 
 # Use SCSS for stylesheets
