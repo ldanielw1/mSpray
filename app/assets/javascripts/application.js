@@ -77,7 +77,9 @@ function getRoute() {
  * Fades the currently displayed flash message after some time
  */
 $(document).on('turbolinks:load', function() {
-    var closeNotice = setInterval(function() {
+  $(".modal").modal();
+
+  var closeNotice = setInterval(function() {
         if ($('.fadeIn').length == 0) {
             clearInterval(closeNotice);
         }

@@ -28,62 +28,57 @@
         <% end %>
       </td>
       <td>
-        <button type="button" class="button button-small button-danger admin-button" data-toggle="modal" data-target="#deletePermissions_<%= user.id %>">
-          <%= icon('fas', 'trash') %>
-          Delete
-        </button>
-
-        <button type="button" class="button button-small button-primary admin-button" data-toggle="modal" data-target="#editPermissions_<%= user.id %>">
-          <%= icon('fas', 'edit') %>
-          Edit
-        </button>
-
-        <div id="editPermissions_<%= user.id %>" class="modal fade" role="dialog">
-          <div class="modal-dialog modal-md">
-            <%= form_for(user, html: {class: 'form-horizontal'}, url: change_permissions_admin_path(user.id), method: :post) do |f| %>
-              <div class="modal-content" style="width: 600px">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 class="modal-title"><%= user.name %> (<%= user.email %>)</h4>
-                </div>
-                <div class="modal-body">
-                  <h6 class="l-v-bottom-spaced">Edit Permissions</h6>
-                  <p class="l-v-bottom-half-spaced">Indicate permissions granted to <%= user.name %>.</p>
-                  <%= f.hidden_field :id, value: user.id %>
-                  <div class="field form-group">
-                    <%= f.label :admin, class: "control-label"%>
-                    <%= f.check_box :admin, { value: "", style: "margin-top: 10px"} %>
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <%= f.submit 'Submit', class: "button button-primary modal-default" %>
-                  <button type="button" class="button" data-dismiss="modal">Cancel</button>
-                </div>
-              </div>
-            <% end %>
-          </div>
+        <div class="right">
+          <button class="btn admin-button modal-trigger blue lighten-3" data-target="editPermissions_<%= user.id %>">
+            <%= icon('fas', 'edit') %>
+            Edit
+          </button>
+          <button class="btn admin-button modal-trigger red lighten-2" data-target="deletePermissions_<%= user.id %>">
+            <%= icon('fas', 'trash') %>
+            Delete
+          </button>
         </div>
 
-        <div id="deletePermissions_<%= user.id %>" class="modal fade" role="dialog">
-          <div class="modal-dialog modal-md">
-            <%= form_for(user, html: {class: 'form-horizontal'}, url: delete_user_admin_path(user.id), method: :post) do |f| %>
-              <div class="modal-content" style="width: 600px">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 class="modal-title">Delete <%= user.name %> (<%= user.email %>)</h4>
-                </div>
-                <div class="modal-body">
-                  <p class="l-v-bottom-half-spaced">Are you sure you want to delete <%= user.name %>?</p>
-                  <%= f.hidden_field :id, value: user.id %>
-                </div>
-                <div class="modal-footer">
-                  <%= f.submit 'Delete', class: "button button-danger modal-default" %>
-                  <button type="button" class="button" data-dismiss="modal">Cancel</button>
-                </div>
-              </div>
-            <% end %>
-          </div>
+
+        <div id="editPermissions_<%= user.id %>" class="modal">
+          <%= form_for(user, html: {class: 'form-horizontal'}, url: change_permissions_admin_path(user.id), method: :post) do |f| %>
+            <div class="modal-content">
+              <button type="button" class="right close modal-close">&times;</button>
+              <h4 class="modal-title"><%= user.name %> (<%= user.email %>)</h4>
+              <h6>Edit Permissions</h6>
+              <br>
+              <p>Indicate permissions granted to <%= user.name %>.</p>
+              <%= f.hidden_field :id, value: user.id %>
+              <label>
+                <input type="checkbox" class="filled-in checkbox-trigger" for="admin_<%= user.id %>" <%= user.admin ? 'checked="checked"' : '' %> />
+                <span>Admin</span>
+              </label>
+              <%= f.check_box :admin, { id:"admin_#{user.id}", checked: true } %>`
+            </div>
+            <div class="modal-footer">
+              <a class="btn grey modal-close">Cancel</a>
+              <%= f.submit 'Submit', class: "btn modal-close" %>
+            </div>
+          <% end %>
         </div>
+
+        <div id="deletePermissions_<%= user.id %>" class="modal">
+          <%= form_for(user, html: {class: 'form-horizontal'}, url: delete_user_admin_path(user.id), method: :post) do |f| %>
+            <div class="modal-content">
+              <button type="button" class="right close modal-close">&times;</button>
+              <h4 class="modal-title"><%= user.name %> (<%= user.email %>)</h4>
+              <h6>Delete User</h6>
+              <br>
+              <p>Are you sure you want to delete <%= user.name %>?</p>
+              <%= f.hidden_field :id, value: user.id %>
+            </div>
+            <div class="modal-footer">
+              <a class="btn grey modal-close">Cancel</a>
+              <%= f.submit 'Delete', class: "btn modal-close red lighten-2" %>
+            </div>
+          <% end %>
+        </div>
+
       </td>
 
     </tr>

@@ -15,6 +15,7 @@
 @import "modules/general";
 @import "modules/layout";
 @import "modules/map";
+@import "modules/modal";
 @import "modules/navbar";
 @import "modules/sidebar";
 @import "modules/table";
@@ -29,5 +30,4 @@
 // Data Table Views
 .admin-button {
   margin-left: 3px;
-  float: right; 
 }
