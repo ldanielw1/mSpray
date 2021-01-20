@@ -35,108 +35,98 @@
 </div>
 
 <table class="table data-table">
-<tr class="highlight-row">
-  <% columns = [["Worker ID", 10], ["Name", 45], ["Active", 10], ["", 35]] %>
+  <tr class="highlight-row">
+    <% columns = [["Worker ID", 10], ["Name", 45], ["Active", 10], ["", 35]] %>
 
-  <% columns.each do |column_name, width| %>
-    <% sort = column_name.downcase.gsub(/[\?\-\ ]/, "") %>
-    <% sort = "sprayer_id" if sort == "sprayer1" %>
-    <% sort = "sprayer_2_id" if sort == "sprayer2" %>
-    <% sort = "lat" if sort == "latitude" %>
-    <% sort = "lng" if sort == "longitude" %>
+    <% columns.each do |column_name, width| %>
+      <% sort = column_name.downcase.gsub(/[\?\-\ ]/, "") %>
+      <% sort = "sprayer_id" if sort == "sprayer1" %>
+      <% sort = "sprayer_2_id" if sort == "sprayer2" %>
+      <% sort = "lat" if sort == "latitude" %>
+      <% sort = "lng" if sort == "longitude" %>
 
-    <th width="<%= width %>%">
-      <%= link_to view_workers_path(sort: sort, reverse: (sort.to_sym == @sort) ? !@reverse : false), class: "column-header" do %>
-        <%= column_name %>
-        <% if (@sort == sort.to_sym) %>
-          <i class="fa fa-angle-<%= @reverse ? "up" : "down" %>" style="color: #aaa; vertical-align: middle;"></i>
+      <th width="<%= width %>%">
+        <%= link_to view_workers_path(sort: sort, reverse: (sort.to_sym == @sort) ? !@reverse : false), class: "column-header" do %>
+          <%= column_name %>
+          <% if (@sort == sort.to_sym) %>
+            <i class="fa fa-angle-<%= @reverse ? "up" : "down" %>" style="color: #aaa; vertical-align: middle;"></i>
+          <% end %>
         <% end %>
-      <% end %>
-    </th>
-  <% end %>
-</tr>
-
-<% @workers.each do |worker| %>
-  <% collapse_info = "data-toggle=collapse data-target=#collapse-#{worker.id}" %>
-  <tr class="data-row" <%= collapse_info %>>
-    <td class="worker_worker_id"><%= worker.worker_id %></td>
-    <td class="worker_name"><%= worker.name %></td>
-    <td class="worker_active"><%= worker.active ? "true" : "false" %></td>
-    <td class="worker_edit">
-
-    <% if @current_user.admin %>
-      <button type="button" class="button button-small button-danger admin-button" data-toggle="modal" data-target="#delete_worker_<%= worker.id %>">
-        <%= icon('fas', 'trash') %>
-        Delete
-      </button>
-      <button type="button" class="button button-small button-primary admin-button" data-toggle="modal" data-target="#edit_worker_<%= worker.id %>">
-        <%= icon('fas', 'edit') %>
-        Edit
-      </button>
-
-      <div id="edit_worker_<%= worker.id %>" class="modal fade" role="dialog">
-        <div class="modal-dialog modal-md">
-          <%= form_for(worker, html: {class: 'form-horizontal'}, url: edit_workers_path(worker.id), method: :post) do |f| %>
-            <div class="modal-content" style="width: 600px">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Edit Worker <%= worker.worker_id %> (<%= worker.name %>)</h4>
-              </div>
-              <div class="modal-body">
-                <h6 class="l-v-bottom-spaced">Edit Worker Info</h6>
-                <p class="l-v-bottom-half-spaced">Edit information for worker with ID: <%= worker.worker_id %>.</p>
-                <%= f.hidden_field :id, value: worker.id %>
-                <div class="field form-group">
-                  <%= f.label :worker_id, class: "control-label" %>
-                  <%= f.text_field :worker_id %>
-                </div>
-                <div class="field form-group">
-                  <%= f.label :name, class: "control-label" %>
-                  <%= f.text_field :name %>
-                </div>
-                <div class="field form-group">
-                  <%= f.label :active, class: "control-label" %>
-                  <%= f.check_box :active, { value: "", style: "margin-top: 10px"} %>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <%= f.submit 'Submit', class: "button button-primary modal-default" %>
-                <button type="button" class="button" data-dismiss="modal">Cancel</button>
-              </div>
-            </div>
-          <% end %>
-        </div>
-      </div>
-
-      <div id="delete_worker_<%= worker.id %>" class="modal fade" role="dialog">
-        <div class="modal-dialog modal-md">
-          <%= form_for(worker, html: {class: 'form-horizontal'}, url: delete_workers_path(worker.id), method: :post) do |f| %>
-            <div class="modal-content" style="width: 600px">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Delete Worker <%= worker.worker_id %>? (<%= worker.name %>)</h4>
-              </div>
-              <div class="modal-body">
-                <h6 class="l-v-bottom-spaced">Delete Worker</h6>
-                <p class="l-v-bottom-half-spaced">Are you sure that you want to delete <%= worker.worker_id %> (<%= worker.name %>)?</p>
-                <%= f.hidden_field :id, value: worker.id %>
-              </div>
-              <div class="modal-footer">
-                <%= f.submit 'Delete', class: "button button-danger modal-default" %>
-                <button type="button" class="button" data-dismiss="modal">Cancel</button>
-              </div>
-            </div>
-          <% end %>
-        </div>
-      </div>
+      </th>
     <% end %>
-
-      <%= link_to view_reports_workers_path(:worker_id => worker.id), class: "button button-small button-primary admin-button" do %>
-        <%= icon('fas', 'money-bill') %>
-        Reports
-      <% end %>
-
-    </td>
   </tr>
-<% end %>
+
+  <% @workers.each do |worker| %>
+    <% collapse_info = "data-toggle=collapse data-target=#collapse-#{worker.id}" %>
+    <tr class="data-row" <%= collapse_info %>>
+      <td class="worker_worker_id"><%= worker.worker_id %></td>
+      <td class="worker_name"><%= worker.name %></td>
+      <td class="worker_active"><%= worker.active ? "true" : "false" %></td>
+      <td class="worker_edit">
+
+        <div class="right">
+          <%= link_to view_reports_workers_path(:worker_id => worker.id), class: "btn admin-button blue lighten-3" do %>
+            <%= icon('fas', 'money-bill') %> Reports
+          <% end %>
+
+          <% if @current_user.admin %>
+            <button class="btn admin-button modal-trigger blue lighten-3" data-target="edit_worker_<%= worker.id %>">
+              <%= icon('fas', 'edit') %> Edit
+            </button>
+            <button class="btn admin-button modal-trigger red lighten-2" data-target="delete_worker_<%= worker.id %>">
+              <%= icon('fas', 'trash') %> Delete
+            </button>
+
+            <div id="edit_worker_<%= worker.id %>" class="modal">
+              <%= form_for(worker, html: {class: 'form-horizontal'}, url: edit_workers_path(worker.id), method: :post) do |f| %>
+                <div class="modal-content">
+                  <button type="button" class="right close modal-close">&times;</button>
+                  <h4 class="modal-title">Worker <%= worker.worker_id %> (<%= worker.name %>)</h4>
+                  <h6>Edit Worker Info</h6>
+                  <br>
+                  <p>Edit information for worker with ID: <%= worker.worker_id %>.</p>
+                  <%= f.hidden_field :id, value: worker.id %>
+                  <div class="field form-group">
+                    <%= f.label :worker_id, class: "control-label" %>
+                    <%= f.text_field :worker_id %>
+                  </div>
+                  <div class="field form-group">
+                    <%= f.label :name, class: "control-label" %>
+                    <%= f.text_field :name %>
+                  </div>
+                  <label>
+                    <input type="checkbox" class="filled-in checkbox-trigger" for="worker_<%= worker.id %>" <%= worker.active ? 'checked="checked"' : '' %> />
+                    <span>Active</span>
+                  </label>
+                  <%= f.check_box :active, { id:"worker_#{worker.id}", checked: true } %>`
+                </div>
+                <div class="modal-footer">
+                  <a class="btn grey modal-close">Cancel</a>
+                  <%= f.submit 'Submit', class: "btn modal-close" %>
+                </div>
+              <% end %>
+            </div>
+
+            <div id="delete_worker_<%= worker.id %>" class="modal">
+              <%= form_for(worker, html: {class: 'form-horizontal'}, url: delete_workers_path(worker.id), method: :post) do |f| %>
+                <div class="modal-content">
+                  <button type="button" class="right close modal-close">&times;</button>
+                  <h4 class="modal-title"><%= worker.name %> (Worker ID: <%= worker.id %>)</h4>
+                  <h6>Delete Worker</h6>
+                  <br>
+                  <p>Are you sure that you want to delete <%= worker.worker_id %> (<%= worker.name %>)?</p>
+                      <%= f.hidden_field :id, value: worker.id %>
+                </div>
+                <div class="modal-footer">
+                  <a class="btn grey modal-close">Cancel</a>
+                  <%= f.submit 'Delete', class: "btn modal-close red lighten-2" %>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+
+        </div>
+      </td>
+    </tr>
+  <% end %>
 </table>

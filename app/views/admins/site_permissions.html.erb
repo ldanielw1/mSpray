@@ -29,18 +29,16 @@
       </td>
       <td>
         <div class="right">
-          <button class="btn admin-button modal-trigger blue lighten-3" data-target="editPermissions_<%= user.id %>">
-            <%= icon('fas', 'edit') %>
-            Edit
+          <button class="btn admin-button modal-trigger blue lighten-3" data-target="edit_permissions_<%= user.id %>">
+            <%= icon('fas', 'edit') %> Edit
           </button>
-          <button class="btn admin-button modal-trigger red lighten-2" data-target="deletePermissions_<%= user.id %>">
-            <%= icon('fas', 'trash') %>
-            Delete
+          <button class="btn admin-button modal-trigger red lighten-2" data-target="delete_permissions_<%= user.id %>">
+            <%= icon('fas', 'trash') %> Delete
           </button>
         </div>
 
 
-        <div id="editPermissions_<%= user.id %>" class="modal">
+        <div id="edit_permissions_<%= user.id %>" class="modal">
           <%= form_for(user, html: {class: 'form-horizontal'}, url: change_permissions_admin_path(user.id), method: :post) do |f| %>
             <div class="modal-content">
               <button type="button" class="right close modal-close">&times;</button>
@@ -62,7 +60,7 @@
           <% end %>
         </div>
 
-        <div id="deletePermissions_<%= user.id %>" class="modal">
+        <div id="delete_permissions_<%= user.id %>" class="modal">
           <%= form_for(user, html: {class: 'form-horizontal'}, url: delete_user_admin_path(user.id), method: :post) do |f| %>
             <div class="modal-content">
               <button type="button" class="right close modal-close">&times;</button>
