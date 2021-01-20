@@ -26,7 +26,7 @@ class SessionsController < ApplicationController
         # Set profile_img if updated
         user.profile_img = profile_img
         user.save if user.changed?
-        cookies.signed[:user_id] = user_params.user_id
+        session[:user_id] = user_params.user_id
         redirect_to root_path
       end
 
@@ -38,7 +38,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    cookies.delete(:user_id)
+    session.delete(:user_id)
     redirect_to root_path
   end
 
