@@ -2,7 +2,7 @@
 <br>
 
 <div id="collapse-filter" class="collapse" style="clear: both">
-  <%= form_for("#", html: {class: 'form-horizontal l-v-top-spaced', style: 'width: 100%; margin: 0px'}, method: :get) do |f| %>
+  <%= form_for("#", html: {class: 'form-horizontal', style: 'width: 100%; margin: 0px'}, method: :get) do |f| %>
     <% [["Name"], ["Worker ID", "Active"]].each do |row_labels| %>
       <% row_labels.each do |label_text| %>
         <% filter = label_text.downcase.gsub(/ /, '_') %>

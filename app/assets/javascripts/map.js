@@ -4,310 +4,310 @@ var addMalariaReports = "add-malaria-reports"
 var mapMode = defaultMode;
 
 function createGoogleMapUrl(lat, lng) {
-    return "https://www.google.com/maps/search/?api=1&query=" + lat + "," + lng;
+  return "https://www.google.com/maps/search/?api=1&query=" + lat + "," + lng;
 }
 
 function initMap() {
-    // Create the new map.
-    var mapSettings = {
-        zoom: 8,
-        center: new google.maps.LatLng(-23.151, 30.658),
-        zoomControlOptions: {
-            position: google.maps.ControlPosition.LEFT_BOTTOM
-        },
-        streetViewControlOptions: {
-            position: google.maps.ControlPosition.LEFT_BOTTOM
-        },
-        clickableIcons: false
-    };
+  // Create the new map.
+  var mapSettings = {
+    zoom: 8,
+    center: new google.maps.LatLng(-23.151, 30.658),
+    zoomControlOptions: {
+      position: google.maps.ControlPosition.LEFT_BOTTOM
+    },
+    streetViewControlOptions: {
+      position: google.maps.ControlPosition.LEFT_BOTTOM
+    },
+    clickableIcons: false
+  };
 
-    var mapDiv = document.getElementById('map');
-    var map = new google.maps.Map(mapDiv, mapSettings);
-    map.setOptions({ minZoom: 7 })
+  var mapDiv = document.getElementById('map');
+  var map = new google.maps.Map(mapDiv, mapSettings);
+  map.setOptions({ minZoom: 7 })
 
-    var allowedBounds = new google.maps.LatLngBounds(
-        new google.maps.LatLng(-36.51369800826651, 10.712649477748528),
-        new google.maps.LatLng(-18.796702001128146, 42.13354791524853)
-    );
-    var infowindow = new google.maps.InfoWindow({ content: '' });
+  var allowedBounds = new google.maps.LatLngBounds(
+    new google.maps.LatLng(-36.51369800826651, 10.712649477748528),
+    new google.maps.LatLng(-18.796702001128146, 42.13354791524853)
+  );
+  var infowindow = new google.maps.InfoWindow({ content: '' });
 
-    //boundaries NE: (-18.796702001128146, 42.13354791524853) SW: (-36.51369800826651, 10.712649477748528)
+  //boundaries NE: (-18.796702001128146, 42.13354791524853) SW: (-36.51369800826651, 10.712649477748528)
 
-    // Create an array of new markers.
-    function createMarker(markerType) {
-        var sd = gon.data[markerType][i];
+  // Create an array of new markers.
+  function createMarker(markerType) {
+    var sd = gon.data[markerType][i];
 
-        // Extract data lat and lng from gon
-        var dataLat = sd["lat"];
-        var dataLng = sd["lng"];
-        var map_url = createGoogleMapUrl(dataLat.toString(), dataLng.toString());
+    // Extract data lat and lng from gon
+    var dataLat = sd["lat"];
+    var dataLng = sd["lng"];
+    var map_url = createGoogleMapUrl(dataLat.toString(), dataLng.toString());
 
-        // Create marker, define marker color
-        var markerColor = "blue";
-        if (markerType == "future_spray_locations")
-            markerColor = "yellow";
-        else if (markerType == "malaria_reports")
-            markerColor = "red";
-        var marker = new google.maps.Marker({
-            position: { lat: dataLat, lng: dataLng },
-            map: map,
-            icon: "../assets/marker_" + markerColor + ".png"
-        });
+    // Create marker, define marker color
+    var markerColor = "blue";
+    if (markerType == "future_spray_locations")
+      markerColor = "yellow";
+    else if (markerType == "malaria_reports")
+      markerColor = "red";
+    var marker = new google.maps.Marker({
+      position: { lat: dataLat, lng: dataLng },
+      map: map,
+      icon: "../assets/marker_" + markerColor + ".png"
+    });
 
-        // Create variables for use in contentString, particularly for deletion
-        var title = markerType.split("_").map(word => word[0].toUpperCase() + word.substr(1)).join(" ");
-        var deleteTarget = "delete_" + markerType;
-        var deleteUrl = markerType + "/delete?id=" + sd["id"];
-        var deleteType = title.split(' ').join('');
-        var deleteButtonId = deleteTarget + "_button_" + sd["id"];
+    // Create variables for use in contentString, particularly for deletion
+    var title = markerType.split("_").map(word => word[0].toUpperCase() + word.substr(1)).join(" ");
+    var deleteTarget = "delete_" + markerType;
+    var deleteUrl = markerType + "/delete?id=" + sd["id"];
+    var deleteType = title.split(' ').join('');
+    var deleteButtonId = deleteTarget + "_button_" + sd["id"];
 
-        // contentString creation
-        var contentString = "<div id=\"" + markerType + "_" + sd["id"] + "\">";
-        contentString += "<h4>" + title + "</h4>";
-        if (markerType != "spray_data") {
-            contentString += "<strong>Reporter: </strong><span class=\"reporter\">" + sd["reporter"] + "</span></strong><br>";
-            contentString += "<strong>Date: </strong><span class=\"report_date\">" + sd["report_date"] + "</span></strong><br>";
-        }
-        contentString += "<strong>LatLng: </strong>" + dataLat.toString() + ", " + dataLng.toString() + "<br>";
-        contentString += "<a href=" + map_url + " target='_blank'>See In Google Maps</a>";
-        contentString += "<br>";
-        contentString += "<button id=" + deleteButtonId + " class=\"btn btn-primary delete_marker\" data-toggle=\"modal\" data-target=\"#delete_report\" onclick=\"setDeleteModalFormInfo('" + markerType + "', " + sd["id"] + ")\">Delete Marker</button>";
-        contentString += "</div>"
-
-        // Add listener to display contentString on clicking on the marker
-        marker.addListener('click', function() {
-            infowindow.setContent(contentString);
-            infowindow.open(map, marker);
-        });
-
-        return marker;
+    // contentString creation
+    var contentString = "<div id=\"" + markerType + "_" + sd["id"] + "\">";
+    contentString += "<h4>" + title + "</h4>";
+    if (markerType != "spray_data") {
+      contentString += "<strong>Reporter: </strong><span class=\"reporter\">" + sd["reporter"] + "</span></strong><br>";
+      contentString += "<strong>Date: </strong><span class=\"report_date\">" + sd["report_date"] + "</span></strong><br>";
     }
+    contentString += "<strong>LatLng: </strong>" + dataLat.toString() + ", " + dataLng.toString() + "<br>";
+    contentString += "<a href=" + map_url + " target='_blank'>See In Google Maps</a>";
+    contentString += "<br>";
+    contentString += "<button id=" + deleteButtonId + " class=\"btn modal-trigger delete_marker\" data-target=\"delete_report\" onclick=\"setDeleteModalFormInfo('" + markerType + "', " + sd["id"] + ")\">Delete Marker</button>";
+    contentString += "</div>"
 
-    var dataMarkers = new Array();
-    var futureMarkers = new Array();
-    var malariaReportMarkers = new Array();
+    // Add listener to display contentString on clicking on the marker
+    marker.addListener('click', function() {
+      infowindow.setContent(contentString);
+      infowindow.open(map, marker);
+    });
 
-    for (var i = 0; i < gon.data["spray_data"].length; i++)
-        dataMarkers.push(createMarker("spray_data"));
-    for (var i = 0; i < gon.data["future_spray_locations"].length; i++)
-        futureMarkers.push(createMarker("future_spray_locations"));
-    for (var i = 0; i < gon.data["malaria_reports"].length; i++)
-        malariaReportMarkers.push(createMarker("malaria_reports"));
+    return marker;
+  }
 
-    // Add clustering for markers.
-    var markerCluster = new MarkerClusterer(map, dataMarkers, { imagePath: "../assets/m" });
-    var markerCluster = new MarkerClusterer(map, futureMarkers, { imagePath: "../assets/m" });
-    var markerCluster = new MarkerClusterer(map, malariaReportMarkers, { imagePath: "../assets/m" });
+  var dataMarkers = new Array();
+  var futureMarkers = new Array();
+  var malariaReportMarkers = new Array();
 
-    // Add the on-click and mouseover listeners
-    google.maps.event.addListener(map, "click", function(e) { clickMap(e); });
-    google.maps.event.addListener(map, "mouseover", function(e) { hoverMap(map) });
-    google.maps.event.addListener(map, "center_changed", function(e) { checkBounds(map, allowedBounds) });
+  for (var i = 0; i < gon.data["spray_data"].length; i++)
+    dataMarkers.push(createMarker("spray_data"));
+  for (var i = 0; i < gon.data["future_spray_locations"].length; i++)
+    futureMarkers.push(createMarker("future_spray_locations"));
+  for (var i = 0; i < gon.data["malaria_reports"].length; i++)
+    malariaReportMarkers.push(createMarker("malaria_reports"));
+
+  // Add clustering for markers.
+  var markerCluster = new MarkerClusterer(map, dataMarkers, { imagePath: "../assets/m" });
+  var markerCluster = new MarkerClusterer(map, futureMarkers, { imagePath: "../assets/m" });
+  var markerCluster = new MarkerClusterer(map, malariaReportMarkers, { imagePath: "../assets/m" });
+
+  // Add the on-click and mouseover listeners
+  google.maps.event.addListener(map, "click", function(e) { clickMap(e); });
+  google.maps.event.addListener(map, "mouseover", function(e) { hoverMap(map) });
+  google.maps.event.addListener(map, "center_changed", function(e) { checkBounds(map, allowedBounds) });
 }
 
 /**
  * Interact with the map when it's clicked on.
  */
 function clickMap(e) {
-    var latLng = e.latLng;
-    var lat = latLng.lat();
-    var lng = latLng.lng();
-    var username = $(".nav_username").html();
-    var email = $(".nav_email").html();
+  var latLng = e.latLng;
+  var lat = latLng.lat();
+  var lng = latLng.lng();
+  var username = $(".profile__name").html();
+  var email = $(".profile__email").html();
 
-    var currentDate = new Date();
-    var reportDate = currentDate.getMonth() + "/" + currentDate.getDate() + "/" + currentDate.getFullYear();
+  var currentDate = new Date();
+  var reportDate = currentDate.getMonth() + "/" + currentDate.getDate() + "/" + currentDate.getFullYear();
 
-    if (mapMode == addFutureSprayLocations || mapMode == addMalariaReports) {
-        // Send lat, lng, and user email to add_report_modal
-        setAddModalFormInfo(mapMode, lat, lng, username, email, reportDate)
-        $("#add_report").modal();
+  if (mapMode == addFutureSprayLocations || mapMode == addMalariaReports) {
+    // Send lat, lng, and user email to add_report_modal
+    setAddModalFormInfo(mapMode, lat, lng, username, email, reportDate)
+    $("#add_report").modal('open');
 
-    } else {
-      if ($(".fixed-action-btn").hasClass("active")) {
-        $(".fixed-action-btn").click();
-      }
+  } else {
+    if ($(".fixed-action-btn").hasClass("active")) {
+      $(".fixed-action-btn").click();
     }
+  }
 }
 
 function hoverMap(map) {
-    var defaultDragCursor = 'url("https://maps.gstatic.com/mapfiles/openhand_8_8.cur"), default';
-    var markerColor;
+  var defaultDragCursor = 'url("https://maps.gstatic.com/mapfiles/openhand_8_8.cur"), default';
+  var markerColor;
 
-    if (mapMode != defaultMode) {
-        if (mapMode == addFutureSprayLocations) {
-            markerColor = "yellow";
-        } else if (mapMode == addMalariaReports) {
-            markerColor = "red";
-        }
-        map.setOptions({ draggableCursor: markerCursor(markerColor) });
-    } else {
-        map.setOptions({ draggableCursor: defaultDragCursor });
+  if (mapMode != defaultMode) {
+    if (mapMode == addFutureSprayLocations) {
+      markerColor = "yellow";
+    } else if (mapMode == addMalariaReports) {
+      markerColor = "red";
     }
+    map.setOptions({ draggableCursor: markerCursor(markerColor) });
+  } else {
+    map.setOptions({ draggableCursor: defaultDragCursor });
+  }
 }
 
 function mapFloorThousandth(num) {
-    intNum = Math.floor(num * 1000);
-    return intNum / 1000;
+  intNum = Math.floor(num * 1000);
+  return intNum / 1000;
 }
 
 function mapCeilThousandth(num) {
-    intNum = Math.ceil(num * 1000);
-    return intNum / 1000;
+  intNum = Math.ceil(num * 1000);
+  return intNum / 1000;
 }
 
 function checkBounds(map, allowedBounds) {
 
-    // Get current viewport stats
-    var mapBounds = map.getBounds();
-    var mapHeight = mapBounds.getNorthEast().lat() - mapBounds.getSouthWest().lat();
-    var mapLength = mapBounds.getNorthEast().lng() - mapBounds.getSouthWest().lng();
-    var mapNE = mapBounds.getNorthEast();
-    var mapSW = mapBounds.getSouthWest();
+  // Get current viewport stats
+  var mapBounds = map.getBounds();
+  var mapHeight = mapBounds.getNorthEast().lat() - mapBounds.getSouthWest().lat();
+  var mapLength = mapBounds.getNorthEast().lng() - mapBounds.getSouthWest().lng();
+  var mapNE = mapBounds.getNorthEast();
+  var mapSW = mapBounds.getSouthWest();
 
-    // Get allowed viewport stats
-    var allowedNE = allowedBounds.getNorthEast();
-    var allowedSW = allowedBounds.getSouthWest();
-    var maxLng = mapFloorThousandth(allowedNE.lng() - (mapLength / 2));
-    var maxLat = mapFloorThousandth(allowedNE.lat() - (mapHeight / 2));
-    var minLng = mapCeilThousandth(allowedSW.lng() + (mapLength / 2));
-    var minLat = mapCeilThousandth(allowedSW.lat() + (mapHeight / 2));
+  // Get allowed viewport stats
+  var allowedNE = allowedBounds.getNorthEast();
+  var allowedSW = allowedBounds.getSouthWest();
+  var maxLng = mapFloorThousandth(allowedNE.lng() - (mapLength / 2));
+  var maxLat = mapFloorThousandth(allowedNE.lat() - (mapHeight / 2));
+  var minLng = mapCeilThousandth(allowedSW.lng() + (mapLength / 2));
+  var minLat = mapCeilThousandth(allowedSW.lat() + (mapHeight / 2));
 
-    var c = map.getCenter();
-    var lng = c.lng();
-    var lat = c.lat();
+  var c = map.getCenter();
+  var lng = c.lng();
+  var lat = c.lat();
 
-    // Only shift the map if it's out of bounds
-    if (lng < minLng || lng > maxLng || lat < minLat || lat > maxLat) {
-        var spacing = 0.02;
-        if (lng < minLng)
-            lng = minLng + spacing;
-        else if (lng > maxLng)
-            lng = maxLng - spacing;
-        if (lat < minLat)
-            lat = minLat + spacing;
-        else if (lat > maxLat)
-            lat = maxLat + spacing;
+  // Only shift the map if it's out of bounds
+  if (lng < minLng || lng > maxLng || lat < minLat || lat > maxLat) {
+    var spacing = 0.02;
+    if (lng < minLng)
+      lng = minLng + spacing;
+    else if (lng > maxLng)
+      lng = maxLng - spacing;
+    if (lat < minLat)
+      lat = minLat + spacing;
+    else if (lat > maxLat)
+      lat = maxLat + spacing;
 
-        console.log("\nout of bounds");
-        console.log(lat + ", " + lng);
-        map.panTo(new google.maps.LatLng(lat, lng));
+    console.log("\nout of bounds");
+    console.log(lat + ", " + lng);
+    map.panTo(new google.maps.LatLng(lat, lng));
 
-    }
+  }
 }
 
 function markerCursor(markerColor) {
-    return "url(../assets/marker_" + markerColor + ".png) 13.5 43, default"
+  return "url(../assets/marker_" + markerColor + ".png) 13.5 43, default"
 }
 
 /**
  * takes in the mapMode, defined in this JS file
  */
 function toggleSelectedButton(mode) {
-    toggleMode(mode);
+  toggleMode(mode);
 
-    var modeClass = ".toggle-" + mode;
-    var isActive = $(modeClass).hasClass("active");
-    turnOffActiveFromAll();
-    if (!isActive)
-        $(modeClass + ".button-overlay").addClass("active");
+  var modeClass = ".toggle-" + mode;
+  var isActive = $(modeClass).hasClass("active");
+  turnOffActiveFromAll();
+  if (!isActive)
+    $(modeClass + ".button-overlay").addClass("active");
 }
 
 function toggleMode(mode) {
-    if (mapMode == mode) {
-        mapMode = defaultMode;
-    } else {
-        mapMode = mode;
-    }
+  if (mapMode == mode) {
+    mapMode = defaultMode;
+  } else {
+    mapMode = mode;
+  }
 }
 
 function turnOffActiveFromAll() {
-    $(".menu-option").removeClass("active");
+  $(".menu-option").removeClass("active");
 }
 
 function setModeDefault() {
-    turnOffActiveFromAll();
-    mapMode = defaultMode;
+  turnOffActiveFromAll();
+  mapMode = defaultMode;
 }
 
 function toggleMapPointer() {
-    $("#map").attr("style", "cursor: pointer");
+  $("#map").attr("style", "cursor: pointer");
 }
 
 function setAddModalFormInfo(formType, lat, lng, reporter_name, reporter_email, date) {
-    var formTitle = formType.split("-").map(word => word[0].toUpperCase() + word.substr(1)).join(" ").slice(0, -1);
-    var formUrl = formType.split("-").slice(1).join("_");
-    //takes the "s" off the end of the string
-    var formName = formUrl.slice(0, -1);
-    var modal = $("#add_report");
+  var formTitle = formType.split("-").map(word => word[0].toUpperCase() + word.substr(1)).join(" ");
+  var formUrl = formType.split("-").slice(1).join("_");
+  //takes the "s" off the end of the string
+  var formName = formUrl.slice(0, -1);
+  var modal = $("#add_report");
 
-    var lat = Number(lat);
-    var lng = Number(lng);
-    var latString, lngString;
+  var lat = Number(lat);
+  var lng = Number(lng);
+  var latString, lngString;
 
-    latString = convertLatLngToString(lat, "lat");
-    lngString = convertLatLngToString(lng, "lng");
+  latString = convertLatLngToString(lat, "lat");
+  lngString = convertLatLngToString(lng, "lng");
 
-    modal.find(".report_title").html(formTitle);
-    modal.find(".report_lat").html(latString);
-    modal.find(".report_lng").html(lngString);
-    modal.find(".form-horizontal").attr("action", "/" + formUrl + "/add");
+  modal.find(".report_title").html(formTitle);
+  modal.find(".report_lat").html(latString);
+  modal.find(".report_lng").html(lngString);
+  modal.find(".form-horizontal").attr("action", "/" + formUrl + "/add");
 
-    modal.find("#add_report_lat").attr("value", lat);
-    modal.find("#add_report_lat").attr("name", formName + "[lat]");
-    modal.find("#add_report_lng").attr("value", lng);
-    modal.find("#add_report_lng").attr("name", formName + "[lng]");
-    modal.find("#add_report_reporter").attr("value", reporter_name.toString() + " (" + reporter_email.toString() + ")");
-    modal.find("#add_report_reporter").attr("name", formName + "[reporter]");
-    modal.find("#add_report_dateTime").attr("value", date);
-    modal.find("#add_report_dateTime").attr("name", formName + "[dateTime]");
+  modal.find("#add_report_lat").attr("value", lat);
+  modal.find("#add_report_lat").attr("name", formName + "[lat]");
+  modal.find("#add_report_lng").attr("value", lng);
+  modal.find("#add_report_lng").attr("name", formName + "[lng]");
+  modal.find("#add_report_reporter").attr("value", reporter_name.toString() + " (" + reporter_email.toString() + ")");
+  modal.find("#add_report_reporter").attr("name", formName + "[reporter]");
+  modal.find("#add_report_dateTime").attr("value", date);
+  modal.find("#add_report_dateTime").attr("name", formName + "[dateTime]");
 }
 
 function setDeleteModalFormInfo(deleteType, report_id) {
-    var report = $("#" + deleteType + "_" + report_id);
-    var report_date = report.find(".report_date");
+  var report = $("#" + deleteType + "_" + report_id);
+  var report_date = report.find(".report_date");
 
-    var formTitle = deleteType.split("_").map(word => word[0].toUpperCase() + word.substr(1)).join(" ").slice(0, -1);
-    var formUrl = deleteType;
-    //takes the "s" off the end of the string
-    var formName = deleteType.slice(0, -1)
+  var formTitle = deleteType.split("_").map(word => word[0].toUpperCase() + word.substr(1)).join(" ");
+  var formUrl = deleteType;
+  //takes the "s" off the end of the string
+  var formName = deleteType.slice(0, -1)
 
-    var modal = $("#delete_report");
-    modal.find(".report_title").html(formTitle);
-    modal.find(".form-horizontal").attr("action", "/" + formUrl + "/delete");
-    modal.find(".report_id").html(report_id);
-    modal.find(".report_date").html(report_date);
-    modal.find("#delete_report_id").attr("value", report_id)
-    modal.find("#delete_report_id").attr("name", formName + "[id]")
+  var modal = $("#delete_report");
+  modal.find(".report_title").html(formTitle);
+  modal.find(".form-horizontal").attr("action", "/" + formUrl + "/delete");
+  modal.find(".report_id").html(report_id);
+  modal.find(".report_date").html(report_date);
+  modal.find("#delete_report_id").attr("value", report_id)
+  modal.find("#delete_report_id").attr("name", formName + "[id]")
 }
 
 function convertLatLngToString(coord, latLng) {
-    if ((latLng != "lat") && (latLng != "lng"))
-        throw "latLng is neither 'lat' nor 'lng': " + latLng;
-    var isLat = latLng == "lat";
-    var dir = (coord < 0) ? (isLat ? "S" : "W") : (isLat ? "N" : "E");
-    return Math.abs(coord.toFixed(5)).toString() + " " + dir;
+  if ((latLng != "lat") && (latLng != "lng"))
+    throw "latLng is neither 'lat' nor 'lng': " + latLng;
+  var isLat = latLng == "lat";
+  var dir = (coord < 0) ? (isLat ? "S" : "W") : (isLat ? "N" : "E");
+  return Math.abs(coord.toFixed(5)).toString() + " " + dir;
 }
 
 /**
  * Make listeners on all form elements for data view
  */
 function loadJSForInitMap() {
-    url = getRoute();
-    if (url == "") {
-        if (window.google) {
-            initMap();
-        } else {
-            $.ajax('https://maps.googleapis.com/maps/api/js?key=AIzaSyCZYMGmb59cC8ewA4j5YgekHf4HmnCV3uM&callback=initMap', {
-                crossDomain: true,
-                dataType: 'script'
-            });
-        }
-
-        $(".toggle-add-future-spray-locations").click(function() { toggleSelectedButton(addFutureSprayLocations) });
-        $(".toggle-add-malaria-reports").click(function() { toggleSelectedButton(addMalariaReports) });
-        $(".sidebar_item").click(function() { mapMode = defaultMode });
+  url = getRoute();
+  if (url == "") {
+    if (window.google) {
+      initMap();
+    } else {
+      $.ajax('https://maps.googleapis.com/maps/api/js?key=AIzaSyCZYMGmb59cC8ewA4j5YgekHf4HmnCV3uM&callback=initMap', {
+        crossDomain: true,
+        dataType: 'script'
+      });
     }
+
+    $(".toggle-add-future-spray-locations").click(function() { toggleSelectedButton(addFutureSprayLocations) });
+    $(".toggle-add-malaria-reports").click(function() { toggleSelectedButton(addMalariaReports) });
+    $(".sidebar_item").click(function() { mapMode = defaultMode });
+  }
 }
 
 
