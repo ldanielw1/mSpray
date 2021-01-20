@@ -20,7 +20,7 @@ class SprayDataController < ApplicationController
       spray_datum = SprayDatum.find(sd_params[:id])
 
       spray_datum.foreman             = sd_params[:foreman]
-      spray_datum.is_mopup_spray      = sd_params[:is_mopup_spray]
+      spray_datum.is_mopup_spray      = sd_params[:is_mopup_spray] == "1" ? "true" : "false"
       spray_datum.chemical_used       = sd_params[:chemical_used]
       spray_datum.unsprayed_rooms     = sd_params[:unsprayed_rooms].to_i
       spray_datum.unsprayed_shelters  = sd_params[:unsprayed_shelters].to_i
@@ -31,7 +31,7 @@ class SprayDataController < ApplicationController
         [:rooms_sprayed, :shelters_sprayed].each do |label|
           new_stats_hash[stats[:name]][label] = stats[label]
         end
-        new_stats_hash[stats[:name]][:refilled] = stats[:refilled].to_i == 1
+        new_stats_hash[stats[:name]][:refilled] = "1" ? "true" : "false"
       end
       spray_datum.stats = new_stats_hash
       spray_datum.save!

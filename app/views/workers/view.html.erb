@@ -70,14 +70,14 @@
           <% end %>
 
           <% if @current_user.admin %>
-            <button class="btn admin-button modal-trigger blue lighten-3" data-target="edit_worker_<%= worker.id %>">
+            <button class="btn admin-button modal-trigger blue lighten-3" data-target="edit_<%= worker.id %>">
               <%= icon('fas', 'edit') %> Edit
             </button>
-            <button class="btn admin-button modal-trigger red lighten-2" data-target="delete_worker_<%= worker.id %>">
+            <button class="btn admin-button modal-trigger red lighten-2" data-target="delete_<%= worker.id %>">
               <%= icon('fas', 'trash') %> Delete
             </button>
 
-            <div id="edit_worker_<%= worker.id %>" class="modal">
+            <div id="edit_<%= worker.id %>" class="modal">
               <%= form_for(worker, html: {class: 'form-horizontal'}, url: edit_workers_path(worker.id), method: :post) do |f| %>
                 <div class="modal-content">
                   <button type="button" class="right close modal-close">&times;</button>
@@ -98,7 +98,7 @@
                     <input type="checkbox" class="filled-in checkbox-trigger" for="worker_<%= worker.id %>" <%= worker.active ? 'checked="checked"' : '' %> />
                     <span>Active</span>
                   </label>
-                  <%= f.check_box :active, { id:"worker_#{worker.id}", checked: true } %>`
+                  <%= f.check_box :active, { id:"worker_#{worker.id}" } %>`
                 </div>
                 <div class="modal-footer">
                   <a class="btn grey modal-close">Cancel</a>
@@ -107,7 +107,7 @@
               <% end %>
             </div>
 
-            <div id="delete_worker_<%= worker.id %>" class="modal">
+            <div id="delete_<%= worker.id %>" class="modal">
               <%= form_for(worker, html: {class: 'form-horizontal'}, url: delete_workers_path(worker.id), method: :post) do |f| %>
                 <div class="modal-content">
                   <button type="button" class="right close modal-close">&times;</button>
