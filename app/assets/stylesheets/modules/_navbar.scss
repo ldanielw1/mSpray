@@ -41,7 +41,7 @@
 
 .profile_info {
   margin-left: 0px;
-  margin-top: 10px;
+  margin-top: 15px;
   user-select: none;
 }
 
@@ -73,10 +73,18 @@
   transform: scaleY(1) !important;
 }
 
-.dropdown-content li.dropdown__link:hover {
-  background-color: #efeff8;
+.dropdown-content li.dropdown__link {
+  background-color: #fff;
 
   a {
-    color: #2d81ff;
+    color: #ff7777;
+  }
+
+  &:hover {
+    background-color: #ff7777;
+
+    a {
+      color: #fff;
+    }
   }
 }
