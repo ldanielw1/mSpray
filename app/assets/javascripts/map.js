@@ -126,7 +126,12 @@ function clickMap(e) {
     setAddModalFormInfo(mapMode, lat, lng, username, email, reportDate)
     $("#add_pin").modal('open');
   } else if (mapMode == addSprayDatas) {
-    reporterDate = currentDate.getFullYear() + "-" + currentDate.getDate() + "-" + currentDate.getMonth() + " " + currentDate.getHours() + ":" + currentDate.getMinutes() + ":" + currentDate.getSeconds();
+    reportDate = currentDate.getFullYear() + "-" 
+      + (currentDate.getDate() < 10 ? "0" : "") + currentDate.getDate() + "-"
+      + (currentDate.getMonth() + 1 < 10 ? "0" : "") + (currentDate.getMonth() + 1) + " "
+      + (currentDate.getHours() < 10 ? "0" : "") + currentDate.getHours() + ":"
+      + (currentDate.getMinutes() < 10 ? "0" : "") + currentDate.getMinutes() + ":"
+      + (currentDate.getSeconds() < 10 ? "0" : "") + currentDate.getSeconds();
     setDataModalFormInfo(mapMode, lat, lng, username, email, reportDate)
     $("#add_data").modal('open');
   } else {
@@ -278,6 +283,8 @@ function setDeleteModalFormInfo(deleteType, report_id) {
   //takes the "s" off the end of the string
   var formName = deleteType.slice(0, -1)
 
+  if (formName == "spray_dat") formName = "spray_datum";
+
   var modal = $("#delete_pin");
   modal.find(".report_title").html(formTitle);
   modal.find(".form-horizontal").attr("action", "/" + formUrl + "/delete");
@@ -314,6 +321,11 @@ function setDataModalFormInfo(formType, lat, lng, reporter_name, reporter_email,
   modal.find("#add_data_foreman").attr("name", formName + "[foreman]");
   modal.find("#add_data_dateTime").attr("value", date);
   modal.find("#add_data_dateTime").attr("name", formName + "[dateTime]");
+  modal.find("#add_data_imei").attr("name", formName + "[imei]");
+  modal.find("#add_data_chemical_used").attr("name", formName + "[chemical_used]");
+  modal.find("#add_data_unsprayed_rooms").attr("name", formName + "[unsprayed_rooms]");
+  modal.find("#add_data_unsprayed_shelters").attr("name", formName + "[unsprayed_shelters]");
+  modal.find("#add_data_is_mopup_spray").attr("name", formName + "[is_mopup_spray]");
 }
 
 function convertLatLngToString(coord, latLng) {

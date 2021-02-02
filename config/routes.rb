@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     get  :view
     post :edit
     post :delete
+    post :add
   end
   resource :malaria_reports, only: [] do
     get  :view
