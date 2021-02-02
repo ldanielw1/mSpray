@@ -70,4 +70,6 @@ group :development, :test do
   gem 'whenever'
 end
 
+gem 'seed_dump'
+
 gem 'fillable-pdf'
