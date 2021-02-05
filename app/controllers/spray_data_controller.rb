@@ -56,13 +56,16 @@ class SprayDataController < ApplicationController
   def add
     if current_user.admin?
       sd_params = params[:spray_data]
-      stats = params[:stats]
+
       stats_hash = Hash.new
-      if (stats[:name] != "")
-        stats_hash[stats[:name]] = Hash.new
-        stats_hash[stats[:name]][:rooms_sprayed] = stats[:rooms_sprayed]
-        stats_hash[stats[:name]][:shelters_sprayed] = stats[:shelters_sprayed]
-        stats_hash[stats[:name]][:refilled] = (stats[:refilled] == "1") ? "true" : "false"
+      params[:stat][:sprayers_attributes].each do |old_sprayer, stats|
+        if stats[:name] != ""
+          stats_hash[stats[:name]] = Hash.new
+          [:rooms_sprayed, :shelters_sprayed].each do |label|
+            stats_hash[stats[:name]][label] = stats[label]
+          end
+          stats_hash[stats[:name]][:refilled] = (stats[:refilled] == "on") ? "true" : "false"
+        end
       end
 
       sd_params[:stats] = stats_hash

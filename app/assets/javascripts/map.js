@@ -1,7 +1,7 @@
 var defaultMode = "default";
 var addFutureSprayLocations = "add-future-spray-locations";
 var addMalariaReports = "add-malaria-reports";
-var addSprayDatas = "add-spray-datas";
+var addSprayData = "add-spray-data";
 var mapMode = defaultMode;
 
 function createGoogleMapUrl(lat, lng) {
@@ -49,7 +49,7 @@ function initMap() {
       markerColor = "yellow";
     else if (markerType == "malaria_reports")
       markerColor = "red";
-    else if (markerType == "spray_datas")
+    else if (markerType == "spray_data")
       markerColor = "blue";
     var marker = new google.maps.Marker({
       position: { lat: dataLat, lng: dataLng },
@@ -125,7 +125,7 @@ function clickMap(e) {
     // Send lat, lng, and user email to add_pin_modal
     setAddModalFormInfo(mapMode, lat, lng, username, email, reportDate)
     $("#add_pin").modal('open');
-  } else if (mapMode == addSprayDatas) {
+  } else if (mapMode == addSprayData) {
     reportDate = currentDate.getFullYear() + "-" 
       + (currentDate.getDate() < 10 ? "0" : "") + currentDate.getDate() + "-"
       + (currentDate.getMonth() + 1 < 10 ? "0" : "") + (currentDate.getMonth() + 1) + " "
@@ -150,7 +150,7 @@ function hoverMap(map) {
       markerColor = "yellow";
     } else if (mapMode == addMalariaReports) {
       markerColor = "red";
-    } else if (mapMode == addSprayDatas) {
+    } else if (mapMode == addSprayData) {
       markerColor = "blue";
     }
     map.setOptions({ draggableCursor: markerCursor(markerColor) });
@@ -298,7 +298,7 @@ function setDataModalFormInfo(formType, lat, lng, reporter_name, reporter_email,
   var formTitle = formType.split("-").map(word => word[0].toUpperCase() + word.substr(1)).join(" ");
   var formUrl = formType.split("-").slice(1).join("_");
   //takes the "s" off the end of the string
-  var formName = formUrl.slice(0, -1);
+  var formName = formUrl;
   var modal = $("#add_data");
 
   var lat = Number(lat);
@@ -326,6 +326,15 @@ function setDataModalFormInfo(formType, lat, lng, reporter_name, reporter_email,
   modal.find("#add_data_unsprayed_rooms").attr("name", formName + "[unsprayed_rooms]");
   modal.find("#add_data_unsprayed_shelters").attr("name", formName + "[unsprayed_shelters]");
   modal.find("#add_data_is_mopup_spray").attr("name", formName + "[is_mopup_spray]");
+
+  var index = 0;
+  $('form').on('click', '.add_fields', function(event) {
+    var regexp;
+    index++;
+    regexp = new RegExp($(this).data("id"), "g");
+    $(this).before($(this).data('fields').replace(regexp, index));
+    return event.preventDefault();
+  });
 }
 
 function convertLatLngToString(coord, latLng) {
@@ -353,7 +362,7 @@ function loadJSForInitMap() {
 
     $(".toggle-add-future-spray-locations").click(function() { toggleSelectedButton(addFutureSprayLocations) });
     $(".toggle-add-malaria-reports").click(function() { toggleSelectedButton(addMalariaReports) });
-    $(".toggle-add-spray-datas").click(function() { toggleSelectedButton(addSprayDatas) });
+    $(".toggle-add-spray-data").click(function() { toggleSelectedButton(addSprayData) });
     $(".sidebar_item").click(function() { mapMode = defaultMode });
   }
 }

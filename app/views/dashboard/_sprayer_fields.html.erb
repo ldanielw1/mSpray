@@ -1,0 +1,19 @@
+<div class="field form-group">
+  <%= f.label :name, class: "control-label" %>
+  <%= f.text_field :name, value: "" %>
+</div>
+<div class="nested-field-group">
+  <% [:rooms_sprayed, :shelters_sprayed].each do |category| %>
+    <div class="field form-group">
+      <%= f.label category, class: "control-label" %>
+      <%= f.number_field category, value: ""%>
+    </div>
+  <% end %>
+  <div class="field form-group">
+    <label>
+      <input type="checkbox" class="filled-in checkbox-trigger" for="refilled" />
+      <span>Refilled</span>
+    </label>
+    <%= f.check_box "refilled", class: 'filled-in checkbox-trigger'%>
+  </div>
+</div>
