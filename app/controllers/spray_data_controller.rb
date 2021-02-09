@@ -62,6 +62,7 @@ class SprayDataController < ApplicationController
       end
 
       stats_hash = Hash.new
+
       params[:stat][:sprayers_attributes].each do |old_sprayer, stats|
         if stats[:name] != ""
           stats_hash[stats[:name]] = Hash.new
@@ -93,4 +94,14 @@ class SprayDataController < ApplicationController
     end
     redirect_back(fallback_location: root_path)
   end
+
+  def edit_location
+    sd_params = params[:spray_datum]
+    datum = SprayDatum.find(sd_params[:id])
+    datum.lat = sd_params[:lat]
+    datum.lng = sd_params[:lng]
+    datum.save!
+    redirect_back(fallback_location: root_path)
+  end
+
 end

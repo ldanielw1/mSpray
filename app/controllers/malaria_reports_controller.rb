@@ -31,6 +31,16 @@ class MalariaReportsController < ApplicationController
   end
 
   ##
+  # Edits data lat and lng
+  def edit_location
+    report = MalariaReport.find(get_params[:id])
+    report.lat = get_params[:lat]
+    report.lng = get_params[:lng]
+    report.save!
+    redirect_back(fallback_location: root_path)
+  end
+
+  ##
   # Delete one instance of data
   def delete
     report = MalariaReport.find(get_params[:id])

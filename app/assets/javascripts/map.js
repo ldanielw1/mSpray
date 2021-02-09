@@ -54,6 +54,7 @@ function initMap() {
     var marker = new google.maps.Marker({
       position: { lat: dataLat, lng: dataLng },
       map: map,
+      draggable: true,
       icon: "../assets/marker_" + markerColor + ".png"
     });
 
@@ -82,6 +83,15 @@ function initMap() {
       infowindow.setContent(contentString);
       infowindow.open(map, marker);
     });
+
+    // moving marker listener
+    marker.addListener('dragend', function() {
+      var markerPosition = marker.getPosition();
+      setEditModalFormInfo(markerType, sd["id"], markerPosition.lat(), markerPosition.lng());
+      $("#move_pin").modal('open');
+      // marker.setPosition({lat: dataLat, lng: dataLng});
+    });
+
 
     return marker;
   }
@@ -337,6 +347,37 @@ function setDataModalFormInfo(formType, lat, lng, reporter_name, reporter_email,
     modal.find("#refilled_" + index).attr("name", formName + "[refilled][" + index + "]");
     return event.preventDefault();
   });
+}
+
+function setEditModalFormInfo(editType, report_id, lat, lng) {
+  var report = $("#" + editType + "_" + report_id);
+
+
+  var formTitle = editType.split("_").map(word => word[0].toUpperCase() + word.substr(1)).join(" ");
+  var formUrl = editType;
+  //takes the "s" off the end of the string
+  var formName = (formUrl == "spray_data") ? "spray_datum" : editType.slice(0, -1);
+  
+  var lat = Number(lat);
+  var lng = Number(lng);
+  var latString, lngString;
+
+  latString = convertLatLngToString(lat, "lat");
+  lngString = convertLatLngToString(lng, "lng");
+
+  var modal = $("#move_pin");
+  modal.find(".report_title").html(formTitle);
+  modal.find(".report_lat").html(latString);
+  modal.find(".report_lng").html(lngString);
+
+  modal.find(".form-horizontal").attr("action", "/" + formUrl + "/edit_location");
+  modal.find(".report_id").html(report_id);
+  modal.find("#edit_pin_id").attr("value", report_id)
+  modal.find("#edit_pin_id").attr("name", formName + "[id]")
+  modal.find("#edit_data_lat").attr("value", lat);
+  modal.find("#edit_data_lat").attr("name", formName + "[lat]");
+  modal.find("#edit_data_lng").attr("value", lng);
+  modal.find("#edit_data_lng").attr("name", formName + "[lng]");
 }
 
 function convertLatLngToString(coord, latLng) {

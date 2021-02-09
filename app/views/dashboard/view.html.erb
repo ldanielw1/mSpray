@@ -112,3 +112,26 @@
     </div>
   <% end %>
 </div>
+
+<div id="move_pin" class="modal">
+  <%= form_for("", html: {class: 'form-horizontal'}, url: "", method: :post) do |f| %>
+    <div class="modal-content">
+      <button class="right close modal-close">&times;</button>
+      <h4 class="modal-title"><span class="report_title"></span></h4>
+      <h6>Edit Report</h6>
+      <br>
+      <p>
+        Are you sure you want to change report (ID:&nbsp;
+        <span class="report_id"></span>
+        ) to:&nbsp;
+        <strong><span class="report_lat"></span>, <span class="report_lng"></span></strong>?</p>
+      <%= f.hidden_field :lat, value: 0, id: "edit_data_lat", name: "" %>
+      <%= f.hidden_field :lng, value: 0, id: "edit_data_lng", name: "" %>
+      <%= f.hidden_field :id, value: 0, id: "edit_pin_id", name: "malaria_report[id]" %>
+    </div>
+    <div class="modal-footer">
+      <a class="btn grey modal-close">Cancel</a>
+      <%= f.submit 'Submit', class: "btn modal-close red lighten-2" %>
+    </div>
+  <% end %>
+</div>
