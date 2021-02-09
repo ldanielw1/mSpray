@@ -5,6 +5,7 @@
     <ul>
       <li><a class="btn-floating red toggle-add-malaria-reports"><%= icon('fas', 'flag') %></a></li>
       <li><a class="btn-floating yellow darken-2 toggle-add-future-spray-locations"><%= icon('fas', 'calendar-plus') %></a></li>
+      <li><a class="btn-floating blue toggle-add-spray-data"><%= icon('fas', 'chart-line') %></a></li>
   </ul>
 </div>
 
@@ -55,6 +56,59 @@
     <div class="modal-footer">
       <a class="btn grey modal-close">Cancel</a>
       <%= f.submit 'Delete', class: "btn modal-close red lighten-2" %>
+    </div>
+  <% end %>
+</div>
+
+<div id="add_data" class="modal">
+  <%= form_for("", html: {class: 'form-horizontal'}, url: "", method: :post) do |f| %>
+    <div class="modal-content">
+      <button class="right close modal-close">&times;</button>
+      <h4 class="modal-title"><span class="report_title"></span></h4>
+      <h6>Submit Report</h6>
+      <br>
+      <p>Are you sure you want to add a report at: <strong><span class="report_lat"></span>, <span class="report_lng"></span></strong>?</p>
+      <%= f.hidden_field :lat, value: 0, id: "add_data_lat", name: "" %>
+      <%= f.hidden_field :lng, value: 0, id: "add_data_lng", name: "" %>
+      <div class="field form-group">
+        <%= label_tag( :add_data_foreman, "Foreman:", class: "control-label" ) %>
+        <%= f.text_field :foreman, value: "", id: "add_data_foreman", name: "" %>
+      </div>
+      <div class="field form-group">
+        <%= label_tag(:add_data_dateTime, "Report Time:", class: "control-label") %>
+        <%= f.text_field :dateTime, value: "", id: "add_data_dateTime", name: "" %>
+      </div>
+      <div class="field form-group">
+        <%= label_tag(:add_data_imei, "imei:", class: "control-label") %>
+        <%= f.text_field :imei, value: "", id: "add_data_imei", name: "" %>
+      </div>
+      <div class="field form-group">
+        <%= label_tag(:add_data_chemical_used, "Chemical used:", class: "control-label") %>
+        <%= f.text_field :chemical_used, value: "", id: "add_data_chemical_used", name: "" %>
+      </div>
+      <div class="field form-group">
+        <%= label_tag(:add_data_unsprayed_rooms, "Unsprayed rooms:", class: "control-label") %>
+        <%= f.text_field :unsprayed_rooms, value: "", id: "add_data_unsprayed_rooms", name: "" %>
+      </div>
+      <div class="field form-group">
+        <%= label_tag(:add_data_unsprayed_shelters, "Unsprayed shelters:", class: "control-label") %>
+        <%= f.text_field :unsprayed_shelters, value: "", id: "add_data_unsprayed_shelters", name: "" %>
+      </div>
+      <div class="field form-group">
+        <label>
+          <input type="checkbox" class="filled-in checkbox-trigger" id="add_data_is_mopup_spray" />
+          <span>Is Mopup Spray</span>
+        </label>
+      </div>
+      <%= f.fields_for @stat do |ff| %>
+        <%= f.fields_for :sprayers do |fff| %>
+        <% end %>
+        <%= link_to_add_fields "Add Sprayer", ff, :sprayers %>
+      <% end %>
+  </div>
+    <div class="modal-footer">
+      <a class="btn grey modal-close">Cancel</a>
+      <%= f.submit 'Add', class: "btn modal-close" %>
     </div>
   <% end %>
 </div>

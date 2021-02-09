@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2017_07_13_004004) do
+ActiveRecord::Schema.define(version: 2021_02_04_192542) do
 
   create_table "allowed_emails", force: :cascade do |t|
     t.string "email", default: ""
@@ -43,6 +43,15 @@ ActiveRecord::Schema.define(version: 2017_07_13_004004) do
     t.float "lat", default: 0.0
     t.float "lng", default: 0.0
     t.integer "gps_accuracy", default: 0
+  end
+
+  create_table "sprayers", force: :cascade do |t|
+    t.string "stat_id"
+    t.string "refilled"
+  end
+
+  create_table "stats", force: :cascade do |t|
+    t.string "sprayers"
   end
 
   create_table "users", force: :cascade do |t|

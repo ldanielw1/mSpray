@@ -180,7 +180,7 @@
                         <input type="checkbox" class="filled-in checkbox-trigger" for="data_refilled_<%= data.id %>_<%= sprayer %>" <%= data.stats[sprayer][:refilled] == "true" ? 'checked="checked"' : '' %> />
                         <span>Refilled</span>
                       </label>
-                      <%= fff.check_box :refilled, { id:"data_refilled_#{data.id}_#{sprayer}" } %>`
+                      <%= fff.check_box :refilled, { id:"data_refilled_#{data.id}_#{sprayer}" } %>
                     </div>
                   <% end %>
                 <% end %>
