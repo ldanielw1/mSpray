@@ -57,6 +57,10 @@ class SprayDataController < ApplicationController
     if current_user.admin?
       sd_params = params[:spray_data]
 
+      sd_params[:refilled].each do |sprayer, refill|
+        params[:stat][:sprayers_attributes][sprayer][:refilled] = refill
+      end
+
       stats_hash = Hash.new
       params[:stat][:sprayers_attributes].each do |old_sprayer, stats|
         if stats[:name] != ""
@@ -64,7 +68,7 @@ class SprayDataController < ApplicationController
           [:rooms_sprayed, :shelters_sprayed].each do |label|
             stats_hash[stats[:name]][label] = stats[label]
           end
-          stats_hash[stats[:name]][:refilled] = (stats[:refilled] == "on") ? "true" : "false"
+          stats_hash[stats[:name]][:refilled] = (stats[:refilled] == "1") ? "true" : "false"
         end
       end
 
@@ -89,5 +93,4 @@ class SprayDataController < ApplicationController
     end
     redirect_back(fallback_location: root_path)
   end
-
 end

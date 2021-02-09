@@ -333,6 +333,8 @@ function setDataModalFormInfo(formType, lat, lng, reporter_name, reporter_email,
     index++;
     regexp = new RegExp($(this).data("id"), "g");
     $(this).before($(this).data('fields').replace(regexp, index));
+    modal.find("#add_data_is_refilled").attr("id", "refilled_" + index);
+    modal.find("#refilled_" + index).attr("name", formName + "[refilled][" + index + "]");
     return event.preventDefault();
   });
 }
