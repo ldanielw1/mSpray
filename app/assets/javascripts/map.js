@@ -89,7 +89,9 @@ function initMap() {
       var markerPosition = marker.getPosition();
       setEditModalFormInfo(markerType, sd["id"], markerPosition.lat(), markerPosition.lng());
       $("#move_pin").modal('open');
-      // marker.setPosition({lat: dataLat, lng: dataLng});
+      $("#cancel_move").on('click', function() {
+        marker.setPosition({lat: dataLat, lng: dataLng});
+      });
     });
 
 
