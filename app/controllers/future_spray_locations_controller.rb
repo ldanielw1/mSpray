@@ -31,6 +31,16 @@ class FutureSprayLocationsController < ApplicationController
   end
 
   ##
+  # Edits data lat and lng
+  def edit_location
+    location = FutureSprayLocation.find(get_params[:id])
+    location.lat = get_params[:lat]
+    location.lng = get_params[:lng]
+    location.save!
+    redirect_back(fallback_location: root_path)
+  end
+
+  ##
   # Delete one instance of data
   def delete
     location = FutureSprayLocation.find(get_params[:id])

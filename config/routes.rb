@@ -23,18 +23,21 @@ Rails.application.routes.draw do
     post :edit
     post :delete
     post :add
+    post :edit_location
   end
   resource :malaria_reports, only: [] do
     get  :view
     post  :add
     post :edit
     post :delete
+    post :edit_location
   end
   resource :future_spray_locations, only: [] do
     get  :view
     post  :add
     post :edit
     post :delete
+    post :edit_location
   end
 
   # Admin routes
