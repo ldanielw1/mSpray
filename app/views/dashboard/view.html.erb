@@ -14,7 +14,7 @@
 <div id="add_pin" class="modal">
     <%= form_for("", html: {class: 'form-horizontal'}, url: "", method: :post) do |f| %>
     <div class="modal-content">
-      <button class="right close modal-close">&times;</button>
+      <a class="right close modal-close">&times;</a>
       <h4 class="modal-title"><span class="report_title"></span></h4>
       <h6>Submit Report</h6>
       <br>
@@ -40,7 +40,7 @@
 <div id="delete_pin" class="modal">
   <%= form_for("", html: {class: 'form-horizontal'}, url: "", method: :post) do |f| %>
     <div class="modal-content">
-      <button class="right close modal-close">&times;</button>
+      <a class="right close modal-close">&times;</a>
       <h4 class="modal-title"><span class="report_title"></span></h4>
       <h6>Delete Worker</h6>
       <br>
@@ -63,7 +63,7 @@
 <div id="add_data" class="modal">
   <%= form_for("", html: {class: 'form-horizontal'}, url: "", method: :post) do |f| %>
     <div class="modal-content">
-      <button class="right close modal-close">&times;</button>
+      <a class="right close modal-close">&times;</a>
       <h4 class="modal-title"><span class="report_title"></span></h4>
       <h6>Submit Report</h6>
       <br>
@@ -116,7 +116,7 @@
 <div id="move_pin" class="modal">
   <%= form_for("", html: {class: 'form-horizontal'}, url: "", method: :post) do |f| %>
     <div class="modal-content">
-      <button class="right close modal-close">&times;</button>
+      <a class="right close modal-close">&times;</a>
       <h4 class="modal-title"><span class="report_title"></span></h4>
       <h6>Edit Report</h6>
       <br>
@@ -130,7 +130,7 @@
       <%= f.hidden_field :id, value: 0, id: "edit_pin_id", name: "malaria_report[id]" %>
     </div>
     <div class="modal-footer">
-      <a id="cancel_move" class="btn grey modal-close">Cancel</a>
+      <a class="btn grey modal-close">Cancel</a>
       <%= f.submit 'Submit', class: "btn modal-close red lighten-2" %>
     </div>
   <% end %>

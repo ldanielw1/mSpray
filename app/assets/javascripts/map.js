@@ -88,12 +88,16 @@ function initMap() {
     marker.addListener('dragend', function() {
       var markerPosition = marker.getPosition();
       setEditModalFormInfo(markerType, sd["id"], markerPosition.lat(), markerPosition.lng());
-      $("#move_pin").modal('open');
-      $("#cancel_move").on('click', function() {
-        marker.setPosition({lat: dataLat, lng: dataLng});
+      var onModalHide = function() {
+        console.log("Modal closed!");
+      };
+      $("#move_pin").modal({
+        onCloseEnd: function() {
+          marker.setPosition({lat: dataLat, lng: dataLng});
+        }
       });
+      $("#move_pin").modal('open');
     });
-
 
     return marker;
   }
