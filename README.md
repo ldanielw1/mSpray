@@ -4,22 +4,27 @@ Malaria is a serious problem, but cheap solutions like spraying homes and reside
 
 ## Getting Started
 
-Once code is all checked out, developers need to install PostGres (PG), the DB for development environments. If developers are on a mac, they can install PG by following the instructions at this URL:
+Once all code is checked out, developers need to install Ruby 2.7.1. Here's how to do it with rbenv, if it is available:
 ```
-https://postgresapp.com/
+rbenv install 2.7.1
+rbenv global 2.7.1
+```
+
+Once ruby is installed, developers need to install PostGresQL, the DB for development environments. If developers are on a mac, they can install PostGresQL by following the instructions at: https://postgresapp.com/, and then running
+```
+gem install pg -- --with-pg-config=/Applications/Postgres.app/Contents/Versions/latest/bin/pg_config
 ```
 If developers are on a Ubuntu machine, they can just run this command:
 ```
 sudo apt-get install libpq-dev
 ```
 
-After installing PG, developers need to install Ruby 2.3.0. Here's how to do it with RVM, if it is available:
+After installing PostGresQL, install Java and the rjb gem by first installing the OLD java at: https://www.oracle.com/java/technologies/javase-jdk16-downloads.html, and running:
 ```
-rvm install 2.3.0
-rvm use 2.3.0 --default
+gem install rjb -v 1.6.2
 ```
 
-After installing Ruby 2.3.0, installing gems (dependencies of the app) can be achieved by running:
+After installing rjb, installing all other gems (dependencies of the app) can be achieved by running:
 ```
 bundle
 ```

@@ -1,25 +1,20 @@
 source 'https://rubygems.org'
-
-git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
-  "https://github.com/#{repo_name}.git"
-end
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ######################################################################
 # Rails Framework
 ######################################################################
-gem 'rails', '~> 6.0.3', '>= 6.0.3.2'
-gem 'puma', '~> 5.0'
-gem 'turbolinks', '~> 5'
+gem 'rails'
+gem 'puma'
+gem 'turbolinks'
 
 group :production do
   gem 'pg' # Must make sure libpq-dev is installed on Ubuntu
 end
 
 group :development, :test do
-  gem 'sqlite3', '~> 1.4'
-
-  gem 'byebug', platform: :mri
+  gem 'sqlite3'
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails'
 end
 
