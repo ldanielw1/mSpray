@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require_tree .
 //= require materialize-sprockets
+//= require turbolinks
 
 /**
  * Returns a standard ID for a filter object
@@ -74,7 +75,7 @@ function getRoute() {
 /**
  * Fades the currently displayed flash message after some time
  */
-$(document).on('turbolinks:load', function() {
+$(document).on('ready', function() {
   $(".modal").modal();
 
   var closeNotice = setInterval(function() {

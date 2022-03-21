@@ -50,7 +50,7 @@ gem 'uglifier', '~> 3.2'
 
 # JS runtime
 gem 'execjs'
-gem 'mini_racer'
+gem 'mini_racer', '~> 0.3'
 
 # Use Gon gem to make data accessible in JS
 gem 'gon'
