@@ -12,10 +12,8 @@
 //
 //= require jquery3
 //= require jquery_ujs
-//= require turbolinks
 //= require_tree .
 //= require materialize-sprockets
-//= require turbolinks
 
 /**
  * Returns a standard ID for a filter object
