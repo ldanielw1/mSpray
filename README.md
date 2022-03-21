@@ -4,9 +4,11 @@ Malaria is a serious problem, but cheap solutions like spraying homes and reside
 
 ## Getting Started
 
-Install updated latest openssl, mariadb, rbenv
+Install the PostGresQL application: https://postgresapp.com/
+
+Install updated latest libpq, openssl, rbenv
 ```
-brew install mariadb openssl rbenv
+brew install libpq openssl rbenv
 ```
 
 Once all code is checked out, developers need to install Ruby 2.7.1. Here's how to do it with rbenv, if it is available:
@@ -32,7 +34,6 @@ bundle
 
 Setting up the database can be done by calling:
 ```
-mysql.server start
 make server
 ```
 NOTE: This destructively sets up the database by creating a whole new one and filling it with seed data. Running database updates can be done by simply calling:
