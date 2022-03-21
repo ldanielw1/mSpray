@@ -7,13 +7,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 gem 'rails'
 gem 'puma'
 gem 'turbolinks'
-
-group :production do
-  gem 'pg' # Must make sure libpq-dev is installed on Ubuntu
-end
+gem 'mysql2'
 
 group :development, :test do
-  gem 'sqlite3'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails'
 end
@@ -50,7 +46,7 @@ gem 'uglifier', '~> 3.2'
 
 # JS runtime
 gem 'execjs'
-gem 'mini_racer', '~> 0.3'
+gem 'mini_racer'
 
 # Use Gon gem to make data accessible in JS
 gem 'gon'

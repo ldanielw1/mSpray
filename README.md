@@ -4,22 +4,23 @@ Malaria is a serious problem, but cheap solutions like spraying homes and reside
 
 ## Getting Started
 
+Install updated latest openssl, mariadb, rbenv
+```
+brew install mariadb openssl rbenv
+```
+
 Once all code is checked out, developers need to install Ruby 2.7.1. Here's how to do it with rbenv, if it is available:
 ```
-rbenv install 2.7.1
-rbenv global 2.7.1
+rbenv install 3.0.1
+rbenv global 3.0.1
 ```
 
 Once ruby is installed, developers need to install PostGresQL, the DB for development environments. If developers are on a mac, they can install PostGresQL by following the instructions at: https://postgresapp.com/, and then running
 ```
 gem install pg -- --with-pg-config=/Applications/Postgres.app/Contents/Versions/latest/bin/pg_config
 ```
-If developers are on a Ubuntu machine, they can just run this command:
-```
-sudo apt-get install libpq-dev
-```
 
-After installing PostGresQL, install Java and the rjb gem by first installing the OLD java at: https://www.oracle.com/java/technologies/javase-jdk16-downloads.html, and running:
+After installing PostGresQL, install Java and the rjb gem by first installing the OLD java at: https://www.oracle.com/java/technologies/javase/jdk16-archive-downloads.html, and running:
 ```
 gem install rjb -v 1.6.2
 ```
@@ -31,6 +32,7 @@ bundle
 
 Setting up the database can be done by calling:
 ```
+mysql.server start
 make server
 ```
 NOTE: This destructively sets up the database by creating a whole new one and filling it with seed data. Running database updates can be done by simply calling:
@@ -52,11 +54,6 @@ The app is currently in development and doesn't have a production environment ye
 git co master
 git push heroku HEAD
 ```
-
-## Authors
-
-* Lemuel Daniel Wu (BS) - Project lead and main developer
-* Jermaine Zhang (BS), Kevin Wong - Project developers
 
 ## Acknowledgments
 
