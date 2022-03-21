@@ -7,9 +7,13 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 gem 'rails'
 gem 'puma'
 gem 'turbolinks'
-gem 'mysql2'
+
+group :production do
+  gem 'pg' # Must make sure libpq-dev is installed on Ubuntu
+end
 
 group :development, :test do
+  gem 'sqlite3'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails'
 end
