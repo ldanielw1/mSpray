@@ -4,6 +4,7 @@ include SprayDatumHelper
 include WorkerHelper
 
 AllowedEmail.where(email: "ldanielcwu@gmail.com").first_or_create
+AllowedEmail.where(email: "msprayapp@gmail.com").first_or_create
 AllowedEmail.where(email: "austin.zhang@gpmail.org").first_or_create
 AllowedEmail.where(email: "ausdfzh323@gmail.com").first_or_create
 
