@@ -68,3 +68,5 @@ end
 gem 'seed_dump'
 
 gem 'fillable-pdf'
+gem 'selenium-webdriver'
+gem 'simplecov'

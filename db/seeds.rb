@@ -4,6 +4,7 @@ include SprayDatumHelper
 include WorkerHelper
 
 AllowedEmail.where(email: "ldanielcwu@gmail.com").first_or_create
+AllowedEmail.where(email: "austin.zhang@gpmail.org").first_or_create
 
 create_worker('1', 'Daniel', true)
 create_worker('2', 'Kevin', true)
