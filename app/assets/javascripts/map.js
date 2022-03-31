@@ -403,7 +403,8 @@ function loadJSForInitMap() {
     if (window.google) {
       initMap();
     } else {
-      $.ajax('https://maps.googleapis.com/maps/api/js?key=AIzaSyCZYMGmb59cC8ewA4j5YgekHf4HmnCV3uM&callback=initMap', {
+      google_maps_apikey = gon.data["google_maps_apikey"];
+      $.ajax('https://maps.googleapis.com/maps/api/js?key=' + google_maps_apikey + '&callback=initMap', {
         crossDomain: true,
         dataType: 'script'
       });

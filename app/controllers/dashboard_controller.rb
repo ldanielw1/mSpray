@@ -21,7 +21,7 @@ class DashboardController < ApplicationController
       attribute_hash
     end
 
-    gon.data = { spray_data: spray_data, future_spray_locations: future_spray_locations, malaria_reports: malaria_reports }
+    gon.data = { google_maps_apikey: ENV["GOOGLE_MAPS_APIKEY"], spray_data: spray_data, future_spray_locations: future_spray_locations, malaria_reports: malaria_reports }
 
     @stat = Stat.new
   end
