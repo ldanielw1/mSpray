@@ -1,4 +1,4 @@
 Rails.application.configure do
-  config.google_sign_in.client_id     = '983829083436-mv40ba95sk41vv94haa6k0s6a3jfj5uh.apps.googleusercontent.com'
-  config.google_sign_in.client_secret = 'gLM6zWgiqPytuPzUVbMDv-NY'
+  config.google_sign_in.client_id     = ENV["MSPRAY_OAUTH_CLIENT_ID"]
+  config.google_sign_in.client_secret = ENV["MSPRAY_OAUTH_CLIENT_SECRET"]
 end
