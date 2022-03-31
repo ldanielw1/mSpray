@@ -27,3 +27,6 @@
 .vscode
 *.code-workspace
 *~
+
+# Hide service account key from git
+/config/mSprayServiceAccountKey.json
