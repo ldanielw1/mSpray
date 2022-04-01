@@ -1,6 +1,7 @@
 # log in methods for Selenium WebDriver
 # sets up web testing environment
 
+# selenium webdriver libraries
 require "selenium-webdriver"
 require "chromedriver-helper"
 
@@ -56,5 +57,14 @@ def waitUntil(time, element)
   # delete marker modal
   elsif element == 'modal'
     wait.until { @driver.find_element(css: '.btn.modal-trigger.delete_marker').displayed? }
+  # data table
+elsif (element == 'worker' or element == 'table')
+    wait.until { @driver.find_element(css: '.table.data-table').displayed? }
+  # data table sort up
+  elsif element == 'filter_up'
+    wait.until { @driver.find_element(css: '.fa.fa-angle-up').displayed? }
+  # data table sort up
+  elsif element == 'filter_down'
+    wait.until { @driver.find_element(css: '.fa.fa-angle-down').displayed? }
   end
 end

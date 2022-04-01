@@ -142,7 +142,7 @@ function clickMap(e) {
     setAddModalFormInfo(mapMode, lat, lng, username, email, reportDate)
     $("#add_pin").modal('open');
   } else if (mapMode == addSprayData) {
-    reportDate = currentDate.getFullYear() + "-" 
+    reportDate = currentDate.getFullYear() + "-"
       + (currentDate.getDate() < 10 ? "0" : "") + currentDate.getDate() + "-"
       + (currentDate.getMonth() + 1 < 10 ? "0" : "") + (currentDate.getMonth() + 1) + " "
       + (currentDate.getHours() < 10 ? "0" : "") + currentDate.getHours() + ":"
@@ -363,7 +363,7 @@ function setEditModalFormInfo(editType, report_id, lat, lng) {
   var formUrl = editType;
   //takes the "s" off the end of the string
   var formName = (formUrl == "spray_data") ? "spray_datum" : editType.slice(0, -1);
-  
+
   var lat = Number(lat);
   var lng = Number(lng);
   var latString, lngString;
@@ -403,7 +403,7 @@ function loadJSForInitMap() {
     if (window.google) {
       initMap();
     } else {
-      $.ajax('https://maps.googleapis.com/maps/api/js?key=AIzaSyCZYMGmb59cC8ewA4j5YgekHf4HmnCV3uM&callback=initMap', {
+      $.ajax('https://maps.googleapis.com/maps/api/js?key=' + gon.data["google_maps_apikey"] + '&callback=initMap', {
         crossDomain: true,
         dataType: 'script'
       });
