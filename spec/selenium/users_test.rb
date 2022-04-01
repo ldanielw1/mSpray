@@ -11,10 +11,13 @@ require "chromedriver-helper"
 require_relative "log_in.rb"
 require_relative "filter.rb"
 
+# Test specifc elements
+# admin url
+$admin_url = '/admin/site_permissions'
+
 # expected end title
 $expected_Title = 'Site Permissions'
 
-# Test specifc elements
 # expected names
 $expected_name = 'MSpray App'
 $expected_email = 'msprayapptest@gmail.com'
@@ -30,7 +33,7 @@ describe "QA admin user functions" do
   context "checks site tabs" do
     it "navigates to admin tab" do
       # attempts to navigate to the site admin tab and gets the title element
-      title_el = admin_tab
+      title_el = go_tab($admin_url)
       expect(title_el.text).to eql($expected_Title)
     end
   end
@@ -73,7 +76,7 @@ describe "QA admin user functions" do
         # navs to the site admin tab
         @driver.get "http://localhost:3000/admin/site_permissions"
         # get first row entry element
-        entry = filter(@driver, col)
+        entry = filter(@driver, col, 'up')
         expect(entry.text).to eql(expected)
       end
     end
@@ -82,15 +85,6 @@ describe "QA admin user functions" do
   after(:all) do
     @driver.close
   end
-end
-
-def admin_tab
-  # attempts to navigate to the site admin tab
-  @driver.find_element(css: "a[href*='/admin/site_permissions']").click
-  waitUntil(10, 'table')
-
-  # returns the header element
-  return @driver.find_element(css: 'h1')
 end
 
 def click_button(fxn)

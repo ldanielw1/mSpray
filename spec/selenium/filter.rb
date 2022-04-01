@@ -27,7 +27,7 @@ def filter(driver, column, sort = 'up')
     waitUntil(10, 'filter_down')
   end
 
-  # returns the first row element of the given column
+  # returns the first row element of the given column unless told not to
   # setting xpath to be the proper column
   str = '//table/tbody/tr[2]/td['
   str.concat((column+1).to_s).concat("]")
