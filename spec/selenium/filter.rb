@@ -1,5 +1,4 @@
 # filtering methods for dealing with tables
-# filters by column header and returns the first row element in the column
 
 # selenium webdriver libraries
 require "selenium-webdriver"
@@ -24,11 +23,18 @@ def filter(driver, column, sort = 'up')
     end
     waitUntil(10, 'filter_up')
   else
+    driver.find_element(css: '.fa.fa-angle-up').click
     waitUntil(10, 'filter_down')
   end
 
   # returns the first row element of the given column
+  # setting xpath to be the proper column
   str = '//table/tbody/tr[2]/td['
   str.concat((column+1).to_s).concat("]")
   return driver.find_element(xpath: str)
+end
+
+def num_rows(driver)
+  # returns the number of rows in the table
+  return driver.find_elements(css: '.data-row').length
 end
