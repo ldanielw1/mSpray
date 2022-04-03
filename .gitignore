@@ -29,3 +29,6 @@
 *~
 
 /coverage
+
+# Hide service account key from git
+/config/mSprayServiceAccountKey.json
