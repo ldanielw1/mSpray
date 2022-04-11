@@ -5,6 +5,9 @@
 require "selenium-webdriver"
 require "chromedriver-helper"
 
+# main site
+$main_url = "http://localhost:3000/"
+
 # auth id and pass
 $login_id = 'msprayapptest@gmail.com'
 $login_pass = 'mSprayApp2.0'
@@ -19,7 +22,7 @@ end
 
 def login_Google
   # navigates to main page
-  @driver.get "http://localhost:3000/"
+  nav_tab
 
   # logs into Google Accounts
   # inputs id and waits for password prompt
@@ -34,11 +37,29 @@ def login_Google
   waitUntil(30, 'map')
 end
 
+def nav_tab(str = '')
+  # navigates to main site followed by specific directory
+  urlstr = $main_url
+  urlstr.concat(str)
+  @driver.get urlstr
+end
+
 def dismiss_notification
   # dismisses error messages
   if @driver.find_element(css: '.dismissButton').displayed?
     @driver.find_element(css: '.dismissButton').click
   end
+end
+
+def go_tab(str)
+  # attempts to navigate to the preferred tab
+  tabstr = "a[href*='"
+  tabstr.concat(str).concat("']")
+  @driver.find_element(css: tabstr).click
+  waitUntil(10, 'table')
+
+  # returns the header element
+  return @driver.find_element(css: 'h1')
 end
 
 def waitUntil(time, element)
@@ -58,7 +79,7 @@ def waitUntil(time, element)
   elsif element == 'modal'
     wait.until { @driver.find_element(css: '.btn.modal-trigger.delete_marker').displayed? }
   # data table
-elsif (element == 'worker' or element == 'table')
+  elsif (element == 'worker' or element == 'table')
     wait.until { @driver.find_element(css: '.table.data-table').displayed? }
   # data table sort up
   elsif element == 'filter_up'
