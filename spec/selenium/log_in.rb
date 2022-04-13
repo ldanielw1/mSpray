@@ -51,6 +51,12 @@ def dismiss_notification
   end
 end
 
+def map_view
+  # for resetting map view
+  nav_tab
+  dismiss_notification
+end
+
 def go_tab(str)
   # attempts to navigate to the preferred tab
   tabstr = "a[href*='"
