@@ -1,3 +1,6 @@
+##
+# Library file containing all helper functions related to selenium - clicking on elements, waiting for user interactions to end before taking the next action, etc.
+
 require "selenium-webdriver"
 require "chromedriver-helper"
 require "rspec"
