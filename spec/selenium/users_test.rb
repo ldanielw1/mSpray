@@ -33,7 +33,7 @@ describe "QA admin user functions" do
   context "checks site tabs" do
     it "navigates to admin tab" do
       # attempts to navigate to the site admin tab and gets the title element
-      title_el = go_tab($admin_url)
+      title_el = click_nav_tab($admin_url)
       expect(title_el.text).to eql($expected_Title)
     end
   end

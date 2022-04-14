@@ -105,30 +105,21 @@ def add_marker(type = 'report')
   @driver.action.click
 end
 
+##
+# Attempts to delete a data flag
 def delete_marker
-  # attempts to delete a data flag
-  # gets site, resets map view
   map_view
+  double_click('map')
+  double_click('map', 'button')
+  click('[role="button"]', 'modal')
 
-  # double clicks to zoom in on map
-  @driver.action.move_to(@driver.find_element(id: 'map')).double_click.double_click.perform
-  waitUntil(10, 'button')
+  type = css('h4') # get the type of marker deleted
+  @driver.action.move_to(css('.btn.modal-trigger.delete_marker')).click
 
-  # clicks spray data to delete it
-  @driver.find_element(css: '[role="button"]').click
-  waitUntil(10, 'modal')
-  # finds the type of the flag
-  type = @driver.find_element(css: 'h4').text
-  @driver.action.move_to(@driver.find_element(css: '.btn.modal-trigger.delete_marker')).click
+  # Returns shortened type of flag
+  shortened_types = { "Spray Data" => "data", "Future Spray Locations" => "future" }
 
-  # returns shortened type of flag
-  if type == 'Spray Data'
-    type = 'data'
-  elsif type == 'Future Spray Locations'
-    type = 'future'
-  else
-    type = 'report'
-  end
-
+  type = 'report'
+  type = shortened_types[type] if shortened_types.has_key?(type)
   return type
 end

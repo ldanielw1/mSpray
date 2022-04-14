@@ -11,35 +11,25 @@ require "chromedriver-helper"
 require_relative "log_in.rb"
 require_relative "filter.rb"
 
-# Test specifc elements
-# expected end title
-$expected_Title = 'View Malaria Reports'
-
-# tab url
+# Page-specific variables
+$expected_title = 'View Malaria Reports'
 $reports_url = 'malaria_reports/view'
-
-# table headings
-$headings = ['Report Date',	'Reporter',	'Latitude',	'Longitude']
+$headings = ['Report Date', 'Reporter', 'Latitude', 'Longitude']
 
 describe "QA admin user functions" do
-  # setting up driver for testing environment
-  before(:all) do
-    @driver = set_up
-  end
+  before(:all) { set_up_web_driver }
 
   # checks if admin tab works first
   context "checks site tabs" do
     it "navigates to reports tab" do
-      # attempts to navigate to the malaria reports tab and gets the title element
-      title_el = go_tab($reports_url)
-      expect(title_el.text).to eql($expected_Title)
+      click_nav_tab($reports_url)
+      expect(page_title()).to eql($expected_title)
     end
   end
 
-  # checks different column's filtering functions
+  # Checks different column's filtering functions
   context "checks filtering functions" do
-    # four columns to check
-    values = ['0', '1', '2', '3']
+    values = ['0', '1', '2', '3'] # Check four columns
 
     values.each do |col|
       it "attempts filter" do
