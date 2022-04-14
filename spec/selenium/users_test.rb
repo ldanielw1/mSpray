@@ -40,28 +40,30 @@ describe "QA admin user functions" do
 
   # checks if admin functions works
   context "checks user editing" do
+    before(:each) do
+      # navigates to site admin tab
+      @driver.get "http://localhost:3000/admin/site_permissions"
+    end
+
     it "clicks on edit" do
       # attempts to click on edit
-      expect(click_button('edit'))
+      expect(click_button(@driver, 'edit'))
     end
 
     it "edits user info" do
       # attempts to edit the user info
-      click_button('edit')
+      click_button(@driver, 'edit')
       expect(edit_user)
     end
-  end
 
-  # checks if admin functions works
-  context "checks user deleting" do
     it "clicks on delete" do
       # attempts to click on delete
-      expect(click_button('delete'))
+      expect(click_button(@driver, 'delete'))
     end
 
     it "deletes user" do
       # attempts to delete user
-      click_button('delete')
+      click_button(@driver, 'delete')
       expect(delete_user)
     end
   end
@@ -85,23 +87,6 @@ describe "QA admin user functions" do
   after(:all) do
     @driver.close
   end
-end
-
-def click_button(fxn)
-  # navigates to site admin tab
-  @driver.get "http://localhost:3000/admin/site_permissions"
-
-  # clicks on the first row button based on fxn
-  cssclass = '.btn.admin-button.modal-trigger.'
-  if fxn == 'edit'
-    cssclass.concat('blue.lighten-3')
-  else
-    cssclass.concat('red.lighten-2')
-  end
-  @driver.find_element(css: cssclass).click
-
-  # returns the true false value if a modal is displayed
-  return @driver.find_element(css: '.modal-content').displayed?
 end
 
 def edit_user

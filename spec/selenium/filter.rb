@@ -38,3 +38,17 @@ def num_rows(driver)
   # returns the number of rows in the table
   return driver.find_elements(css: '.data-row').length
 end
+
+def click_button(driver, fxn)
+  # clicks on the first row button based on fxn
+  cssclass = '.btn.admin-button.modal-trigger.'
+  if fxn == 'edit'
+    cssclass.concat('blue.lighten-3')
+  else
+    cssclass.concat('red.lighten-2')
+  end
+  driver.find_element(css: cssclass).click
+
+  # returns the true false value if a modal is displayed
+  return driver.find_element(css: '.modal-content').displayed?
+end
