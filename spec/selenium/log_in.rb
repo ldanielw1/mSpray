@@ -10,7 +10,7 @@ $main_url = "http://localhost:3000/"
 
 # auth id and pass
 $login_id = 'msprayapptest@gmail.com'
-$login_pass = 'mSprayApp2.0'
+$login_pass = ENV["MSPRAY_AUTH_PASS"]
 
 def set_up
   # sets up selenium webdriver test environment
