@@ -3,7 +3,6 @@
 
 # selenium webdriver libraries
 require "selenium-webdriver"
-require "chromedriver-helper"
 
 # main site
 $main_url = "http://localhost:3000/"

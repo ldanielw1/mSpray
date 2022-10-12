@@ -5,7 +5,6 @@
 # selenium webdriver libraries
 require "selenium-webdriver"
 require "rspec"
-require "chromedriver-helper"
 
 # custom library methods
 require_relative "log_in.rb"
@@ -19,7 +18,7 @@ $expected_Title = 'View Malaria Reports'
 $reports_url = 'malaria_reports/view'
 
 # table headings
-$headings = ['Report Date',	'Reporter',	'Latitude',	'Longitude']
+$headings = ['Report Date', 'Reporter', 'Latitude', 'Longitude']
 
 describe "QA admin user functions" do
   # setting up driver for testing environment

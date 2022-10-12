@@ -2,7 +2,6 @@
 
 # selenium webdriver libraries
 require "selenium-webdriver"
-require "chromedriver-helper"
 
 # log in methods
 require_relative "log_in.rb"

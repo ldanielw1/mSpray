@@ -4,18 +4,18 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ######################################################################
 # Rails Framework
 ######################################################################
-gem 'rails'
+gem 'rails', '~> 6.1.7'
 gem 'puma'
 gem 'turbolinks'
 
 group :production do
-  gem 'pg' # Must make sure libpq-dev is installed on Ubuntu
+  gem 'sqlite3' # Must make sure libpq-dev is installed on Ubuntu
 end
 
 group :development, :test do
   gem 'sqlite3'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'rspec-rails'
+  gem 'rspec'
 end
 
 group :development do

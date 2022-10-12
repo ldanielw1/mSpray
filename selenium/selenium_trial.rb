@@ -1,6 +1,5 @@
 require "selenium-webdriver"
 require "rspec"
-require "chromedriver-helper"
 
 $login_id = 'austin.zhang@gpmail.org'
 $login_pass = ''

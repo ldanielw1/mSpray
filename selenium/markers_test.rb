@@ -6,7 +6,6 @@
 # selenium webdriver libraries
 require "selenium-webdriver"
 require "rspec"
-require "chromedriver-helper"
 
 # custom library methods
 require_relative "log_in.rb"
