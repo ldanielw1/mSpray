@@ -9,13 +9,13 @@ gem 'puma'
 gem 'turbolinks'
 
 group :production do
-  gem 'sqlite3' # Must make sure libpq-dev is installed on Ubuntu
+  gem 'pg' # Must make sure libpq-dev is installed on Ubuntu
 end
 
 group :development, :test do
   gem 'sqlite3'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'rspec'
+  gem 'rspec-rails'
 end
 
 group :development do
